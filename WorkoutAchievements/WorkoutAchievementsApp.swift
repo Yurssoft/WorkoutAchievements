@@ -11,7 +11,7 @@ import SwiftUI
 struct WorkoutAchievementsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AchievementsView()
         }
     }
 }
