@@ -10,6 +10,9 @@ let package = Package(
             name: "WorkoutsViewFeature",
             targets: ["WorkoutsViewFeature"]),
     ],
+    dependencies: [
+        .package(path: "../WorkoutsClient")
+    ],
     targets: [
         .target(
             name: "WorkoutsViewFeature",

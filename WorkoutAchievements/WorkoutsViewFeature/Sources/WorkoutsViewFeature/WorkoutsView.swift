@@ -1,10 +1,11 @@
 import SwiftUI
+import WorkoutsClient
 
 // Displays list view for workouts fetched
-struct WorkoutsView: View {
-    let workouts = []
-    var body: some View {
-        List()
+public struct WorkoutsView: View {
+    public init() { }
+    let workouts = [Workout]()
+    public var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
@@ -16,5 +17,5 @@ struct WorkoutsView: View {
 }
 
 #Preview {
-    ContentView()
+    WorkoutsView()
 }
