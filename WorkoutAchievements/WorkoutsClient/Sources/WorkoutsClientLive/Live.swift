@@ -9,7 +9,5 @@ import Foundation
 import WorkoutsClient
 
 extension WorkoutsClient {
-    public static let live = Self(list: { type in
-        [Workout(calories: "1010"), Workout(calories: "1010")]
-    })
+    public static let live: WorkoutsClient = .mock
 }
