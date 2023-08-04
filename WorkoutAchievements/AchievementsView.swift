@@ -7,11 +7,12 @@
 
 import SwiftUI
 import WorkoutsViewFeature
+import WorkoutsClientLive
 
 struct AchievementsView: View {
     var body: some View {
         VStack {
-            WorkoutsView()
+            WorkoutsView(client: .live)
         }
         .padding()
     }

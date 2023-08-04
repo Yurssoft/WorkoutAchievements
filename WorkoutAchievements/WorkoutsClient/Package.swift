@@ -9,10 +9,16 @@ let package = Package(
         .library(
             name: "WorkoutsClient",
             targets: ["WorkoutsClient"]),
+        .library(
+            name: "WorkoutsClientLive",
+            targets: ["WorkoutsClientLive"]),
     ],
     targets: [
         .target(
             name: "WorkoutsClient"),
+        .target(
+            name: "WorkoutsClientLive",
+            dependencies: ["WorkoutsClient"]),
         .testTarget(
             name: "WorkoutsClientTests",
             dependencies: ["WorkoutsClient"]),

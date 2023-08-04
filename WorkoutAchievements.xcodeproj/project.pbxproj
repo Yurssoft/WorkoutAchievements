@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58897A6E2A7CA37E006106B0 /* WorkoutsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 58897A6D2A7CA37E006106B0 /* WorkoutsClientLive */; };
 		58BA29B02A7C9EF50068A958 /* WorkoutsViewFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 58BA29AF2A7C9EF50068A958 /* WorkoutsViewFeature */; };
 		58C7095C2A7B0DD100563FAA /* WorkoutAchievementsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7095B2A7B0DD100563FAA /* WorkoutAchievementsApp.swift */; };
 		58C7095E2A7B0DD100563FAA /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7095D2A7B0DD100563FAA /* AchievementsView.swift */; };
@@ -32,6 +33,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				58BA29B02A7C9EF50068A958 /* WorkoutsViewFeature in Frameworks */,
+				58897A6E2A7CA37E006106B0 /* WorkoutsClientLive in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +103,7 @@
 			name = WorkoutAchievements;
 			packageProductDependencies = (
 				58BA29AF2A7C9EF50068A958 /* WorkoutsViewFeature */,
+				58897A6D2A7CA37E006106B0 /* WorkoutsClientLive */,
 			);
 			productName = WorkoutAchievements;
 			productReference = 58C709582A7B0DD100563FAA /* WorkoutAchievements.app */;
@@ -365,6 +368,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		58897A6D2A7CA37E006106B0 /* WorkoutsClientLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WorkoutsClientLive;
+		};
 		58BA29AF2A7C9EF50068A958 /* WorkoutsViewFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WorkoutsViewFeature;
