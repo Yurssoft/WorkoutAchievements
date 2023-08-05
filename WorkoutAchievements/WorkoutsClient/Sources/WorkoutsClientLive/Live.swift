@@ -9,49 +9,56 @@ import Foundation
 import WorkoutsClient
 import HealthKit
 
+final class WorkoutLoader {
+    private let workoutReadTypesSet: Set = [
+        .workoutType(),
+        HKSeriesType.activitySummaryType(),
+        HKSeriesType.workoutRoute(),
+        HKSeriesType.workoutType()
+    ]
+    private let store = HKHealthStore()
+    
+    func fetchWorkouts(for type: WorkoutType) async -> [Workout] {
+        guard HKHealthStore.isHealthDataAvailable() else { return [] }
+        let response: ()? = try? await store.requestAuthorization(toShare: [], read: workoutReadTypesSet)
+        guard let response else { return [] }
+        let predicate = HKQuery.predicateForWorkouts(with: type)
+        let samples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
+            store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: predicate, limit: HKObjectQueryNoLimit,
+                                        sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)],
+                                        resultsHandler: { _, samples, error in
+                if let hasError = error {
+                    continuation.resume(throwing: hasError)
+                    return
+                }
+
+                guard let samples = samples else {
+                    fatalError("*** Invalid State: This can only fail if there was an error. ***")
+                }
+
+                continuation.resume(returning: samples)
+            }))
+        }
+
+        guard let workouts = samples as? [HKWorkout] else { return [] }
+        let transformed = workouts.map { healthKitWorkout -> Workout in
+            let activeEnergy = HKQuantityType(.activeEnergyBurned)
+            let caloriesStatistics = healthKitWorkout.statistics(for: activeEnergy)
+            let averageCalories = caloriesStatistics?.averageQuantity()
+            let caloriesDoubleValue = averageCalories?.doubleValue(for: .largeCalorie()) ?? 0
+            let workout = Workout(calories: "\(caloriesDoubleValue)")
+            return workout
+        }
+        return transformed
+    }
+}
+
 extension WorkoutsClient {
     public static let live: WorkoutsClient = .mock
+    
     public static let actualLiveHealthKitAccess = Self { type in
-        switch type {
-        case .swim:
-            guard HKHealthStore.isHealthDataAvailable() else { return [] }
-            let store = HKHealthStore()
-            let read: Set = [
-                    .workoutType(),
-                    HKSeriesType.activitySummaryType(),
-                    HKSeriesType.workoutRoute(),
-                    HKSeriesType.workoutType()
-                ]
-            let response: ()? = try? await store.requestAuthorization(toShare: [], read: read)
-            guard let response else { return [] }
-            let swimming = HKQuery.predicateForWorkouts(with: .swimming)
-            let samples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
-                store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: swimming, limit: HKObjectQueryNoLimit,
-                                            sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)],
-                                            resultsHandler: { _, samples, error in
-                    if let hasError = error {
-                        continuation.resume(throwing: hasError)
-                        return
-                    }
-
-                    guard let samples = samples else {
-                        fatalError("*** Invalid State: This can only fail if there was an error. ***")
-                    }
-
-                    continuation.resume(returning: samples)
-                }))
-            }
-
-            guard let workouts = samples as? [HKWorkout] else { return [] }
-            workouts.map {
-                let calories = $0.statistics(for: HKQuantityType(.activeEnergyBurned))
-                Workout(calories: calories?.averageQuantity()?.doubleValue(for: .largeCalorie()))
-            }
-            return workouts
-            
-        case .walk:
-            break
-        }
-        return []
+        let loader = WorkoutLoader()
+        let workouts = await loader.fetchWorkouts(for: type)
+        return workouts
     }
 }

@@ -1,4 +1,5 @@
 import Foundation
+import HealthKit
 
 public struct WorkoutsClient {
     public init(list: @escaping (WorkoutType) async -> [Workout]) {
@@ -17,7 +18,5 @@ public struct Workout: Identifiable {
     public let calories: String
 }
 
-public enum WorkoutType {
-    case swim
-    case walk
-}
+
+public typealias WorkoutType = HKWorkoutActivityType

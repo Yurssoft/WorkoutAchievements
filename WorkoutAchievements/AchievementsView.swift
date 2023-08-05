@@ -12,7 +12,7 @@ import WorkoutsClientLive
 struct AchievementsView: View {
     var body: some View {
         VStack {
-            WorkoutsView(client: .live)
+            WorkoutsView(client: .actualLiveHealthKitAccess)
         }
         .padding()
     }
