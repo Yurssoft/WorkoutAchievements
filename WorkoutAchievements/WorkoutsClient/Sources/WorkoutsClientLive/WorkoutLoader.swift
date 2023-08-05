@@ -47,8 +47,8 @@ final class WorkoutLoader {
         let transformed = workouts.map { healthKitWorkout -> Workout in
             let activeEnergy = HKQuantityType(.activeEnergyBurned)
             let caloriesStatistics = healthKitWorkout.statistics(for: activeEnergy)
-            let averageCalories = caloriesStatistics?.averageQuantity()
-            let caloriesDoubleValue = averageCalories?.doubleValue(for: .largeCalorie()) ?? 0
+            let sumCalories = caloriesStatistics?.sumQuantity()
+            let caloriesDoubleValue = sumCalories?.doubleValue(for: .largeCalorie()) ?? 0
             let workout = Workout(calories: "\(caloriesDoubleValue)")
             return workout
         }
