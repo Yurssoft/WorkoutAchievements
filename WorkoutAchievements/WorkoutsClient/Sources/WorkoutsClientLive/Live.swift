@@ -11,10 +11,9 @@ import HealthKit
 
 final class WorkoutLoader {
     private let workoutReadTypesSet: Set = [
-        .workoutType(),
+        HKSeriesType.workoutType(),
         HKSeriesType.activitySummaryType(),
-        HKSeriesType.workoutRoute(),
-        HKSeriesType.workoutType()
+        HKSeriesType.workoutRoute()
     ]
     private let store = HKHealthStore()
     
@@ -22,11 +21,9 @@ final class WorkoutLoader {
         guard HKHealthStore.isHealthDataAvailable() else { return [] }
         let response: ()? = try? await store.requestAuthorization(toShare: [], read: workoutReadTypesSet)
         guard let response else { return [] }
-        let predicate = HKQuery.predicateForWorkouts(with: type)
+        
         let samples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
-            store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: predicate, limit: HKObjectQueryNoLimit,
-                                        sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)],
-                                        resultsHandler: { _, samples, error in
+            let queryHandler: (HKSampleQuery, [HKSample]?, Error?) -> Void = { _, samples, error in
                 if let hasError = error {
                     continuation.resume(throwing: hasError)
                     return
@@ -37,7 +34,14 @@ final class WorkoutLoader {
                 }
 
                 continuation.resume(returning: samples)
-            }))
+            }
+            let predicate = HKQuery.predicateForWorkouts(with: type)
+            let query = HKSampleQuery(sampleType: .workoutType(),
+                                      predicate: predicate,
+                                      limit: HKObjectQueryNoLimit,
+                                      sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)],
+                                      resultsHandler: queryHandler)
+            store.execute(query)
         }
 
         guard let workouts = samples as? [HKWorkout] else { return [] }
