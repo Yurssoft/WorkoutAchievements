@@ -9,18 +9,9 @@ import WorkoutsClient
 import HealthKit
 
 final class WorkoutLoader {
-    private let workoutReadTypesSet: Set = [
-        HKSeriesType.workoutType(),
-        HKSeriesType.activitySummaryType(),
-        HKSeriesType.workoutRoute()
-    ]
     private let store = HKHealthStore()
     
     func fetchWorkouts(for type: WorkoutType) async -> [Workout] {
-        guard HKHealthStore.isHealthDataAvailable() else { return [] }
-        let response: ()? = try? await store.requestAuthorization(toShare: [], read: workoutReadTypesSet)
-        guard let response else { return [] }
-        
         let samples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             let queryHandler: (HKSampleQuery, [HKSample]?, Error?) -> Void = { _, samples, error in
                 if let hasError = error {

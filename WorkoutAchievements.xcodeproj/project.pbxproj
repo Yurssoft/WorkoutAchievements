@@ -176,6 +176,8 @@
 		58C7094F2A7B0DD000563FAA = {
 			isa = PBXGroup;
 			children = (
+				58F999502A7B156D00417CB6 /* WorkoutsViewFeature */,
+				58F9994E2A7B14D400417CB6 /* WorkoutsClient */,
 				58C7095A2A7B0DD100563FAA /* WorkoutAchievements */,
 				589948442A819B8500245E29 /* WatchWorkoutAchievements */,
 				5899487E2A819E7900245E29 /* TopWorkoutAchievement */,
@@ -198,8 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				589029D82A7DB6190068A0F1 /* WorkoutAchievements.entitlements */,
-				58F999502A7B156D00417CB6 /* WorkoutsViewFeature */,
-				58F9994E2A7B14D400417CB6 /* WorkoutsClient */,
 				58C7095B2A7B0DD100563FAA /* WorkoutAchievementsApp.swift */,
 				58C7095D2A7B0DD100563FAA /* AchievementsView.swift */,
 				58C7095F2A7B0DD300563FAA /* Assets.xcassets */,

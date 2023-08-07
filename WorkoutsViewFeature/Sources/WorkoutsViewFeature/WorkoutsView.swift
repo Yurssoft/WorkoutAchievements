@@ -16,11 +16,11 @@ public struct WorkoutsView: View {
         }
         .padding()
         .task {
-            workouts = await client.list(.swimming)
+            workouts = await client.loadWorkoutsList(.swimming)
         }
     }
 }
 
 #Preview {
-    WorkoutsView(client: .mock)
+    WorkoutsView(client: .authorizedToReadMock)
 }
