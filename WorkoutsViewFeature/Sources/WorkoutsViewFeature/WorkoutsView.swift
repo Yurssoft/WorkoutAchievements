@@ -16,7 +16,7 @@ public struct WorkoutsView: View {
         }
         .padding()
         .task {
-            workouts = await client.loadWorkoutsList(.swimming)
+            workouts = try! await client.loadWorkoutsList(.swimming)
         }
     }
 }

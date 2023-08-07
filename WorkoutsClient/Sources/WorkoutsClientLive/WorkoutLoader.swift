@@ -11,7 +11,7 @@ import HealthKit
 final class WorkoutLoader {
     private let store = HKHealthStore()
     
-    func fetchWorkouts(for type: WorkoutType) async -> [Workout] {
+    func fetchWorkouts(for type: WorkoutType) async throws -> [Workout] {
         let samples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             let queryHandler: (HKSampleQuery, [HKSample]?, Error?) -> Void = { _, samples, error in
                 if let hasError = error {
