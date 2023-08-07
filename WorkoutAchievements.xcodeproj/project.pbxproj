@@ -8,6 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		58897A6E2A7CA37E006106B0 /* WorkoutsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 58897A6D2A7CA37E006106B0 /* WorkoutsClientLive */; };
+		589948462A819B8500245E29 /* WatchWorkoutAchievementsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948452A819B8500245E29 /* WatchWorkoutAchievementsApp.swift */; };
+		589948482A819B8500245E29 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948472A819B8500245E29 /* ContentView.swift */; };
+		5899484A2A819B8700245E29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 589948492A819B8700245E29 /* Assets.xcassets */; };
+		5899484D2A819B8700245E29 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5899484C2A819B8700245E29 /* Preview Assets.xcassets */; };
+		589948662A819B8700245E29 /* WatchWorkoutAchievements.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 589948432A819B8500245E29 /* WatchWorkoutAchievements.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		589948722A819C2C00245E29 /* WorkoutsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 589948712A819C2C00245E29 /* WorkoutsClientLive */; };
+		589948742A819C2C00245E29 /* WorkoutsViewFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 589948732A819C2C00245E29 /* WorkoutsViewFeature */; };
+		5899487B2A819E7900245E29 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5899487A2A819E7900245E29 /* WidgetKit.framework */; };
+		5899487D2A819E7900245E29 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5899487C2A819E7900245E29 /* SwiftUI.framework */; };
+		589948802A819E7900245E29 /* TopWorkoutAchievementBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5899487F2A819E7900245E29 /* TopWorkoutAchievementBundle.swift */; };
+		589948822A819E7900245E29 /* TopWorkoutAchievementLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948812A819E7900245E29 /* TopWorkoutAchievementLiveActivity.swift */; };
+		589948842A819E7900245E29 /* TopWorkoutAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948832A819E7900245E29 /* TopWorkoutAchievement.swift */; };
+		589948862A819E7900245E29 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948852A819E7900245E29 /* AppIntent.swift */; };
+		589948882A819E7B00245E29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 589948872A819E7B00245E29 /* Assets.xcassets */; };
+		5899488C2A819E7B00245E29 /* TopWorkoutAchievementExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 589948792A819E7900245E29 /* TopWorkoutAchievementExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		589948922A819E8C00245E29 /* WorkoutsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 589948912A819E8C00245E29 /* WorkoutsClientLive */; };
 		58BA29B02A7C9EF50068A958 /* WorkoutsViewFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 58BA29AF2A7C9EF50068A958 /* WorkoutsViewFeature */; };
 		58C7095C2A7B0DD100563FAA /* WorkoutAchievementsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7095B2A7B0DD100563FAA /* WorkoutAchievementsApp.swift */; };
 		58C7095E2A7B0DD100563FAA /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7095D2A7B0DD100563FAA /* AchievementsView.swift */; };
@@ -17,8 +33,64 @@
 		58F999512A7B156D00417CB6 /* WorkoutsViewFeature in Resources */ = {isa = PBXBuildFile; fileRef = 58F999502A7B156D00417CB6 /* WorkoutsViewFeature */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		589948642A819B8700245E29 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58C709502A7B0DD000563FAA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 589948422A819B8500245E29;
+			remoteInfo = "WatchWorkoutAchievements Watch App";
+		};
+		5899488A2A819E7B00245E29 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58C709502A7B0DD000563FAA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 589948782A819E7900245E29;
+			remoteInfo = TopWorkoutAchievementExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		589948672A819B8700245E29 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				589948662A819B8700245E29 /* WatchWorkoutAchievements.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		589948902A819E7B00245E29 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5899488C2A819E7B00245E29 /* TopWorkoutAchievementExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		589029D82A7DB6190068A0F1 /* WorkoutAchievements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WorkoutAchievements.entitlements; sourceTree = "<group>"; };
+		589948432A819B8500245E29 /* WatchWorkoutAchievements.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchWorkoutAchievements.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		589948452A819B8500245E29 /* WatchWorkoutAchievementsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchWorkoutAchievementsApp.swift; sourceTree = "<group>"; };
+		589948472A819B8500245E29 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		589948492A819B8700245E29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5899484C2A819B8700245E29 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		589948792A819E7900245E29 /* TopWorkoutAchievementExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopWorkoutAchievementExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5899487A2A819E7900245E29 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		5899487C2A819E7900245E29 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		5899487F2A819E7900245E29 /* TopWorkoutAchievementBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWorkoutAchievementBundle.swift; sourceTree = "<group>"; };
+		589948812A819E7900245E29 /* TopWorkoutAchievementLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWorkoutAchievementLiveActivity.swift; sourceTree = "<group>"; };
+		589948832A819E7900245E29 /* TopWorkoutAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWorkoutAchievement.swift; sourceTree = "<group>"; };
+		589948852A819E7900245E29 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		589948872A819E7B00245E29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		589948892A819E7B00245E29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58C709582A7B0DD100563FAA /* WorkoutAchievements.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutAchievements.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58C7095B2A7B0DD100563FAA /* WorkoutAchievementsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutAchievementsApp.swift; sourceTree = "<group>"; };
 		58C7095D2A7B0DD100563FAA /* AchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
@@ -29,6 +101,25 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		589948402A819B8500245E29 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				589948742A819C2C00245E29 /* WorkoutsViewFeature in Frameworks */,
+				589948722A819C2C00245E29 /* WorkoutsClientLive in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		589948762A819E7900245E29 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				589948922A819E8C00245E29 /* WorkoutsClientLive in Frameworks */,
+				5899487D2A819E7900245E29 /* SwiftUI.framework in Frameworks */,
+				5899487B2A819E7900245E29 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		58C709552A7B0DD100563FAA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -41,9 +132,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		589948442A819B8500245E29 /* WatchWorkoutAchievements */ = {
+			isa = PBXGroup;
+			children = (
+				589948452A819B8500245E29 /* WatchWorkoutAchievementsApp.swift */,
+				589948472A819B8500245E29 /* ContentView.swift */,
+				589948492A819B8700245E29 /* Assets.xcassets */,
+				5899484B2A819B8700245E29 /* Preview Content */,
+			);
+			path = WatchWorkoutAchievements;
+			sourceTree = "<group>";
+		};
+		5899484B2A819B8700245E29 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				5899484C2A819B8700245E29 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5899487E2A819E7900245E29 /* TopWorkoutAchievement */ = {
+			isa = PBXGroup;
+			children = (
+				5899487F2A819E7900245E29 /* TopWorkoutAchievementBundle.swift */,
+				589948812A819E7900245E29 /* TopWorkoutAchievementLiveActivity.swift */,
+				589948832A819E7900245E29 /* TopWorkoutAchievement.swift */,
+				589948852A819E7900245E29 /* AppIntent.swift */,
+				589948872A819E7B00245E29 /* Assets.xcassets */,
+				589948892A819E7B00245E29 /* Info.plist */,
+			);
+			path = TopWorkoutAchievement;
+			sourceTree = "<group>";
+		};
 		58BA29AE2A7C9EF50068A958 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5899487A2A819E7900245E29 /* WidgetKit.framework */,
+				5899487C2A819E7900245E29 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -52,6 +177,8 @@
 			isa = PBXGroup;
 			children = (
 				58C7095A2A7B0DD100563FAA /* WorkoutAchievements */,
+				589948442A819B8500245E29 /* WatchWorkoutAchievements */,
+				5899487E2A819E7900245E29 /* TopWorkoutAchievement */,
 				58C709592A7B0DD100563FAA /* Products */,
 				58BA29AE2A7C9EF50068A958 /* Frameworks */,
 			);
@@ -61,6 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				58C709582A7B0DD100563FAA /* WorkoutAchievements.app */,
+				589948432A819B8500245E29 /* WatchWorkoutAchievements.app */,
+				589948792A819E7900245E29 /* TopWorkoutAchievementExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,6 +219,47 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		589948422A819B8500245E29 /* WatchWorkoutAchievements */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5899486E2A819B8700245E29 /* Build configuration list for PBXNativeTarget "WatchWorkoutAchievements" */;
+			buildPhases = (
+				5899483F2A819B8500245E29 /* Sources */,
+				589948402A819B8500245E29 /* Frameworks */,
+				589948412A819B8500245E29 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WatchWorkoutAchievements;
+			packageProductDependencies = (
+				589948712A819C2C00245E29 /* WorkoutsClientLive */,
+				589948732A819C2C00245E29 /* WorkoutsViewFeature */,
+			);
+			productName = "WatchWorkoutAchievements Watch App";
+			productReference = 589948432A819B8500245E29 /* WatchWorkoutAchievements.app */;
+			productType = "com.apple.product-type.application";
+		};
+		589948782A819E7900245E29 /* TopWorkoutAchievementExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5899488D2A819E7B00245E29 /* Build configuration list for PBXNativeTarget "TopWorkoutAchievementExtension" */;
+			buildPhases = (
+				589948752A819E7900245E29 /* Sources */,
+				589948762A819E7900245E29 /* Frameworks */,
+				589948772A819E7900245E29 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TopWorkoutAchievementExtension;
+			packageProductDependencies = (
+				589948912A819E8C00245E29 /* WorkoutsClientLive */,
+			);
+			productName = TopWorkoutAchievementExtension;
+			productReference = 589948792A819E7900245E29 /* TopWorkoutAchievementExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		58C709572A7B0DD100563FAA /* WorkoutAchievements */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58C709662A7B0DD300563FAA /* Build configuration list for PBXNativeTarget "WorkoutAchievements" */;
@@ -97,10 +267,14 @@
 				58C709542A7B0DD100563FAA /* Sources */,
 				58C709552A7B0DD100563FAA /* Frameworks */,
 				58C709562A7B0DD100563FAA /* Resources */,
+				589948672A819B8700245E29 /* Embed Watch Content */,
+				589948902A819E7B00245E29 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				589948652A819B8700245E29 /* PBXTargetDependency */,
+				5899488B2A819E7B00245E29 /* PBXTargetDependency */,
 			);
 			name = WorkoutAchievements;
 			packageProductDependencies = (
@@ -121,6 +295,12 @@
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					589948422A819B8500245E29 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					589948782A819E7900245E29 = {
+						CreatedOnToolsVersion = 15.0;
+					};
 					58C709572A7B0DD100563FAA = {
 						CreatedOnToolsVersion = 15.0;
 					};
@@ -140,11 +320,30 @@
 			projectRoot = "";
 			targets = (
 				58C709572A7B0DD100563FAA /* WorkoutAchievements */,
+				589948422A819B8500245E29 /* WatchWorkoutAchievements */,
+				589948782A819E7900245E29 /* TopWorkoutAchievementExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		589948412A819B8500245E29 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5899484D2A819B8700245E29 /* Preview Assets.xcassets in Resources */,
+				5899484A2A819B8700245E29 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		589948772A819E7900245E29 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				589948882A819E7B00245E29 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		58C709562A7B0DD100563FAA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -159,6 +358,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5899483F2A819B8500245E29 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				589948482A819B8500245E29 /* ContentView.swift in Sources */,
+				589948462A819B8500245E29 /* WatchWorkoutAchievementsApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		589948752A819E7900245E29 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				589948822A819E7900245E29 /* TopWorkoutAchievementLiveActivity.swift in Sources */,
+				589948862A819E7900245E29 /* AppIntent.swift in Sources */,
+				589948842A819E7900245E29 /* TopWorkoutAchievement.swift in Sources */,
+				589948802A819E7900245E29 /* TopWorkoutAchievementBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		58C709542A7B0DD100563FAA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -170,7 +389,132 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		589948652A819B8700245E29 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 589948422A819B8500245E29 /* WatchWorkoutAchievements */;
+			targetProxy = 589948642A819B8700245E29 /* PBXContainerItemProxy */;
+		};
+		5899488B2A819E7B00245E29 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 589948782A819E7900245E29 /* TopWorkoutAchievementExtension */;
+			targetProxy = 5899488A2A819E7B00245E29 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		589948682A819B8700245E29 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WatchWorkoutAchievements/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WatchWorkoutAchievements;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.yurssoft.WorkoutAchievements;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yurssoft.WorkoutAchievements.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		589948692A819B8700245E29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WatchWorkoutAchievements/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WatchWorkoutAchievements;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.yurssoft.WorkoutAchievements;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yurssoft.WorkoutAchievements.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		5899488E2A819E7B00245E29 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TopWorkoutAchievement/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TopWorkoutAchievement;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yurssoft.WorkoutAchievements.TopWorkoutAchievement;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5899488F2A819E7B00245E29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TopWorkoutAchievement/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TopWorkoutAchievement;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yurssoft.WorkoutAchievements.TopWorkoutAchievement;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		58C709642A7B0DD300563FAA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -293,6 +637,7 @@
 		58C709672A7B0DD300563FAA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WorkoutAchievements/WorkoutAchievements.entitlements;
@@ -323,6 +668,7 @@
 		58C709682A7B0DD300563FAA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WorkoutAchievements/WorkoutAchievements.entitlements;
@@ -353,6 +699,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5899486E2A819B8700245E29 /* Build configuration list for PBXNativeTarget "WatchWorkoutAchievements" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				589948682A819B8700245E29 /* Debug */,
+				589948692A819B8700245E29 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5899488D2A819E7B00245E29 /* Build configuration list for PBXNativeTarget "TopWorkoutAchievementExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5899488E2A819E7B00245E29 /* Debug */,
+				5899488F2A819E7B00245E29 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		58C709532A7B0DD000563FAA /* Build configuration list for PBXProject "WorkoutAchievements" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -375,6 +739,18 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		58897A6D2A7CA37E006106B0 /* WorkoutsClientLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WorkoutsClientLive;
+		};
+		589948712A819C2C00245E29 /* WorkoutsClientLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WorkoutsClientLive;
+		};
+		589948732A819C2C00245E29 /* WorkoutsViewFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WorkoutsViewFeature;
+		};
+		589948912A819E8C00245E29 /* WorkoutsClientLive */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WorkoutsClientLive;
 		};

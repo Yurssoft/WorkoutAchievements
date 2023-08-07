@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "WorkoutsClient",
-    platforms: [.iOS(.v17)],
+    platforms: [.iOS(.v17), .watchOS(.v10)],
     products: [
         .library(
             name: "WorkoutsClient",
