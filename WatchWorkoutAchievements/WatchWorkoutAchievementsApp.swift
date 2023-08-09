@@ -8,13 +8,15 @@
 import SwiftUI
 import WorkoutsClient
 import WorkoutsClientLive
+import RequestPermissionsViewFeature
 
 @main
 struct WatchWorkoutAchievementsApp: App {
     private let workoutsClient = WorkoutsClient.actualLiveHealthKitAccess()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(workoutsClient: workoutsClient)
         }
     }
 }

@@ -6,19 +6,20 @@
 //
 
 import SwiftUI
+import RequestPermissionsViewFeature
+import WorkoutsClient
 
 struct ContentView: View {
+    let workoutsClient: WorkoutsClient
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            RequestPermissionsView(workoutsClient: workoutsClient)
         }
         .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(workoutsClient: .authorizedToReadMock)
 }
