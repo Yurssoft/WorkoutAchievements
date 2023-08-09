@@ -3,8 +3,10 @@ import HealthKit
 
 public extension WorkoutsClient {
     typealias WorkoutsListClosure = (WorkoutType) async throws -> [Workout]
-    typealias IsAuthorizedToUseClosure = () -> Bool
+    typealias IsAuthorizedToUseClosure = () -> HKAuthorizationStatus
     typealias RequestReadAuthorizationClosure = () async throws -> Void
+    
+    typealias WorkoutType = HKWorkoutActivityType
 }
 
 public struct WorkoutsClient {
@@ -29,6 +31,3 @@ public struct Workout: Identifiable {
     public let id = UUID().uuidString
     public let calories: String
 }
-
-
-public typealias WorkoutType = HKWorkoutActivityType
