@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import WorkoutsClient
+import WorkoutsClientLive
 
 @main
 struct WorkoutAchievementsApp: App {
+    private let workoutsClient = WorkoutsClient.actualLiveHealthKitAccess()
     var body: some Scene {
         WindowGroup {
-            AchievementsView()
+            AchievementsView(workoutsClient: workoutsClient)
         }
     }
 }
