@@ -413,6 +413,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchWorkoutAchievements/Preview Content\"";
+				DEVELOPMENT_TEAM = LS9HB285X6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = WatchWorkoutAchievements;
@@ -443,6 +444,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchWorkoutAchievements/Preview Content\"";
+				DEVELOPMENT_TEAM = LS9HB285X6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = WatchWorkoutAchievements;
@@ -472,6 +474,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LS9HB285X6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TopWorkoutAchievement/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TopWorkoutAchievement;
@@ -498,6 +501,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LS9HB285X6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TopWorkoutAchievement/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TopWorkoutAchievement;
@@ -646,6 +650,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WorkoutAchievements/Preview Content\"";
+				DEVELOPMENT_TEAM = LS9HB285X6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read workouts";
@@ -677,6 +682,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WorkoutAchievements/Preview Content\"";
+				DEVELOPMENT_TEAM = LS9HB285X6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read workouts";
