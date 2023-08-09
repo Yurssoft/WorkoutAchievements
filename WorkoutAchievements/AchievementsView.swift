@@ -7,17 +7,19 @@
 
 import SwiftUI
 import WorkoutsViewFeature
+import WorkoutsClient
 import WorkoutsClientLive
 
 struct AchievementsView: View {
+    let workoutsClient: WorkoutsClient
     var body: some View {
         VStack {
-            WorkoutsView(client: .actualLiveHealthKitAccess)
+            WorkoutsView(client: workoutsClient)
         }
         .padding()
     }
 }
 
 #Preview {
-    AchievementsView()
+    AchievementsView(workoutsClient: .authorizedToReadMock)
 }
