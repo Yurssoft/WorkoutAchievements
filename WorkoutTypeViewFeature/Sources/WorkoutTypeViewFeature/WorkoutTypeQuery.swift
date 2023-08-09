@@ -8,11 +8,12 @@ import Foundation
 import WorkoutsClient
 
 public struct WorkoutTypeQuery {
-    var workoutType: WorkoutsClient.WorkoutType
-    var displayOrdering: Ordering
+    var workoutType = WorkoutsClient.WorkoutType.walking
+    var displayOrdering = Ordering.descending
 }
 
-public enum Ordering {
+public enum Ordering: CaseIterable {
     case ascending
     case descending
 }
+
