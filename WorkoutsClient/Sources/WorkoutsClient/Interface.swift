@@ -3,23 +3,20 @@ import HealthKit
 
 public extension WorkoutsClient {
     typealias WorkoutsListClosure = (WorkoutType) async throws -> [Workout]
-    typealias IsAuthorizedToUseClosure = () -> HKAuthorizationStatus
     typealias RequestReadAuthorizationClosure = () async throws -> Void
     
     typealias WorkoutType = HKWorkoutActivityType
+    typealias WorkoutMeasureType = HKQuantityTypeIdentifier
 }
 
 public struct WorkoutsClient {
     public init(loadWorkoutsList: @escaping WorkoutsListClosure,
-                isAuthorizedToUse: @escaping IsAuthorizedToUseClosure,
                 requestReadAuthorization: @escaping RequestReadAuthorizationClosure) {
         self.loadWorkoutsList = loadWorkoutsList
-        self.isAuthorizedToUse = isAuthorizedToUse
         self.requestReadAuthorization = requestReadAuthorization
     }
     
     public var loadWorkoutsList: WorkoutsListClosure
-    public var isAuthorizedToUse: IsAuthorizedToUseClosure
     public var requestReadAuthorization: RequestReadAuthorizationClosure
 }
 

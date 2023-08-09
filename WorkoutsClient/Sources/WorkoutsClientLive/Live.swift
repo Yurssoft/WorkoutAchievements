@@ -18,8 +18,6 @@ extension WorkoutsClient {
         return Self { type in
             let workouts = try await WorkoutLoader.fetchWorkouts(for: type, store: store)
             return workouts
-        } isAuthorizedToUse: {
-            permissions.isAuthorizedToUse()
         } requestReadAuthorization: {
             try await permissions.requestReadPemissions()
         }
