@@ -7,18 +7,21 @@
 
 import Foundation
 import WorkoutsClient
+import HealthKit
 
 extension WorkoutsClient {
     public static let live: WorkoutsClient = .authorizedToReadMock
-
-    public static let actualLiveHealthKitAccess = Self { type in
-        let loader = WorkoutLoader()
-        let workouts = try await loader.fetchWorkouts(for: type)
-        return workouts
-    } isAuthorizedToUse: {
-        #warning("add")
-        return true
-    } requestReadAuthorization: {
-        try await HealthKitPermissions.requestReadPemissions()
+    
+    public static var actualLiveHealthKitAccess = {
+        let store = HKHealthStore()
+        let permissions = HealthKitPermissions(store: store)
+        return Self { type in
+            let workouts = try await WorkoutLoader.fetchWorkouts(for: type, store: store)
+            return workouts
+        } isAuthorizedToUse: {
+            permissions.isAuthorizedToUse()
+        } requestReadAuthorization: {
+            try await permissions.requestReadPemissions()
+        }
     }
 }
