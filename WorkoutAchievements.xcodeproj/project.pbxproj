@@ -96,6 +96,7 @@
 		58C7095D2A7B0DD100563FAA /* AchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
 		58C7095F2A7B0DD300563FAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		58C709622A7B0DD300563FAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		58D933C42A833A49007E7D6A /* WorkoutTypeViewFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WorkoutTypeViewFeature; sourceTree = "<group>"; };
 		58F9994E2A7B14D400417CB6 /* WorkoutsClient */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WorkoutsClient; sourceTree = "<group>"; };
 		58F999502A7B156D00417CB6 /* WorkoutsViewFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WorkoutsViewFeature; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,6 +177,7 @@
 		58C7094F2A7B0DD000563FAA = {
 			isa = PBXGroup;
 			children = (
+				58D933C42A833A49007E7D6A /* WorkoutTypeViewFeature */,
 				58F999502A7B156D00417CB6 /* WorkoutsViewFeature */,
 				58F9994E2A7B14D400417CB6 /* WorkoutsClient */,
 				58C7095A2A7B0DD100563FAA /* WorkoutAchievements */,
