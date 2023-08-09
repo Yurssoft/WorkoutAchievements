@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		582324732A844324005985F3 /* WorkoutsViewFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 582324722A844324005985F3 /* WorkoutsViewFeature */; };
+		582324752A844335005985F3 /* WorkoutsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 582324742A844335005985F3 /* WorkoutsClientLive */; };
 		58897A6E2A7CA37E006106B0 /* WorkoutsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 58897A6D2A7CA37E006106B0 /* WorkoutsClientLive */; };
 		589948462A819B8500245E29 /* WatchWorkoutAchievementsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948452A819B8500245E29 /* WatchWorkoutAchievementsApp.swift */; };
 		589948482A819B8500245E29 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948472A819B8500245E29 /* ContentView.swift */; };
@@ -23,7 +25,6 @@
 		589948862A819E7900245E29 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948852A819E7900245E29 /* AppIntent.swift */; };
 		589948882A819E7B00245E29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 589948872A819E7B00245E29 /* Assets.xcassets */; };
 		5899488C2A819E7B00245E29 /* TopWorkoutAchievementExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 589948792A819E7900245E29 /* TopWorkoutAchievementExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		589948922A819E8C00245E29 /* WorkoutsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 589948912A819E8C00245E29 /* WorkoutsClientLive */; };
 		58BA29B02A7C9EF50068A958 /* WorkoutsViewFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 58BA29AF2A7C9EF50068A958 /* WorkoutsViewFeature */; };
 		58C7095C2A7B0DD100563FAA /* WorkoutAchievementsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7095B2A7B0DD100563FAA /* WorkoutAchievementsApp.swift */; };
 		58C7095E2A7B0DD100563FAA /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7095D2A7B0DD100563FAA /* AchievementsView.swift */; };
@@ -76,6 +77,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		582324762A8443B4005985F3 /* WatchWorkoutAchievements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WatchWorkoutAchievements.entitlements; sourceTree = "<group>"; };
 		589029D82A7DB6190068A0F1 /* WorkoutAchievements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WorkoutAchievements.entitlements; sourceTree = "<group>"; };
 		589948432A819B8500245E29 /* WatchWorkoutAchievements.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchWorkoutAchievements.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		589948452A819B8500245E29 /* WatchWorkoutAchievementsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchWorkoutAchievementsApp.swift; sourceTree = "<group>"; };
@@ -115,9 +117,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				589948922A819E8C00245E29 /* WorkoutsClientLive in Frameworks */,
+				582324732A844324005985F3 /* WorkoutsViewFeature in Frameworks */,
 				5899487D2A819E7900245E29 /* SwiftUI.framework in Frameworks */,
 				5899487B2A819E7900245E29 /* WidgetKit.framework in Frameworks */,
+				582324752A844335005985F3 /* WorkoutsClientLive in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +139,7 @@
 		589948442A819B8500245E29 /* WatchWorkoutAchievements */ = {
 			isa = PBXGroup;
 			children = (
+				582324762A8443B4005985F3 /* WatchWorkoutAchievements.entitlements */,
 				589948452A819B8500245E29 /* WatchWorkoutAchievementsApp.swift */,
 				589948472A819B8500245E29 /* ContentView.swift */,
 				589948492A819B8700245E29 /* Assets.xcassets */,
@@ -256,7 +260,8 @@
 			);
 			name = TopWorkoutAchievementExtension;
 			packageProductDependencies = (
-				589948912A819E8C00245E29 /* WorkoutsClientLive */,
+				582324722A844324005985F3 /* WorkoutsViewFeature */,
+				582324742A844335005985F3 /* WorkoutsClientLive */,
 			);
 			productName = TopWorkoutAchievementExtension;
 			productReference = 589948792A819E7900245E29 /* TopWorkoutAchievementExtension.appex */;
@@ -410,6 +415,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WatchWorkoutAchievements/WatchWorkoutAchievements.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchWorkoutAchievements/Preview Content\"";
@@ -417,6 +423,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = WatchWorkoutAchievements;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read workouts";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.yurssoft.WorkoutAchievements;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
@@ -441,6 +448,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WatchWorkoutAchievements/WatchWorkoutAchievements.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchWorkoutAchievements/Preview Content\"";
@@ -448,6 +456,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = WatchWorkoutAchievements;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read workouts";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.yurssoft.WorkoutAchievements;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
@@ -746,6 +755,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		582324722A844324005985F3 /* WorkoutsViewFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WorkoutsViewFeature;
+		};
+		582324742A844335005985F3 /* WorkoutsClientLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WorkoutsClientLive;
+		};
 		58897A6D2A7CA37E006106B0 /* WorkoutsClientLive */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WorkoutsClientLive;
@@ -757,10 +774,6 @@
 		589948732A819C2C00245E29 /* WorkoutsViewFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WorkoutsViewFeature;
-		};
-		589948912A819E8C00245E29 /* WorkoutsClientLive */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = WorkoutsClientLive;
 		};
 		58BA29AF2A7C9EF50068A958 /* WorkoutsViewFeature */ = {
 			isa = XCSwiftPackageProductDependency;
