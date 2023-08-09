@@ -11,11 +11,12 @@ let package = Package(
             targets: ["RequestPermissionsViewFeature"]),
     ],
     dependencies: [
-        .package(path: "../WorkoutsClient")
+        .package(path: "../WorkoutsClient"),
+        .package(path: "../WorkoutsViewFeature")
     ],
     targets: [
         .target(
             name: "RequestPermissionsViewFeature",
-            dependencies: ["WorkoutsClient"]),
+            dependencies: ["WorkoutsClient", "WorkoutsViewFeature"]),
     ]
 )

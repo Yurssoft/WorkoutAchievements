@@ -77,8 +77,10 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/WatchWorkoutAchievements">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "589948422A819B8500245E29"
@@ -86,7 +88,7 @@
             BlueprintName = "WatchWorkoutAchievements"
             ReferencedContainer = "container:WorkoutAchievements.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -94,8 +96,10 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/WatchWorkoutAchievements">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "589948422A819B8500245E29"
@@ -103,7 +107,7 @@
             BlueprintName = "WatchWorkoutAchievements"
             ReferencedContainer = "container:WorkoutAchievements.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
