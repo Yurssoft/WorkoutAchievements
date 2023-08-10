@@ -63,6 +63,8 @@ public struct WorkoutTypeView: View {
                 }
                 .pickerStyle(.menu)
                 
+                Toggle("Is Ascending", isOn: $selectedQuery.isAscending)
+                
                 Text("Selected Query:\n \(selectedQuery.measurmentType.name)\n \(selectedQuery.workoutType.name)")
                     .multilineTextAlignment(.center)
             }
