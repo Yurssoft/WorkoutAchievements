@@ -9,11 +9,12 @@ import WorkoutsClient
 
 public struct WorkoutTypeQuery {
     var workoutType = WorkoutsClient.WorkoutType.walking
-    var displayOrdering = Ordering.descending
+    var isAscending = false
+    var measurmentType = WorkoutMeasureType.distance
 }
 
-public enum Ordering: CaseIterable {
-    case ascending
-    case descending
+public enum WorkoutMeasureType {
+    case time
+    case distance
+    case calories
 }
-
