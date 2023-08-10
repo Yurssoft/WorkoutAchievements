@@ -45,9 +45,11 @@ extension WorkoutMeasureType {
 }
 
 public struct WorkoutTypeView: View {
-    public init() { }
+    public init(selectedQuery: Binding<WorkoutTypeQuery>) {
+        self._selectedQuery = selectedQuery
+    }
     
-    @State private var selectedQuery = WorkoutTypeQuery()
+    @Binding var selectedQuery: WorkoutTypeQuery
     public var body: some View {
         Group {
             VStack {
@@ -75,4 +77,4 @@ public struct WorkoutTypeView: View {
     }
 }
 
-#Preview { WorkoutTypeView() }
+#Preview { WorkoutTypeView(selectedQuery: .constant(.init())) }

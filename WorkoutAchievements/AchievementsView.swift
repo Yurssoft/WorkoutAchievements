@@ -12,10 +12,11 @@ import WorkoutTypeViewFeature
 
 struct AchievementsView: View {
     let workoutsClient: WorkoutsClient
+    @State private var query = WorkoutTypeQuery()
     
     var body: some View {
         VStack {
-            WorkoutTypeView()
+            WorkoutTypeView(selectedQuery: $query)
             RequestPermissionsView(workoutsClient: workoutsClient)
         }
         .padding()
