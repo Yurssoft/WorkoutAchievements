@@ -29,28 +29,42 @@ extension WorkoutsClient.WorkoutType: CaseIterable {
     }
 }
 
+extension WorkoutMeasureType {
+    var name: String {
+        switch self {
+        case .time:
+            return "Time"
+            
+        case .distance:
+            return "Distance"
+            
+        case .calories:
+            return "Calories"
+        }
+    }
+}
+
 public struct WorkoutTypeView: View {
     @State private var selectedQuery = WorkoutTypeQuery()
     public var body: some View {
         Group {
             VStack {
-                Picker("Select Ordering", selection: $selectedQuery.workoutType) {
+                Picker("Workout Type:", selection: $selectedQuery.workoutType) {
                     ForEach(WorkoutsClient.WorkoutType.allCases, id: \.self) {
                         Text($0.name)
                     }
                 }
                 .pickerStyle(.menu)
                 
+                Picker("Measurment Type", selection: $selectedQuery.measurmentType) {
+                    ForEach(WorkoutMeasureType.allCases, id: \.self) {
+                        Text($0.name)
+                    }
+                }
+                .pickerStyle(.menu)
                 
-//                HKWorkoutActivityType add menu picker here somehow
-//                Picker("Select Type", selection: $selectedQuery.workoutType) {
-//                    ForEach(Ordering.allCases, id: \.self) {
-//                        Text(String(describing: $0))
-//                    }
-//                }
-//                .pickerStyle(.menu)
-                
-                Text("Selected Query: \(String(describing: selectedQuery.workoutType))\n \(selectedQuery.workoutType.name)")
+                Text("Selected Query:\n \(selectedQuery.measurmentType.name)\n \(selectedQuery.workoutType.name)")
+                    .multilineTextAlignment(.center)
             }
         }
         .padding()
