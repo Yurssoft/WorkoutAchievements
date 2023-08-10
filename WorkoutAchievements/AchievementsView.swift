@@ -8,12 +8,14 @@
 import SwiftUI
 import RequestPermissionsViewFeature
 import WorkoutsClient
+import WorkoutTypeViewFeature
 
 struct AchievementsView: View {
     let workoutsClient: WorkoutsClient
     
     var body: some View {
         VStack {
+            WorkoutTypeView()
             RequestPermissionsView(workoutsClient: workoutsClient)
         }
         .padding()

@@ -45,6 +45,8 @@ extension WorkoutMeasureType {
 }
 
 public struct WorkoutTypeView: View {
+    public init() { }
+    
     @State private var selectedQuery = WorkoutTypeQuery()
     public var body: some View {
         Group {
