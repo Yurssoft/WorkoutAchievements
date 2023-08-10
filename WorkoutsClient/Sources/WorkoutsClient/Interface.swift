@@ -1,6 +1,10 @@
 import Foundation
 import HealthKit
 
+public enum WorkoutsClientError: Error {
+    case fetchingWorkouts
+}
+
 public extension WorkoutsClient {
     typealias WorkoutsListClosure = (WorkoutType) async throws -> [Workout]
     typealias RequestReadAuthorizationClosure = () async throws -> Void

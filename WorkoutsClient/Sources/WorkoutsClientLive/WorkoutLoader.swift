@@ -11,7 +11,7 @@ import HealthKit
 final class WorkoutLoader {
     
     static func fetchWorkouts(for type: WorkoutsClient.WorkoutType, store: HKHealthStore) async throws -> [Workout] {
-        let samples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
+        let samples = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             let queryHandler: (HKSampleQuery, [HKSample]?, Error?) -> Void = { _, samples, error in
                 if let hasError = error {
                     continuation.resume(throwing: hasError)
@@ -19,7 +19,7 @@ final class WorkoutLoader {
                 }
 
                 guard let samples = samples else {
-                    fatalError("*** Invalid State: This can only fail if there was an error. ***")
+                    return continuation.resume(throwing: WorkoutsClientError.fetchingWorkouts)
                 }
 
                 continuation.resume(returning: samples)

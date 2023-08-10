@@ -56,8 +56,18 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.springboard">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "589948782A819E7900245E29"
+            BuildableName = "TopWorkoutAchievementExtension.appex"
+            BlueprintName = "TopWorkoutAchievementExtension"
+            ReferencedContainer = "container:WorkoutAchievements.xcodeproj">
+         </BuildableReference>
+      </RemoteRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "58C709572A7B0DD100563FAA"
@@ -65,7 +75,7 @@
             BlueprintName = "WorkoutAchievements"
             ReferencedContainer = "container:WorkoutAchievements.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "_XCWidgetKind"

@@ -11,6 +11,7 @@
 		582324752A844335005985F3 /* WorkoutsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 582324742A844335005985F3 /* WorkoutsClientLive */; };
 		582324792A84496A005985F3 /* RequestPermissionsViewFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 582324782A84496A005985F3 /* RequestPermissionsViewFeature */; };
 		5823247B2A8449F3005985F3 /* RequestPermissionsViewFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 5823247A2A8449F3005985F3 /* RequestPermissionsViewFeature */; };
+		5881218F2A844D640054D906 /* WorkoutsClient in Frameworks */ = {isa = PBXBuildFile; productRef = 5881218E2A844D640054D906 /* WorkoutsClient */; };
 		58897A6E2A7CA37E006106B0 /* WorkoutsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 58897A6D2A7CA37E006106B0 /* WorkoutsClientLive */; };
 		589948462A819B8500245E29 /* WatchWorkoutAchievementsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948452A819B8500245E29 /* WatchWorkoutAchievementsApp.swift */; };
 		589948482A819B8500245E29 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948472A819B8500245E29 /* ContentView.swift */; };
@@ -135,6 +136,7 @@
 				58BA29B02A7C9EF50068A958 /* WorkoutsViewFeature in Frameworks */,
 				58897A6E2A7CA37E006106B0 /* WorkoutsClientLive in Frameworks */,
 				582324792A84496A005985F3 /* RequestPermissionsViewFeature in Frameworks */,
+				5881218F2A844D640054D906 /* WorkoutsClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +297,7 @@
 				58BA29AF2A7C9EF50068A958 /* WorkoutsViewFeature */,
 				58897A6D2A7CA37E006106B0 /* WorkoutsClientLive */,
 				582324782A84496A005985F3 /* RequestPermissionsViewFeature */,
+				5881218E2A844D640054D906 /* WorkoutsClient */,
 			);
 			productName = WorkoutAchievements;
 			productReference = 58C709582A7B0DD100563FAA /* WorkoutAchievements.app */;
@@ -778,6 +781,10 @@
 		5823247A2A8449F3005985F3 /* RequestPermissionsViewFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RequestPermissionsViewFeature;
+		};
+		5881218E2A844D640054D906 /* WorkoutsClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WorkoutsClient;
 		};
 		58897A6D2A7CA37E006106B0 /* WorkoutsClientLive */ = {
 			isa = XCSwiftPackageProductDependency;
