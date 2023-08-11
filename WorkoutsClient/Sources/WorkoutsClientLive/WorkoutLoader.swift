@@ -27,7 +27,7 @@ final class WorkoutLoader {
             let predicate = HKQuery.predicateForWorkouts(with: type)
             let query = HKSampleQuery(sampleType: .workoutType(),
                                       predicate: predicate,
-                                      limit: HKObjectQueryNoLimit,
+                                      limit: 33/*HKObjectQueryNoLimit*/,
                                       sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)],
                                       resultsHandler: queryHandler)
             store.execute(query)
