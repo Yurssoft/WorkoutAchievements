@@ -32,17 +32,17 @@ public struct WorkoutsView: View {
         }
         .padding()
         .onChange(of: selectedQuery, { oldValue, newValue in
-            requestData(workoutType: newValue.workoutType)
+            requestData(query: newValue)
         })
         .onAppear() {
-            requestData(workoutType: selectedQuery.workoutType)
+            requestData(query: selectedQuery)
         }
     }
     
-    private func requestData(workoutType: WorkoutsClient.WorkoutType) {
+    private func requestData(query: WorkoutTypeQuery) {
             Task {
                 isLoading = true
-                workouts = try! await client.loadWorkoutsList(workoutType)
+                workouts = try! await client.loadWorkoutsList(query)
                 isLoading = false
             }
     }

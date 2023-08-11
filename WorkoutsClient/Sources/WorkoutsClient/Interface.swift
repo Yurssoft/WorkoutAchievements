@@ -6,7 +6,7 @@ public enum WorkoutsClientError: Error {
 }
 
 public extension WorkoutsClient {
-    typealias WorkoutsListClosure = (WorkoutType) async throws -> [Workout]
+    typealias WorkoutsListClosure = (WorkoutTypeQuery) async throws -> [Workout]
     typealias RequestReadAuthorizationClosure = () async throws -> Void
     
     typealias WorkoutType = HKWorkoutActivityType
