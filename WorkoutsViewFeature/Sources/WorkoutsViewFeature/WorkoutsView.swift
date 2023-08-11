@@ -12,24 +12,39 @@ public struct WorkoutsView: View {
     @Binding private var selectedQuery: WorkoutTypeQuery
     let client: WorkoutsClient
     @State private var workouts = [Workout]()
+    @State private var isLoading = true
     
     var typeString: String {
         "\(selectedQuery.workoutType)"
     }
     
     public var body: some View {
-        List {
-            ForEach(workouts) { workout in
-                Text(typeString)
-                Text(workout.calories)
+        Group {
+            if isLoading {
+                Text("Loading..........")
+            } else {
+                List {
+                    ForEach(workouts) { workout in
+                        Text(workout.calories)
+                    }
+                }
             }
         }
         .padding()
         .onChange(of: selectedQuery, { oldValue, newValue in
-            Task {
-                workouts = try! await client.loadWorkoutsList(newValue.workoutType)
-            }
+            requestData(workoutType: newValue.workoutType)
         })
+        .onAppear() {
+            requestData(workoutType: selectedQuery.workoutType)
+        }
+    }
+    
+    private func requestData(workoutType: WorkoutsClient.WorkoutType) {
+            Task {
+                isLoading = true
+                workouts = try! await client.loadWorkoutsList(workoutType)
+                isLoading = false
+            }
     }
 }
 
