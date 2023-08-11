@@ -54,13 +54,24 @@ final class WorkoutLoader {
             }
             let statisticDistance = healthKitWorkout.statistics(for: distanceQuantity)?.sumQuantity()
             let distance = statisticDistance?.doubleValue(for: .meter()) ?? 0
-            let workout = Workout(calories: "Calories: \(caloriesDoubleValue), Distance: \(distance)")
+            
+            let time = DateComponentsFormatter().string(from: healthKitWorkout.duration)!
+            
+            let workout = Workout(calories: "Calories: \(caloriesDoubleValue.roundedTo())\nDistance: \(distance.roundedTo())\nTime: \(time)")
             return workout
         }
         return transformed
     }
 }
 
+extension Double {
+    func roundedTo(places: Int = 2) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
+}
+
+#warning("Fix calories & distance")
 extension WorkoutMeasureType {
     func sortDescriptor(isAscending: Bool) -> NSSortDescriptor {
         switch self {

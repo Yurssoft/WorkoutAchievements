@@ -20,6 +20,7 @@ final class HealthKitPermissions {
         HKSeriesType.workoutRoute()
     ]
     
+    #warning("extend && store.authorizationStatus(for: .activitySummaryType()) && store.authorizationStatus(for: .workoutRoute())")
     func isAuthorizedToUse() -> HKAuthorizationStatus {
         store.authorizationStatus(for: .workoutType())
     }
