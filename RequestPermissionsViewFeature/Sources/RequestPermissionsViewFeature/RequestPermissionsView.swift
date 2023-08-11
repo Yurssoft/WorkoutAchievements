@@ -17,9 +17,13 @@ extension RequestPermissionsView {
 }
 
 public struct RequestPermissionsView: View {
-    public init(workoutsClient: WorkoutsClient) {
+    public init(workoutsClient: WorkoutsClient,
+                selectedQuery: Binding<WorkoutTypeQuery>) {
         self.workoutsClient = workoutsClient
+        self._selectedQuery = selectedQuery
     }
+    
+    @Binding private var selectedQuery: WorkoutTypeQuery
     
     let workoutsClient: WorkoutsClient
     @State private var state = ViewState.initialized
@@ -32,7 +36,7 @@ public struct RequestPermissionsView: View {
                 }
                 
             case .showList:
-                WorkoutsView(client: workoutsClient)
+                WorkoutsView(client: workoutsClient, selectedQuery: $selectedQuery)
                 
             case .error:
                 Text("Error")
@@ -56,5 +60,5 @@ private extension RequestPermissionsView {
 }
 
 #Preview {
-    RequestPermissionsView(workoutsClient: .authorizedToReadMock)
+    RequestPermissionsView(workoutsClient: .authorizedToReadMock, selectedQuery: .constant(.init()))
 }

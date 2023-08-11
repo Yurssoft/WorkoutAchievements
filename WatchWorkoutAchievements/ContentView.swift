@@ -14,7 +14,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            RequestPermissionsView(workoutsClient: workoutsClient)
+            RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: .constant(.init()))
         }
         .padding()
     }

@@ -49,7 +49,7 @@ public struct WorkoutTypeView: View {
         self._selectedQuery = selectedQuery
     }
     
-    @Binding var selectedQuery: WorkoutTypeQuery
+    @Binding private var selectedQuery: WorkoutTypeQuery
     public var body: some View {
         Group {
             VStack {
