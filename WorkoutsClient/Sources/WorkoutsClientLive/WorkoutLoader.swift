@@ -52,11 +52,13 @@ final class WorkoutLoader {
             default:
                 distanceQuantity = HKQuantityType(.appleExerciseTime)
             }
+#warning("do not format here, send statistics to ui")
             let statisticDistance = healthKitWorkout.statistics(for: distanceQuantity)?.sumQuantity()
             let distance = statisticDistance?.doubleValue(for: .meter()) ?? 0
             
             let time = DateComponentsFormatter().string(from: healthKitWorkout.duration)!
-            
+        
+            #warning("do not format here, format on ui")
             let workout = Workout(calories: "Calories: \(caloriesDoubleValue.roundedTo())\nDistance: \(distance.roundedTo())\nTime: \(time)")
             return workout
         }
@@ -71,16 +73,16 @@ extension Double {
     }
 }
 
-#warning("Fix calories & distance")
+#warning("break down this class to small parts")
 extension WorkoutMeasureType {
     func sortDescriptor(isAscending: Bool) -> NSSortDescriptor {
         switch self {
         case .time:
-            return .init(keyPath: \HKWorkout.duration, ascending: isAscending)
+            return .init(key: HKWorkoutSortIdentifierDuration, ascending: isAscending)
         case .distance:
-            return .init(keyPath: \HKWorkout.duration, ascending: isAscending)
+            return .init(key: HKWorkoutSortIdentifierTotalDistance, ascending: isAscending)
         case .calories:
-            return .init(keyPath: \HKWorkout.totalEnergyBurned, ascending: isAscending)
+            return .init(key: HKWorkoutSortIdentifierTotalEnergyBurned, ascending: isAscending)
         }
     }
 }
