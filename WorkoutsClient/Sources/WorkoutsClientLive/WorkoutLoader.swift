@@ -10,7 +10,7 @@ import HealthKit
 
 final class WorkoutLoader {
     
-    static func fetchWorkouts(for type: WorkoutsClient.WorkoutType, store: HKHealthStore) async throws -> [Workout] {
+    static func fetchWorkouts(for query: WorkoutTypeQuery, store: HKHealthStore) async throws -> [Workout] {
         let samples = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             let queryHandler: (HKSampleQuery, [HKSample]?, Error?) -> Void = { _, samples, error in
                 if let hasError = error {
@@ -24,13 +24,14 @@ final class WorkoutLoader {
 
                 continuation.resume(returning: samples)
             }
-            let predicate = HKQuery.predicateForWorkouts(with: type)
-            let query = HKSampleQuery(sampleType: .workoutType(),
-                                      predicate: predicate,
-                                      limit: HKObjectQueryNoLimit,
-                                      sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)],
-                                      resultsHandler: queryHandler)
-            store.execute(query)
+            let predicate = HKQuery.predicateForWorkouts(with: query.workoutType)
+            let sort = query.measurmentType.sortDescriptor(isAscending: query.isAscending)
+            let HKQuery = HKSampleQuery(sampleType: .workoutType(),
+                                        predicate: predicate,
+                                        limit: HKObjectQueryNoLimit,
+                                        sortDescriptors: [sort],
+                                        resultsHandler: queryHandler)
+            store.execute(HKQuery)
         }
 
         guard let workouts = samples as? [HKWorkout] else { return [] }
@@ -39,9 +40,36 @@ final class WorkoutLoader {
             let caloriesStatistics = healthKitWorkout.statistics(for: activeEnergy)
             let sumCalories = caloriesStatistics?.sumQuantity()
             let caloriesDoubleValue = sumCalories?.doubleValue(for: .largeCalorie()) ?? 0
-            let workout = Workout(calories: "\(caloriesDoubleValue)")
+            
+            let distanceQuantity: HKQuantityType
+            switch query.workoutType {
+            case .swimming:
+                distanceQuantity = HKQuantityType(.distanceSwimming)
+                
+            case .walking, .hiking, .running:
+                distanceQuantity = HKQuantityType(.distanceWalkingRunning)
+                
+            default:
+                distanceQuantity = HKQuantityType(.appleExerciseTime)
+            }
+            let statisticDistance = healthKitWorkout.statistics(for: distanceQuantity)?.sumQuantity()
+            let distance = statisticDistance?.doubleValue(for: .meter()) ?? 0
+            let workout = Workout(calories: "Calories: \(caloriesDoubleValue), Distance: \(distance)")
             return workout
         }
         return transformed
+    }
+}
+
+extension WorkoutMeasureType {
+    func sortDescriptor(isAscending: Bool) -> NSSortDescriptor {
+        switch self {
+        case .time:
+            return .init(keyPath: \HKWorkout.duration, ascending: isAscending)
+        case .distance:
+            return .init(keyPath: \HKWorkout.duration, ascending: isAscending)
+        case .calories:
+            return .init(keyPath: \HKWorkout.totalEnergyBurned, ascending: isAscending)
+        }
     }
 }
