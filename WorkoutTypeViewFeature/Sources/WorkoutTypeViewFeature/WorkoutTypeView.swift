@@ -69,7 +69,7 @@ public struct WorkoutTypeView: View {
                 
                 Toggle("Is Ascending", isOn: $selectedQuery.isAscending)
                 
-                Text("Selected Query:\n \(selectedQuery.measurmentType.name)\n \(selectedQuery.workoutType.name)")
+                Text("Selected Query:\n \(selectedQuery.measurmentType.name)\n \(selectedQuery.workoutType.name) \n isAscending: \(String(describing: selectedQuery.isAscending))")
                     .multilineTextAlignment(.center)
             }
         }
