@@ -57,7 +57,11 @@ final class WorkoutLoader {
             
             let time = DateComponentsFormatter().string(from: healthKitWorkout.duration)!
         
-            let workout = Workout(calories: "Calories: \(caloriesDoubleValue.roundedTo())\nDistance: \(distance.roundedTo())\nTime: \(time)")
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .long
+            dateFormatter.timeStyle = .short
+            let date = dateFormatter.string(from: healthKitWorkout.startDate)
+            let workout = Workout(calories: "Calories: \(caloriesDoubleValue.roundedTo())\nDistance: \(distance.roundedTo())\nTime: \(time)\nDate: \(date)")
             return workout
         }
         return transformed

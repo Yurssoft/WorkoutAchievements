@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "589948422A819B8500245E29"
-               BuildableName = "WatchWorkoutAchievements.app"
+               BuildableName = "WorkoutAchievements.app"
                BlueprintName = "WatchWorkoutAchievements"
                ReferencedContainer = "container:WorkoutAchievements.xcodeproj">
             </BuildableReference>
