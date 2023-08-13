@@ -42,7 +42,6 @@ public struct RequestPermissionsView: View {
                 Text("Error")
             }
         }
-        .padding()
     }
 }
 

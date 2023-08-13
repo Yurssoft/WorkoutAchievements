@@ -19,7 +19,6 @@ struct AchievementsView: View {
             WorkoutTypeView(selectedQuery: $selectedQuery)
             RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $selectedQuery)
         }
-        .padding()
     }
 }
 

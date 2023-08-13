@@ -18,7 +18,7 @@
 		589948482A819B8500245E29 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948472A819B8500245E29 /* ContentView.swift */; };
 		5899484A2A819B8700245E29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 589948492A819B8700245E29 /* Assets.xcassets */; };
 		5899484D2A819B8700245E29 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5899484C2A819B8700245E29 /* Preview Assets.xcassets */; };
-		589948662A819B8700245E29 /* WatchWorkoutAchievements.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 589948432A819B8500245E29 /* WatchWorkoutAchievements.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		589948662A819B8700245E29 /* WorkoutAchievements.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 589948432A819B8500245E29 /* WorkoutAchievements.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		589948722A819C2C00245E29 /* WorkoutsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 589948712A819C2C00245E29 /* WorkoutsClientLive */; };
 		589948742A819C2C00245E29 /* WorkoutsViewFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 589948732A819C2C00245E29 /* WorkoutsViewFeature */; };
 		5899487B2A819E7900245E29 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5899487A2A819E7900245E29 /* WidgetKit.framework */; };
@@ -62,7 +62,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				589948662A819B8700245E29 /* WatchWorkoutAchievements.app in Embed Watch Content */,
+				589948662A819B8700245E29 /* WorkoutAchievements.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,7 +84,7 @@
 		582324762A8443B4005985F3 /* WatchWorkoutAchievements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WatchWorkoutAchievements.entitlements; sourceTree = "<group>"; };
 		582324772A8448BA005985F3 /* RequestPermissionsViewFeature */ = {isa = PBXFileReference; lastKnownFileType = text; path = RequestPermissionsViewFeature; sourceTree = SOURCE_ROOT; };
 		589029D82A7DB6190068A0F1 /* WorkoutAchievements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WorkoutAchievements.entitlements; sourceTree = "<group>"; };
-		589948432A819B8500245E29 /* WatchWorkoutAchievements.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchWorkoutAchievements.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		589948432A819B8500245E29 /* WorkoutAchievements.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutAchievements.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		589948452A819B8500245E29 /* WatchWorkoutAchievementsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchWorkoutAchievementsApp.swift; sourceTree = "<group>"; };
 		589948472A819B8500245E29 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		589948492A819B8700245E29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				58C709582A7B0DD100563FAA /* WorkoutAchievements.app */,
-				589948432A819B8500245E29 /* WatchWorkoutAchievements.app */,
+				589948432A819B8500245E29 /* WorkoutAchievements.app */,
 				589948792A819E7900245E29 /* TopWorkoutAchievementExtension.appex */,
 			);
 			name = Products;
@@ -254,7 +254,7 @@
 				5823247A2A8449F3005985F3 /* RequestPermissionsViewFeature */,
 			);
 			productName = "WatchWorkoutAchievements Watch App";
-			productReference = 589948432A819B8500245E29 /* WatchWorkoutAchievements.app */;
+			productReference = 589948432A819B8500245E29 /* WorkoutAchievements.app */;
 			productType = "com.apple.product-type.application";
 		};
 		589948782A819E7900245E29 /* TopWorkoutAchievementExtension */ = {
@@ -436,7 +436,6 @@
 				DEVELOPMENT_TEAM = LS9HB285X6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = WatchWorkoutAchievements;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read workouts";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.yurssoft.WorkoutAchievements;
@@ -447,7 +446,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yurssoft.WorkoutAchievements.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WorkoutAchievements;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -469,7 +468,6 @@
 				DEVELOPMENT_TEAM = LS9HB285X6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = WatchWorkoutAchievements;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read workouts";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.yurssoft.WorkoutAchievements;
@@ -480,7 +478,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yurssoft.WorkoutAchievements.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WorkoutAchievements;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
