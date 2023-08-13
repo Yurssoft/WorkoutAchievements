@@ -37,9 +37,8 @@ final class WorkoutLoader {
         guard let workouts = samples as? [HKWorkout] else { return [] }
         let transformed = workouts.map { healthKitWorkout -> Workout in
             let activeEnergy = HKQuantityType(.activeEnergyBurned)
-            let caloriesStatistics = healthKitWorkout.statistics(for: activeEnergy)
-            let sumCalories = caloriesStatistics?.sumQuantity()
-            let caloriesDoubleValue = sumCalories?.doubleValue(for: .largeCalorie()) ?? 0
+            let activeEnergyStatistics = healthKitWorkout.statistics(for: activeEnergy)
+            let sumActiveEnergy = activeEnergyStatistics?.sumQuantity()
             
             let distanceQuantity: HKQuantityType
             switch query.workoutType {
@@ -53,25 +52,16 @@ final class WorkoutLoader {
                 distanceQuantity = HKQuantityType(.appleExerciseTime)
             }
             let statisticDistance = healthKitWorkout.statistics(for: distanceQuantity)?.sumQuantity()
-            let distance = statisticDistance?.doubleValue(for: .meter()) ?? 0
             
-            let time = DateComponentsFormatter().string(from: healthKitWorkout.duration)!
         
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .long
-            dateFormatter.timeStyle = .short
-            let date = dateFormatter.string(from: healthKitWorkout.startDate)
-            let workout = Workout(calories: "Calories: \(caloriesDoubleValue.roundedTo())\nDistance: \(distance.roundedTo())\nTime: \(time)\nDate: \(date)")
+            let workout = Workout(startDate: healthKitWorkout.startDate,
+                                  duration: healthKitWorkout.duration,
+                                  distanceSumStatisticsQuantity: statisticDistance,
+                                  activeEnergySumStatisticsQuantity: sumActiveEnergy,
+                                  query: query)
             return workout
         }
         return transformed
-    }
-}
-
-extension Double {
-    func roundedTo(places: Int = 2) -> Double {
-        let divisor = pow(10.0, Double(places))
-        return (self * divisor).rounded() / divisor
     }
 }
 
