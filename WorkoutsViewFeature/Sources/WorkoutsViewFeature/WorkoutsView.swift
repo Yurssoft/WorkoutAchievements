@@ -30,7 +30,6 @@ public struct WorkoutsView: View {
                 }
             }
         }
-        .padding()
         .onChange(of: selectedQuery, { oldValue, newValue in
             requestData(query: newValue)
         })
