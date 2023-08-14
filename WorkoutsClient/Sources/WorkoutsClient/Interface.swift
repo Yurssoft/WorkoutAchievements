@@ -25,10 +25,22 @@ public struct WorkoutsClient {
 }
 
 public struct Workout: Identifiable {
-    public init(calories: String) {
-        self.calories = calories
+    public init(startDate: Date = .now,
+                duration: TimeInterval = .pi,
+                distanceSumStatisticsQuantity: HKQuantity? = nil,
+                activeEnergySumStatisticsQuantity: HKQuantity? = nil,
+                query: WorkoutTypeQuery = .init()) {
+        self.startDate = startDate
+        self.duration = duration
+        self.distanceSumStatisticsQuantity = distanceSumStatisticsQuantity
+        self.activeEnergySumStatisticsQuantity = activeEnergySumStatisticsQuantity
+        self.query = query
     }
     
     public let id = UUID().uuidString
-    public let calories: String
+    public let startDate: Date
+    public let duration: TimeInterval
+    public let distanceSumStatisticsQuantity: HKQuantity?
+    public let activeEnergySumStatisticsQuantity: HKQuantity?
+    public let query: WorkoutTypeQuery
 }

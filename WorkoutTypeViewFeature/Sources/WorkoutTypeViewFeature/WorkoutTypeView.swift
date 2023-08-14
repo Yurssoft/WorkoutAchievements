@@ -51,29 +51,33 @@ public struct WorkoutTypeView: View {
     
     @Binding private var selectedQuery: WorkoutTypeQuery
     public var body: some View {
-        Group {
-            VStack {
-                Picker("Workout Type:", selection: $selectedQuery.workoutType) {
-                    ForEach(WorkoutsClient.WorkoutType.allCases, id: \.self) {
-                        Text($0.name)
+            Group {
+                VStack {
+                    Picker("Workout Type:", selection: $selectedQuery.workoutType) {
+                        ForEach(WorkoutsClient.WorkoutType.allCases, id: \.self) {
+                            Text($0.name)
+                        }
                     }
-                }
-                .pickerStyle(.menu)
-                
-                Picker("Measurment Type", selection: $selectedQuery.measurmentType) {
-                    ForEach(WorkoutMeasureType.allCases, id: \.self) {
-                        Text($0.name)
+                    .pickerStyle(.automatic)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    
+                    Picker("Measurment Type", selection: $selectedQuery.measurmentType) {
+                        ForEach(WorkoutMeasureType.allCases, id: \.self) {
+                            Text($0.name)
+                        }
                     }
+                    .pickerStyle(.automatic)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    
+                    Toggle("Is Ascending", isOn: $selectedQuery.isAscending)
+                    
+                    Text("Selected Query:\n \(selectedQuery.measurmentType.name)\n \(selectedQuery.workoutType.name) \n isAscending: \(String(describing: selectedQuery.isAscending))")
+                        .multilineTextAlignment(.center)
+//                        .lineLimit(4, reservesSpace: true)
                 }
-                .pickerStyle(.menu)
-                
-                Toggle("Is Ascending", isOn: $selectedQuery.isAscending)
-                
-                Text("Selected Query:\n \(selectedQuery.measurmentType.name)\n \(selectedQuery.workoutType.name) \n isAscending: \(String(describing: selectedQuery.isAscending))")
-                    .multilineTextAlignment(.center)
             }
-        }
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

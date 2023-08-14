@@ -6,17 +6,16 @@
 //
 
 import SwiftUI
-import RequestPermissionsViewFeature
 import WorkoutsClient
+import AchievementsViewFeature
 
 struct ContentView: View {
     let workoutsClient: WorkoutsClient
     
     var body: some View {
-        VStack {
-            RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: .constant(.init()))
+        ScrollView {
+            AchievementsView(workoutsClient: workoutsClient)
         }
-        .padding()
     }
 }
 

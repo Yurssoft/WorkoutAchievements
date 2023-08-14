@@ -7,7 +7,6 @@
 import Foundation
 import HealthKit
 
-#warning("add all types possibility to look, across all workout types")
 public struct WorkoutTypeQuery: Equatable {
     public init(workoutType: WorkoutsClient.WorkoutType = WorkoutsClient.WorkoutType.walking,
                 isAscending: Bool = false,

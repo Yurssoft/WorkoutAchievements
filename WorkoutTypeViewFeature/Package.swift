@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "WorkoutTypeViewFeature",
-    platforms: [.iOS(.v17)],
+    platforms: [.iOS(.v17), .watchOS(.v10)],
     products: [
         .library(
             name: "WorkoutTypeViewFeature",

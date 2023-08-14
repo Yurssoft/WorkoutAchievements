@@ -8,6 +8,7 @@
 import SwiftUI
 import WorkoutsClient
 import WorkoutsClientLive
+import AchievementsViewFeature
 
 @main
 struct WorkoutAchievementsApp: App {

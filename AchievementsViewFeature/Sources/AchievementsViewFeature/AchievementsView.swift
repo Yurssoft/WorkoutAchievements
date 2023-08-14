@@ -10,16 +10,19 @@ import RequestPermissionsViewFeature
 import WorkoutsClient
 import WorkoutTypeViewFeature
 
-struct AchievementsView: View {
+public struct AchievementsView: View {
+    public init(workoutsClient: WorkoutsClient) {
+        self.workoutsClient = workoutsClient
+    }
+    
     let workoutsClient: WorkoutsClient
     @State private var selectedQuery = WorkoutTypeQuery()
     
-    var body: some View {
+    public var body: some View {
         VStack {
             WorkoutTypeView(selectedQuery: $selectedQuery)
             RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $selectedQuery)
         }
-        .padding()
     }
 }
 

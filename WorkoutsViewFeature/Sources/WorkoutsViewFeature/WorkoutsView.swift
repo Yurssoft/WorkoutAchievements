@@ -25,12 +25,11 @@ public struct WorkoutsView: View {
             } else {
                 List {
                     ForEach(workouts) { workout in
-                        Text(workout.calories)
+                        Text(displayText(workout: workout))
                     }
                 }
             }
         }
-        .padding()
         .onChange(of: selectedQuery, { oldValue, newValue in
             requestData(query: newValue)
         })
@@ -39,12 +38,20 @@ public struct WorkoutsView: View {
         }
     }
     
-    private func requestData(query: WorkoutTypeQuery) {
-            Task {
-                isLoading = true
-                workouts = try! await client.loadWorkoutsList(query)
-                isLoading = false
-            }
+}
+
+private extension WorkoutsView {
+    func requestData(query: WorkoutTypeQuery) {
+        Task {
+            isLoading = true
+            workouts = try! await client.loadWorkoutsList(query)
+            isLoading = false
+        }
+    }
+    
+    func displayText(workout: Workout) -> String {
+        let display = WorkoutDisplayProcessor.process(workout: workout)
+        return "Calories: \(display.largeCalories) Cal \nDistance: \(display.distance) m\nTime: \(display.duration) minutes\nStarted: \(display.startDate)"
     }
 }
 
