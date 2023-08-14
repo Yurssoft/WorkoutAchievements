@@ -8,7 +8,6 @@
 import SwiftUI
 import WorkoutsClient
 import WorkoutsClientLive
-import RequestPermissionsViewFeature
 
 @main
 struct WatchWorkoutAchievementsApp: App {
