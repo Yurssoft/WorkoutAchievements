@@ -22,6 +22,7 @@ public struct AchievementsView: View {
         VStack {
             WorkoutTypeView(selectedQuery: $selectedQuery)
             RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $selectedQuery)
+            Spacer()
         }
         .onChange(of: selectedQuery) { _, newValue in
             QuerySaver.save(query: newValue)

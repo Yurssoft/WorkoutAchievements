@@ -51,32 +51,26 @@ public struct WorkoutTypeView: View {
     
     @Binding private var selectedQuery: WorkoutTypeQuery
     public var body: some View {
-            Group {
-                VStack {
-                    Picker("Workout Type:", selection: $selectedQuery.workoutType) {
-                        ForEach(WorkoutsClient.WorkoutType.allCases, id: \.self) {
-                            Text($0.name)
-                        }
-                    }
-                    .pickerStyle(.automatic)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    
-                    Picker("Measurment Type", selection: $selectedQuery.measurmentType) {
-                        ForEach(WorkoutMeasureType.allCases, id: \.self) {
-                            Text($0.name)
-                        }
-                    }
-                    .pickerStyle(.automatic)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    
-                    Toggle("Is Ascending", isOn: $selectedQuery.isAscending)
-                    
-                    Text("Selected Query:\n \(selectedQuery.measurmentType.name)\n \(selectedQuery.workoutType.name) \n isAscending: \(String(describing: selectedQuery.isAscending))")
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    Spacer()
+        VStack {
+            Picker("Workout Type:", selection: $selectedQuery.workoutType) {
+                ForEach(WorkoutsClient.WorkoutType.allCases, id: \.self) {
+                    Text($0.name)
                 }
             }
+            .pickerStyle(.automatic)
+            
+            Picker("Measurment Type", selection: $selectedQuery.measurmentType) {
+                ForEach(WorkoutMeasureType.allCases, id: \.self) {
+                    Text($0.name)
+                }
+            }
+            .pickerStyle(.automatic)
+            
+            Toggle("Is Ascending", isOn: $selectedQuery.isAscending)
+            
+            Text("Selected Query:\n \(selectedQuery.measurmentType.name)\n \(selectedQuery.workoutType.name) \n isAscending: \(String(describing: selectedQuery.isAscending))")
+                .multilineTextAlignment(.center)
+        }
         .padding()
     }
 }
