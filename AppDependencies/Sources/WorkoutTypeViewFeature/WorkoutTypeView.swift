@@ -73,11 +73,11 @@ public struct WorkoutTypeView: View {
                     
                     Text("Selected Query:\n \(selectedQuery.measurmentType.name)\n \(selectedQuery.workoutType.name) \n isAscending: \(String(describing: selectedQuery.isAscending))")
                         .multilineTextAlignment(.center)
-//                        .lineLimit(4, reservesSpace: true)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    Spacer()
                 }
             }
         .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
