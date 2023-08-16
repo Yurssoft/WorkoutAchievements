@@ -7,7 +7,7 @@
 import Foundation
 import HealthKit
 
-public struct WorkoutTypeQuery: Equatable {
+public struct WorkoutTypeQuery: Equatable, Codable {
     public init(workoutType: WorkoutsClient.WorkoutType = WorkoutsClient.WorkoutType.walking,
                 isAscending: Bool = false,
                 measurmentType: WorkoutMeasureType = WorkoutMeasureType.distance) {
@@ -21,8 +21,10 @@ public struct WorkoutTypeQuery: Equatable {
     public var measurmentType: WorkoutMeasureType
 }
 
-public enum WorkoutMeasureType: CaseIterable, Equatable {
+public enum WorkoutMeasureType: CaseIterable, Equatable, Codable {
     case time
     case distance
     case calories
 }
+
+extension WorkoutsClient.WorkoutType: Codable { }
