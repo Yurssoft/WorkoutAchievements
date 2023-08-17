@@ -19,10 +19,13 @@ public struct AchievementsView: View {
     @State private var selectedQuery = QuerySaver.loadLastQuery()
     
     public var body: some View {
-        VStack {
+        NavigationSplitView {
             WorkoutTypeView(selectedQuery: $selectedQuery)
-            RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $selectedQuery)
-            Spacer()
+        } detail: {
+            VStack {
+                RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $selectedQuery)
+                Spacer()
+            }
         }
         .onChange(of: selectedQuery) { _, newValue in
             QuerySaver.save(query: newValue)
