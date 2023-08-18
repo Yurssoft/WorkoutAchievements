@@ -56,5 +56,5 @@ private extension WorkoutsView {
 }
 
 #Preview {
-    WorkoutsView(client: .authorizedToReadMock, selectedQuery: .constant(.init()))
+    WorkoutsView(client: .workoutsMock, selectedQuery: .constant(.init()))
 }

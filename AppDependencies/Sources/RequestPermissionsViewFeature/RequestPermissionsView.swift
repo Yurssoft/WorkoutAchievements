@@ -59,5 +59,5 @@ private extension RequestPermissionsView {
 }
 
 #Preview {
-    RequestPermissionsView(workoutsClient: .authorizedToReadMock, selectedQuery: .constant(.init()))
+    RequestPermissionsView(workoutsClient: .workoutsMock, selectedQuery: .constant(.init()))
 }
