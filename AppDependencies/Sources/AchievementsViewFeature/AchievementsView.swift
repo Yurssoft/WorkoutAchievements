@@ -15,17 +15,19 @@ public struct AchievementsView: View {
         self.workoutsClient = workoutsClient
     }
     
-    let workoutsClient: WorkoutsClient
+    private let workoutsClient: WorkoutsClient
     @State private var selectedQuery = QuerySaver.loadLastQuery()
     
     public var body: some View {
-        NavigationSplitView {
-            WorkoutTypeView(selectedQuery: $selectedQuery)
-        } detail: {
-            VStack {
-                RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $selectedQuery)
-                Spacer()
+        NavigationView {
+            ScrollView {
+                VStack {
+                    WorkoutTypeView(selectedQuery: $selectedQuery)
+                    RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $selectedQuery)
+                    Spacer()
+                }
             }
+            .navigationTitle("Workout Achievements")
         }
         .onChange(of: selectedQuery) { _, newValue in
             QuerySaver.save(query: newValue)
@@ -34,7 +36,19 @@ public struct AchievementsView: View {
 }
 
 #Preview {
-    UIElementPreview(AchievementsView(workoutsClient: .workoutsMock))
+    
+    
+    Group {
+        ScrollView {
+            UIElementPreview(
+                
+                AchievementsView(workoutsClient: .workoutsMock)
+                
+            )
+        }
+    }
+    
+    
 }
 
 struct UIElementPreview<Value: View>: View {
@@ -63,7 +77,7 @@ struct UIElementPreview<Value: View>: View {
                 .background(Color(.systemBackground))
                 .environment(\.colorScheme, .dark)
                 .previewDisplayName("Dark Mode")
-
+            
             ForEach(localizations, id: \.identifier) { locale in
                 self.viewToPreview
                     .previewLayout(PreviewLayout.sizeThatFits)
@@ -71,7 +85,7 @@ struct UIElementPreview<Value: View>: View {
                     .environment(\.locale, locale)
                     .previewDisplayName(Locale.current.localizedString(forIdentifier: locale.identifier))
             }
-
+            
             ForEach(dynamicTypeSizes, id: \.self) { sizeCategory in
                 self.viewToPreview
                     .previewLayout(PreviewLayout.sizeThatFits)

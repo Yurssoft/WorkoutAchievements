@@ -10,9 +10,7 @@ import WorkoutsClient
 import HealthKit
 
 extension WorkoutsClient {
-    public static let live: WorkoutsClient = .authorizedToReadMock
-    
-    public static var actualLiveHealthKitAccess = {
+    public static var liveClient = {
         let store = HKHealthStore()
         let permissions = HealthKitPermissions(store: store)
         return Self { type in

@@ -41,6 +41,7 @@ public struct RequestPermissionsView: View {
             case .error:
                 Text("Error")
             }
+            Spacer()
         }
     }
 }

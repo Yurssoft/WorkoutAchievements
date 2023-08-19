@@ -70,6 +70,7 @@ public struct WorkoutTypeView: View {
             
             Text("Selected Query:\n \(selectedQuery.measurmentType.name)\n \(selectedQuery.workoutType.name) \n isAscending: \(String(describing: selectedQuery.isAscending))")
                 .multilineTextAlignment(.center)
+            Spacer()
         }
         .padding()
     }
