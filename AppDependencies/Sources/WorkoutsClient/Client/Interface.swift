@@ -11,6 +11,7 @@ public extension WorkoutsClient {
     
     typealias WorkoutType = HKWorkoutActivityType
     typealias WorkoutMeasureType = HKQuantityTypeIdentifier
+    typealias AuthorizationStatus = HKAuthorizationStatus
 }
 
 public struct WorkoutsClient {
@@ -43,4 +44,18 @@ public struct Workout: Identifiable {
     public let distanceSumStatisticsQuantity: HKQuantity?
     public let activeEnergySumStatisticsQuantity: HKQuantity?
     public let query: WorkoutTypeQuery
+}
+
+public extension WorkoutsClient {
+    struct AuthorizationStatuses {
+        public init(workout: WorkoutsClient.AuthorizationStatus, summary: WorkoutsClient.AuthorizationStatus, route: WorkoutsClient.AuthorizationStatus) {
+            self.workout = workout
+            self.summary = summary
+            self.route = route
+        }
+        
+        let workout: AuthorizationStatus
+        let summary: AuthorizationStatus
+        let route: AuthorizationStatus
+    }
 }

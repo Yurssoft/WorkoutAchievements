@@ -7,48 +7,13 @@
 import SwiftUI
 import WorkoutsClient
 
-extension WorkoutsClient.WorkoutType: CaseIterable {
-    public static var allCases: [WorkoutsClient.WorkoutType] {
-        [.walking, .swimming, .hiking]
-    }
-    
-    var name: String {
-        switch self {
-        case .walking:
-            return "Walking"
-            
-        case .swimming:
-            return "Swimming"
-            
-        case .hiking:
-            return "Hiking"
-            
-        default:
-            return ""
-        }
-    }
-}
-
-extension WorkoutMeasureType {
-    var name: String {
-        switch self {
-        case .time:
-            return "Time"
-            
-        case .distance:
-            return "Distance"
-            
-        case .calories:
-            return "Calories"
-        }
-    }
-}
-
 public struct WorkoutTypeView: View {
     public init(selectedQuery: Binding<WorkoutTypeQuery>) {
         self._selectedQuery = selectedQuery
+        self.typesQuery = selectedQuery.wrappedValue
     }
     
+    @State private var typesQuery: QueryType
     @Binding private var selectedQuery: WorkoutTypeQuery
     public var body: some View {
         VStack {

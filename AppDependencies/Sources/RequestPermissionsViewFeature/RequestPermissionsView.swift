@@ -52,6 +52,9 @@ private extension RequestPermissionsView {
     func checkAuthorizationStatusAndLoadList() {
         Task {
             do {
+                if workoutsClient.isAuthorizedToUse {
+                    
+                }
                 try await workoutsClient.requestReadAuthorization()
                 state = .showList
             } catch {
