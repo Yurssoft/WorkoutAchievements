@@ -10,7 +10,7 @@ import WorkoutsClient
 
 extension RequestPermissionsView {
     enum ViewState {
-        case initialized
+        case initial
         case showList
         case error
     }
@@ -26,22 +26,24 @@ public struct RequestPermissionsView: View {
     @Binding private var selectedQuery: WorkoutTypeQuery
     
     let workoutsClient: WorkoutsClient
-    @State private var state = ViewState.initialized
+    @State private var state = ViewState.initial
     public var body: some View {
         VStack {
             switch state {
-            case .initialized:
-                Button("Request Authorization & Load List") {
-                    checkAuthorizationStatusAndLoadList()
-                }
+            case .initial:
+                EmptyView()
                 
             case .showList:
                 WorkoutsView(client: workoutsClient, selectedQuery: $selectedQuery)
                 
             case .error:
                 Text("Error")
+                
             }
             Spacer()
+        }
+        .onAppear() {
+            checkAuthorizationStatusAndLoadList()
         }
     }
 }
