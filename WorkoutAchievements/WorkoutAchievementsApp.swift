@@ -12,7 +12,7 @@ import AchievementsViewFeature
 
 @main
 struct WorkoutAchievementsApp: App {
-    private let workoutsClient = WorkoutsClient.liveClient()
+    private let workoutsClient = WorkoutsClient.live
     var body: some Scene {
         WindowGroup {
             AchievementsView(workoutsClient: workoutsClient)

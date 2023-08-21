@@ -10,7 +10,7 @@ import WorkoutsClient
 import HealthKit
 
 extension WorkoutsClient {
-    public static var liveClient = {
+    static var liveClient = {
         let store = HKHealthStore()
         let permissions = HealthKitPermissions(store: store)
         return Self { type in
@@ -20,4 +20,6 @@ extension WorkoutsClient {
             try await permissions.requestReadPemissions()
         }
     }
+    
+    public static let live = liveClient()
 }

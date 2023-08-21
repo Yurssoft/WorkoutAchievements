@@ -11,7 +11,7 @@ import WorkoutsClientLive
 
 @main
 struct WatchWorkoutAchievementsApp: App {
-    private let workoutsClient = WorkoutsClient.liveClient()
+    private let workoutsClient = WorkoutsClient.live
     
     var body: some Scene {
         WindowGroup {
