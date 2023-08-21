@@ -1,7 +1,15 @@
 import SwiftUI
 import WorkoutsClient
 
-// Displays list view for workouts fetched
+extension WorkoutsView {
+    enum ViewState {
+        case initial
+        case loading
+        case error
+        case list(workouts: [Workout])
+    }
+}
+
 public struct WorkoutsView: View {
     public init(client: WorkoutsClient,
                 selectedQuery: Binding<WorkoutTypeQuery>) {
@@ -11,8 +19,7 @@ public struct WorkoutsView: View {
     
     @Binding private var selectedQuery: WorkoutTypeQuery
     let client: WorkoutsClient
-    @State private var workouts = [Workout]()
-    @State private var isLoading = true
+    @State private var state = ViewState.initial
     
     var typeString: String {
         "\(selectedQuery.workoutType)"
@@ -20,9 +27,17 @@ public struct WorkoutsView: View {
     
     public var body: some View {
         Group {
-            if isLoading {
+            switch state {
+            case .initial:
+                EmptyView()
+                
+            case .loading:
                 Text("Loading..........")
-            } else {
+                
+            case .error:
+                Text("Error")
+                
+            case .list(let workouts):
                 List {
                     ForEach(workouts) { workout in
                         Text(displayText(workout: workout))
@@ -43,9 +58,13 @@ public struct WorkoutsView: View {
 private extension WorkoutsView {
     func requestData(query: WorkoutTypeQuery) {
         Task {
-            isLoading = true
-            workouts = try! await client.loadWorkoutsList(query)
-            isLoading = false
+            state = .loading
+            do {
+                let workouts = try await client.loadWorkoutsList(query)
+                state = .list(workouts: workouts)
+            } catch {
+                state = .error
+            }
         }
     }
     
@@ -56,5 +75,5 @@ private extension WorkoutsView {
 }
 
 #Preview {
-    WorkoutsView(client: .authorizedToReadMock, selectedQuery: .constant(.init()))
+    WorkoutsView(client: .workoutsMock, selectedQuery: .constant(.init()))
 }
