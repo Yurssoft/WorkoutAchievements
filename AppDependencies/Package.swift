@@ -42,9 +42,11 @@ let package = Package(
             name: "WorkoutsViewFeature",
             dependencies: ["WorkoutsClient"]),
         .target(
-            name: "WorkoutsClient"),
+            name: "WorkoutsClient",
+            path: "Sources/WorkoutsClient/Client"),
         .target(
             name: "WorkoutsClientLive",
-            dependencies: ["WorkoutsClient"]),
+            dependencies: ["WorkoutsClient"],
+            path: "Sources/WorkoutsClient/Live"),
     ]
 )
