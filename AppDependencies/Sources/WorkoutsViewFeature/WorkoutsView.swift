@@ -21,10 +21,6 @@ public struct WorkoutsView: View {
     let client: WorkoutsClient
     @State private var state = ViewState.initial
     
-    var typeString: String {
-        "\(selectedQuery.workoutType)"
-    }
-    
     public var body: some View {
         Group {
             switch state {

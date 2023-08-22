@@ -8,15 +8,15 @@ import Foundation
 import HealthKit
 
 public struct WorkoutTypeQuery: Equatable, Codable {
-    public init(workoutType: WorkoutsClient.WorkoutType = WorkoutsClient.WorkoutType.walking,
+    public init(workoutTypes: [WorkoutsClient.WorkoutType] = [WorkoutsClient.WorkoutType.walking],
                 isAscending: Bool = false,
                 measurmentType: WorkoutMeasureType = WorkoutMeasureType.distance) {
-        self.workoutType = workoutType
+        self.workoutTypes = workoutTypes
         self.isAscending = isAscending
         self.measurmentType = measurmentType
     }
     
-    public var workoutType: WorkoutsClient.WorkoutType
+    public var workoutTypes: [WorkoutsClient.WorkoutType]
     public var isAscending: Bool
     public var measurmentType: WorkoutMeasureType
 }

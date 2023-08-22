@@ -7,27 +7,45 @@
 
 import WorkoutsClient
 
-enum QueryType {
-    case all
-    case workoutType(WorkoutsClient.WorkoutType)
+enum QueryType: Codable, CaseIterable, Hashable {
+    static var allCases: [QueryType] {
+        [.all, .workoutTypes(WorkoutsClient.WorkoutType.allCases)]
+    }
     
-    var types: WorkoutsClient.WorkoutType {
+    case all
+    case workoutTypes([WorkoutsClient.WorkoutType])
+    
+    var types: [WorkoutsClient.WorkoutType] {
         switch self {
         case .all:
             return WorkoutsClient.WorkoutType.allCases
             
-        case .workoutType(let type):
-            return type
+        case .workoutTypes(let types):
+            return types
         }
     }
-    
-    var name: String {
+
+}
+
+extension QueryType {
+    func workoutTypeQuery(isAscending: Bool, measurmentType: WorkoutMeasureType) -> WorkoutTypeQuery {
+        let workoutTypes: [WorkoutsClient.WorkoutType]
         switch self {
-        case .workoutType(let type):
-            return type.name
-            
         case .all:
-            return "All Workouts"
+            workoutTypes = WorkoutsClient.WorkoutType.allCases
+        case .workoutTypes(let types):
+            workoutTypes = types
+        }
+        return WorkoutTypeQuery(workoutTypes: workoutTypes, isAscending: isAscending, measurmentType: measurmentType)
+    }
+}
+
+extension WorkoutTypeQuery {
+    var queryType: QueryType {
+        if workoutTypes == WorkoutsClient.WorkoutType.allCases {
+            return .all
+        } else {
+            return .workoutTypes(workoutTypes)
         }
     }
 }
@@ -36,6 +54,21 @@ extension WorkoutsClient.WorkoutType: CaseIterable {
     public static var allCases: [WorkoutsClient.WorkoutType] {
         [.walking, .swimming, .hiking, .cycling, .running]
     }
+}
+
+extension QueryType {
+    var name: String {
+        switch self {
+        case .workoutTypes:
+            return "No name"
+            
+        case .all:
+            return "All Workouts"
+        }
+    }
+}
+
+extension WorkoutsClient.WorkoutType {
     
     var name: String {
         switch self {

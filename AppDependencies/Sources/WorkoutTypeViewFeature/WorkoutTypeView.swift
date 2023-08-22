@@ -7,33 +7,41 @@
 import SwiftUI
 import WorkoutsClient
 
-public struct WorkoutTypeView: View {
-    public init(selectedQuery: Binding<WorkoutTypeQuery>) {
-        self._selectedQuery = selectedQuery
-        self.typesQuery = selectedQuery.wrappedValue
+public extension WorkoutTypeView {
+    @Observable final class ViewModel {
+        public init(selectedQuery: WorkoutTypeQuery) {
+            self.selectedQuery = selectedQuery
+            self.typesQuery = selectedQuery.queryType
+        }
+        
+        fileprivate var selectedQuery: WorkoutTypeQuery
+        fileprivate var typesQuery: QueryType
     }
+}
+
+public struct WorkoutTypeView: View {
+    @Bindable var viewModel: ViewModel
     
-    @State private var typesQuery: QueryType
-    @Binding private var selectedQuery: WorkoutTypeQuery
     public var body: some View {
         VStack {
-            Picker("Workout Type:", selection: $selectedQuery.workoutType) {
+            Picker("Workout Type:", selection: $viewModel.typesQuery) {
+                Text(QueryType.all.name)
                 ForEach(WorkoutsClient.WorkoutType.allCases, id: \.self) {
                     Text($0.name)
                 }
             }
             .pickerStyle(.automatic)
             
-            Picker("Measurment Type", selection: $selectedQuery.measurmentType) {
+            Picker("Measurment Type", selection: $viewModel.selectedQuery.measurmentType) {
                 ForEach(WorkoutMeasureType.allCases, id: \.self) {
                     Text($0.name)
                 }
             }
             .pickerStyle(.automatic)
             
-            Toggle("Is Ascending", isOn: $selectedQuery.isAscending)
+            Toggle("Is Ascending", isOn: $viewModel.selectedQuery.isAscending)
             
-            Text("Selected Query:\n \(selectedQuery.measurmentType.name)\n \(selectedQuery.workoutType.name) \n isAscending: \(String(describing: selectedQuery.isAscending))")
+            Text("Selected Query:\n \(viewModel.selectedQuery.measurmentType.name)\n \(viewModel.typesQuery.name) \n isAscending: \(String(describing: viewModel.selectedQuery.isAscending))")
                 .multilineTextAlignment(.center)
             Spacer()
         }
@@ -41,4 +49,4 @@ public struct WorkoutTypeView: View {
     }
 }
 
-#Preview { WorkoutTypeView(selectedQuery: .constant(.init())) }
+#Preview { WorkoutTypeView(viewModel: WorkoutTypeView.ViewModel(selectedQuery: WorkoutTypeQuery(workoutTypes: WorkoutsClient.WorkoutType.allCases))) }
