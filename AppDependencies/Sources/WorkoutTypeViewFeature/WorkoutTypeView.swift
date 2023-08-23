@@ -30,6 +30,7 @@ public struct WorkoutTypeView: View {
         VStack {
             Picker("Workout Type:", selection: $viewModel.typesQuery) {
                 Text(QueryType.all.name)
+                    .tag(QueryType.all)
                 ForEach(WorkoutsClient.WorkoutType.allCases, id: \.self) {
                     Text($0.name)
                         .tag(QueryType.workoutTypes([$0]))
