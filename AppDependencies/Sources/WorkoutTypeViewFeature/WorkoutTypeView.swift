@@ -28,6 +28,7 @@ public struct WorkoutTypeView: View {
                 Text(QueryType.all.name)
                 ForEach(WorkoutsClient.WorkoutType.allCases, id: \.self) {
                     Text($0.name)
+                        .tag(QueryType.workoutTypes([$0]))
                 }
             }
             .pickerStyle(.automatic)

@@ -59,8 +59,8 @@ extension WorkoutsClient.WorkoutType: CaseIterable {
 extension QueryType {
     var name: String {
         switch self {
-        case .workoutTypes:
-            return "No name"
+        case .workoutTypes(let workouts):
+            return workouts.first?.name ?? "No name"
             
         case .all:
             return "All Workouts"
