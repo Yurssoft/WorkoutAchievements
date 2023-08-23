@@ -14,12 +14,16 @@ public extension WorkoutTypeView {
             self.typesQuery = selectedQuery.queryType
         }
         
-        fileprivate var selectedQuery: WorkoutTypeQuery
+        public var selectedQuery: WorkoutTypeQuery
         fileprivate var typesQuery: QueryType
     }
 }
 
 public struct WorkoutTypeView: View {
+    public init(viewModel: WorkoutTypeView.ViewModel) {
+        self.viewModel = viewModel
+    }
+    
     @Bindable var viewModel: ViewModel
     
     public var body: some View {

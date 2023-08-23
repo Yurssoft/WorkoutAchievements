@@ -13,23 +13,26 @@ import WorkoutTypeViewFeature
 public struct AchievementsView: View {
     public init(workoutsClient: WorkoutsClient) {
         self.workoutsClient = workoutsClient
+        let lastSavedQuery = QuerySaver.loadLastQuery()
+        let viewModelObj = WorkoutTypeView.ViewModel(selectedQuery: lastSavedQuery)
+        viewModel = viewModelObj
     }
     
     private let workoutsClient: WorkoutsClient
-    @State private var selectedQuery = QuerySaver.loadLastQuery()
+    @Bindable private var viewModel: WorkoutTypeView.ViewModel
     
     public var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    WorkoutTypeView(selectedQuery: $selectedQuery)
-                    RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $selectedQuery)
+                    WorkoutTypeView(viewModel: viewModel)
+                    RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $viewModel.selectedQuery)
                     Spacer()
                 }
             }
             .navigationTitle("Workout Achievements")
         }
-        .onChange(of: selectedQuery) { _, newValue in
+        .onChange(of: viewModel.selectedQuery) { _, newValue in
             QuerySaver.save(query: newValue)
         }
     }
