@@ -8,7 +8,7 @@ extension WorkoutsClient {
     } requestReadAuthorization: {
         
     } authorizationStatuses: {
-        AuthorizationStatuses(workout: .sharingAuthorized, summary: .sharingAuthorized, route: .sharingAuthorized)
+        AuthorizationSaveStatuses(workout: .sharingAuthorized, summary: .sharingAuthorized, route: .sharingAuthorized)
     }
     
     private static func getWorkouts() async throws -> [Workout] {

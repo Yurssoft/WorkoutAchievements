@@ -25,7 +25,7 @@ public struct WorkoutsView: View {
         Group {
             switch state {
             case .initial:
-                EmptyView()
+                Text("Initialized🌈😏")
                 
             case .loading:
                 Text("Loading..........")
@@ -34,19 +34,22 @@ public struct WorkoutsView: View {
                 Text("Error")
                 
             case .list(let workouts):
-                List {
-                    ForEach(workouts) { workout in
-                        Text(displayText(workout: workout))
+                VStack {
+                    Text("List total entries: \(workouts.count)")
+                    List {
+                        ForEach(workouts, id: \.id) { workout in
+                            Text(displayText(workout: workout))
+                        }
                     }
                 }
             }
         }
-        .onChange(of: selectedQuery, { oldValue, newValue in
-            requestData(query: newValue)
-        })
         .onAppear() {
             requestData(query: selectedQuery)
         }
+        .onChange(of: selectedQuery, { oldValue, newValue in
+            requestData(query: newValue)
+        })
     }
     
 }
@@ -66,6 +69,7 @@ private extension WorkoutsView {
     
     func displayText(workout: Workout) -> String {
         let display = WorkoutDisplayProcessor.process(workout: workout)
+        print("------------------")
         return "Calories: \(display.largeCalories) Cal \nDistance: \(display.distance) m\nTime: \(display.duration) minutes\nStarted: \(display.startDate)"
     }
 }

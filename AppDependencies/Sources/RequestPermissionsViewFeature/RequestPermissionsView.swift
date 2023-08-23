@@ -51,23 +51,10 @@ public struct RequestPermissionsView: View {
 private extension RequestPermissionsView {
     func checkAuthorizationStatusAndLoadList() {
         Task {
-            let statuses = workoutsClient.authorizationStatuses()
-            switch (statuses.route, statuses.workout, statuses.summary) {
-            case (.sharingDenied, .sharingDenied, .sharingDenied):
-                state = .error
-                
-            case (.notDetermined, .notDetermined, .notDetermined):
-                do {
-                    try await workoutsClient.requestReadAuthorization()
-                    state = .showList
-                } catch {
-                    state = .error
-                }
-                
-            case (.sharingAuthorized, .sharingAuthorized, .sharingAuthorized):
+            do {
+                try await workoutsClient.requestReadAuthorization()
                 state = .showList
-                
-            default:
+            } catch {
                 state = .error
             }
         }
