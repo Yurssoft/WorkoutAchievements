@@ -18,6 +18,8 @@ extension WorkoutsClient {
             return workouts
         } requestReadAuthorization: {
             try await permissions.requestReadPemissions()
+        } authorizationStatuses: {
+            permissions.authorizationStatuses()
         }
     }
     

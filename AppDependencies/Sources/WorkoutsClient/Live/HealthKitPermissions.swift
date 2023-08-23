@@ -21,7 +21,7 @@ final class HealthKitPermissions {
         HKSeriesType.workoutRoute()
     ]
     
-    func authorizationStatus() -> WorkoutsClient.AuthorizationStatuses {
+    func authorizationStatuses() -> WorkoutsClient.AuthorizationStatuses {
         WorkoutsClient.AuthorizationStatuses(
             workout: store.authorizationStatus(for: HKSeriesType.workoutType()),
             summary: store.authorizationStatus(for: HKSeriesType.activitySummaryType()),

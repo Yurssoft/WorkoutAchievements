@@ -7,6 +7,7 @@ public enum WorkoutsClientError: Error {
 
 public extension WorkoutsClient {
     typealias WorkoutsListClosure = (WorkoutTypeQuery) async throws -> [Workout]
+    typealias WorkoutsAuthorizationStatusesClosure = () -> AuthorizationStatuses
     typealias RequestReadAuthorizationClosure = () async throws -> Void
     
     typealias WorkoutType = HKWorkoutActivityType
@@ -16,13 +17,16 @@ public extension WorkoutsClient {
 
 public struct WorkoutsClient {
     public init(loadWorkoutsList: @escaping WorkoutsListClosure,
-                requestReadAuthorization: @escaping RequestReadAuthorizationClosure) {
+                requestReadAuthorization: @escaping RequestReadAuthorizationClosure,
+                authorizationStatuses: @escaping WorkoutsAuthorizationStatusesClosure) {
         self.loadWorkoutsList = loadWorkoutsList
         self.requestReadAuthorization = requestReadAuthorization
+        self.authorizationStatuses = authorizationStatuses
     }
     
-    public var loadWorkoutsList: WorkoutsListClosure
-    public var requestReadAuthorization: RequestReadAuthorizationClosure
+    public let loadWorkoutsList: WorkoutsListClosure
+    public let requestReadAuthorization: RequestReadAuthorizationClosure
+    public let authorizationStatuses: WorkoutsAuthorizationStatusesClosure
 }
 
 public struct Workout: Identifiable {
@@ -57,8 +61,12 @@ public extension WorkoutsClient {
             self.route = route
         }
         
-        let workout: AuthorizationStatus
-        let summary: AuthorizationStatus
-        let route: AuthorizationStatus
+        public let workout: AuthorizationStatus
+        public let summary: AuthorizationStatus
+        public let route: AuthorizationStatus
     }
 }
+
+//public extension WorkoutsClient.AuthorizationStatuses {
+//    
+//}
