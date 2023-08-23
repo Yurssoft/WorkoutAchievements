@@ -30,12 +30,14 @@ public struct Workout: Identifiable {
                 duration: TimeInterval = .pi,
                 distanceSumStatisticsQuantity: HKQuantity? = nil,
                 activeEnergySumStatisticsQuantity: HKQuantity? = nil,
-                query: WorkoutTypeQuery = .init()) {
+                query: WorkoutTypeQuery = .init(),
+                workoutType: WorkoutsClient.WorkoutType = .walking) {
         self.startDate = startDate
         self.duration = duration
         self.distanceSumStatisticsQuantity = distanceSumStatisticsQuantity
         self.activeEnergySumStatisticsQuantity = activeEnergySumStatisticsQuantity
         self.query = query
+        self.workoutType = workoutType
     }
     
     public let id = UUID().uuidString
@@ -44,6 +46,7 @@ public struct Workout: Identifiable {
     public let distanceSumStatisticsQuantity: HKQuantity?
     public let activeEnergySumStatisticsQuantity: HKQuantity?
     public let query: WorkoutTypeQuery
+    public let workoutType: WorkoutsClient.WorkoutType
 }
 
 public extension WorkoutsClient {
