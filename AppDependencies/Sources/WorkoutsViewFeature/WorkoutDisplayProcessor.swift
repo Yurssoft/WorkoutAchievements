@@ -22,11 +22,11 @@ extension WorkoutDispayValues {
 
 struct WorkoutDispayValues: Identifiable {
     let id: String
-    let largeCalories: Double
-    let distance: Double
-    let startDate: String
-    let duration: String
-    let type: String
+    fileprivate let largeCalories: Double
+    fileprivate let distance: Double
+    fileprivate let startDate: String
+    fileprivate let duration: String
+    fileprivate let type: String
 }
 
 final class WorkoutDisplayProcessor {
