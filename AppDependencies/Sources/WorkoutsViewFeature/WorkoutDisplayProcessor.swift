@@ -63,6 +63,7 @@ final class WorkoutDisplayProcessor {
         let measurement = Measurement(value: value, unit: dimension)
         let formatter = MeasurementFormatter()
         formatter.numberFormatter.maximumFractionDigits = 2
+        formatter.numberFormatter.numberStyle = .decimal
         let string = formatter.string(from: measurement)
         return string
     }
