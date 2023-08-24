@@ -29,7 +29,7 @@ public struct WorkoutsClient {
     public let authorizationStatuses: WorkoutsAuthorizationStatusesClosure
 }
 
-public struct Workout: Identifiable {
+public struct Workout: Identifiable, Equatable {
     public init(startDate: Date = .now,
                 duration: TimeInterval = .pi,
                 distanceSumStatisticsQuantity: HKQuantity? = nil,

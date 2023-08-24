@@ -26,11 +26,12 @@ public struct AchievementsView: View {
             ScrollView {
                 VStack {
                     WorkoutTypeView(viewModel: viewModel)
+                    Divider().overlay(Color.gray)
                     RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $viewModel.selectedQuery)
                     Spacer()
                 }
             }
-            .navigationTitle("Workout Achievements")
+            .navigationTitle("Achievements")
         }
         .onChange(of: viewModel.selectedQuery) { _, newValue in
             QuerySaver.save(query: newValue)
