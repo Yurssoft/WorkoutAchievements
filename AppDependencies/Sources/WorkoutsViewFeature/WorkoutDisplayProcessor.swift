@@ -16,7 +16,7 @@ extension Workout {
 
 extension WorkoutDispayValues {
     var displayString: String {
-        "Calories: \(largeCalories) Cal \nDistance: \(distance) m\nTime: \(duration) minutes\nStarted: \(startDate)\nType: \(type)"
+        "Calories: \(largeCalories) Cal \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)\nType: \(type)"
     }
 }
 
@@ -34,7 +34,7 @@ struct DisplayStringContainer: Identifiable {
 struct WorkoutDispayValues: Identifiable {
     let id: String
     fileprivate let largeCalories: Double
-    fileprivate let distance: Double
+    fileprivate let distance: String
     fileprivate let startDate: String
     fileprivate let duration: String
     fileprivate let type: String
@@ -45,11 +45,27 @@ final class WorkoutDisplayProcessor {
         let date = convert(date: workout.startDate)
         let time = DateComponentsFormatter().string(from: workout.duration)!
         let caloriesDoubleValue = workout.activeEnergySumStatisticsQuantity?.doubleValue(for: .largeCalorie()) ?? 0
-        #warning("use generic value instead of .meter()")
-        let distance = workout.distanceSumStatisticsQuantity?.doubleValue(for: .meter()) ?? 0
+        
+        
+        
+        
+        
+        
+        let distanceDouble = workout.distanceSumStatisticsQuantity?.doubleValue(for: .meter()) ?? 0
+        let measurement = Measurement(value: distanceDouble, unit: UnitLength.meters)
+        let formatter = MeasurementFormatter()
+        formatter.numberFormatter.maximumFractionDigits = 2
+        let stringDistance = formatter.string(from: measurement)
+        
+        
+        
+        
+        
+        
+        
         return WorkoutDispayValues(id: workout.id,
                                    largeCalories: caloriesDoubleValue.roundedTo(),
-                                   distance: distance.roundedTo(),
+                                   distance: stringDistance,
                                    startDate: date,
                                    duration: time,
                                    type: "\(workout.workoutType)")
