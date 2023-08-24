@@ -20,6 +20,17 @@ extension WorkoutDispayValues {
     }
 }
 
+extension WorkoutDispayValues {
+    var displayContainer: DisplayStringContainer {
+        DisplayStringContainer(displayString: displayString)
+    }
+}
+
+struct DisplayStringContainer: Identifiable {
+    let id = UUID().uuidString
+    let displayString: String
+}
+
 struct WorkoutDispayValues: Identifiable {
     let id: String
     fileprivate let largeCalories: Double

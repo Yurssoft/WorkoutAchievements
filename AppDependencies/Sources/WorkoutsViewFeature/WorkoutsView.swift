@@ -6,7 +6,7 @@ extension WorkoutsView {
         case initial
         case loading
         case error
-        case list(displayValues: [String])
+        case list(displayValues: [DisplayStringContainer])
     }
 }
 
@@ -37,8 +37,8 @@ public struct WorkoutsView: View {
                 VStack {
                     Text("List total entries: \(displayValues.count)")
                     List {
-                        ForEach(displayValues, id: \.self) { displayValue in
-                            Text(displayValue)
+                        ForEach(displayValues) { displayValue in
+                            Text(displayValue.displayString)
                         }
                     }
                 }
@@ -60,7 +60,7 @@ private extension WorkoutsView {
             state = .loading
             do {
                 let workouts = try await client.loadWorkoutsList(query)
-                let displayValues = workouts.map { $0.displayValues }.map { $0.displayString }
+                let displayValues = workouts.map { $0.displayValues }.map { $0.displayContainer }
                 state = .list(displayValues: displayValues)
             } catch {
                 state = .error
