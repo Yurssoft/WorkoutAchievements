@@ -16,7 +16,7 @@ extension Workout {
 
 extension WorkoutDispayValues {
     var displayString: String {
-        "Calories: \(largeCalories) Cal \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)\nType: \(type)"
+        "Calories: \(largeCalories) \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)\nType: \(type)"
     }
 }
 
@@ -33,7 +33,7 @@ struct DisplayStringContainer: Identifiable {
 
 struct WorkoutDispayValues: Identifiable {
     let id: String
-    fileprivate let largeCalories: Double
+    fileprivate let largeCalories: String
     fileprivate let distance: String
     fileprivate let startDate: String
     fileprivate let duration: String
@@ -44,31 +44,27 @@ final class WorkoutDisplayProcessor {
     static func process(workout: Workout) -> WorkoutDispayValues {
         let date = convert(date: workout.startDate)
         let time = DateComponentsFormatter().string(from: workout.duration)!
+        
         let caloriesDoubleValue = workout.activeEnergySumStatisticsQuantity?.doubleValue(for: .largeCalorie()) ?? 0
-        
-        
-        
-        
-        
+        let stringCalories = Self.convert(dimension: UnitEnergy.calories, value: caloriesDoubleValue)
         
         let distanceDouble = workout.distanceSumStatisticsQuantity?.doubleValue(for: .meter()) ?? 0
-        let measurement = Measurement(value: distanceDouble, unit: UnitLength.meters)
-        let formatter = MeasurementFormatter()
-        formatter.numberFormatter.maximumFractionDigits = 2
-        let stringDistance = formatter.string(from: measurement)
-        
-        
-        
-        
-        
-        
+        let stringDistance = Self.convert(dimension: UnitLength.meters, value: distanceDouble)
         
         return WorkoutDispayValues(id: workout.id,
-                                   largeCalories: caloriesDoubleValue.roundedTo(),
+                                   largeCalories: stringCalories,
                                    distance: stringDistance,
                                    startDate: date,
                                    duration: time,
                                    type: "\(workout.workoutType)")
+    }
+    
+    private static func convert(dimension: Dimension, value: Double) -> String {
+        let measurement = Measurement(value: value, unit: dimension)
+        let formatter = MeasurementFormatter()
+        formatter.numberFormatter.maximumFractionDigits = 2
+        let string = formatter.string(from: measurement)
+        return string
     }
     
     static private func convert(date: Date) -> String {
@@ -77,12 +73,5 @@ final class WorkoutDisplayProcessor {
         dateFormatter.timeStyle = .short
         let date = dateFormatter.string(from: date)
         return date
-    }
-}
-
-private extension Double {
-    func roundedTo(places: Int = 2) -> Double {
-        let divisor = pow(10.0, Double(places))
-        return (self * divisor).rounded() / divisor
     }
 }
