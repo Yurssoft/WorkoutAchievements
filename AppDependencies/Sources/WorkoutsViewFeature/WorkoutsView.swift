@@ -6,7 +6,7 @@ extension WorkoutsView {
         case initial
         case loading
         case error
-        case list(workouts: [Workout])
+        case list(displayValues: [WorkoutDispayValues])
     }
 }
 
@@ -33,12 +33,12 @@ public struct WorkoutsView: View {
             case .error:
                 Text("Error")
                 
-            case .list(let workouts):
+            case .list(let displayValues):
                 VStack {
-                    Text("List total entries: \(workouts.count)")
+                    Text("List total entries: \(displayValues.count)")
                     List {
-                        ForEach(workouts, id: \.id) { workout in
-                            Text(displayText(workout: workout))
+                        ForEach(displayValues, id: \.id) { displayValue in
+                            Text(displayValue.displayString)
                         }
                     }
                 }
@@ -60,17 +60,12 @@ private extension WorkoutsView {
             state = .loading
             do {
                 let workouts = try await client.loadWorkoutsList(query)
-                state = .list(workouts: workouts)
+                let displayValues = workouts.map { $0.displayValues }
+                state = .list(displayValues: displayValues)
             } catch {
                 state = .error
             }
         }
-    }
-    
-    func displayText(workout: Workout) -> String {
-        let display = WorkoutDisplayProcessor.process(workout: workout)
-        print("------------------")
-        return "Calories: \(display.largeCalories) Cal \nDistance: \(display.distance) m\nTime: \(display.duration) minutes\nStarted: \(display.startDate)"
     }
 }
 

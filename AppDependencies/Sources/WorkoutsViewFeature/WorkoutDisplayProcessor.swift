@@ -8,11 +8,25 @@ import Foundation
 import WorkoutsClient
 import HealthKit
 
-struct WorkoutDispayValues {
+extension Workout {
+    var displayValues: WorkoutDispayValues {
+        WorkoutDisplayProcessor.process(workout: self)
+    }
+}
+
+extension WorkoutDispayValues {
+    var displayString: String {
+        "Calories: \(largeCalories) Cal \nDistance: \(distance) m\nTime: \(duration) minutes\nStarted: \(startDate)\nType: \(type)"
+    }
+}
+
+struct WorkoutDispayValues: Identifiable {
+    let id: String
     let largeCalories: Double
     let distance: Double
     let startDate: String
     let duration: String
+    let type: String
 }
 
 final class WorkoutDisplayProcessor {
@@ -22,10 +36,12 @@ final class WorkoutDisplayProcessor {
         let caloriesDoubleValue = workout.activeEnergySumStatisticsQuantity?.doubleValue(for: .largeCalorie()) ?? 0
         #warning("use generic value instead of .meter()")
         let distance = workout.distanceSumStatisticsQuantity?.doubleValue(for: .meter()) ?? 0
-        return WorkoutDispayValues(largeCalories: caloriesDoubleValue.roundedTo(),
+        return WorkoutDispayValues(id: workout.id,
+                                   largeCalories: caloriesDoubleValue.roundedTo(),
                                    distance: distance.roundedTo(),
                                    startDate: date,
-                                   duration: time)
+                                   duration: time,
+                                   type: "\(workout.workoutType)")
     }
     
     static private func convert(date: Date) -> String {
