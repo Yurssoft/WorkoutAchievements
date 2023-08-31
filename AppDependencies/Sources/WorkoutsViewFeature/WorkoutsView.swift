@@ -6,7 +6,7 @@ extension WorkoutsView {
         case initial
         case loading
         case error
-        case list(workouts: [Workout])
+        case list(displayValues: [DisplayStringContainer])
     }
 }
 
@@ -21,15 +21,11 @@ public struct WorkoutsView: View {
     let client: WorkoutsClient
     @State private var state = ViewState.initial
     
-    var typeString: String {
-        "\(selectedQuery.workoutType)"
-    }
-    
     public var body: some View {
         Group {
             switch state {
             case .initial:
-                EmptyView()
+                Text("Initialized🌈😏")
                 
             case .loading:
                 Text("Loading..........")
@@ -37,20 +33,23 @@ public struct WorkoutsView: View {
             case .error:
                 Text("Error")
                 
-            case .list(let workouts):
-                List {
-                    ForEach(workouts) { workout in
-                        Text(displayText(workout: workout))
+            case .list(let displayValues):
+                VStack {
+                    Text("List total entries: \(displayValues.count)")
+                    List {
+                        ForEach(displayValues) { displayValue in
+                            Text(displayValue.displayString)
+                        }
                     }
                 }
             }
         }
-        .onChange(of: selectedQuery, { oldValue, newValue in
-            requestData(query: newValue)
-        })
         .onAppear() {
             requestData(query: selectedQuery)
         }
+        .onChange(of: selectedQuery, { oldValue, newValue in
+            requestData(query: newValue)
+        })
     }
     
 }
@@ -61,16 +60,12 @@ private extension WorkoutsView {
             state = .loading
             do {
                 let workouts = try await client.loadWorkoutsList(query)
-                state = .list(workouts: workouts)
+                let displayValues = workouts.map { $0.displayValues }.map { $0.displayContainer }
+                state = .list(displayValues: displayValues)
             } catch {
                 state = .error
             }
         }
-    }
-    
-    func displayText(workout: Workout) -> String {
-        let display = WorkoutDisplayProcessor.process(workout: workout)
-        return "Calories: \(display.largeCalories) Cal \nDistance: \(display.distance) m\nTime: \(display.duration) minutes\nStarted: \(display.startDate)"
     }
 }
 

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		582324732A844324005985F3 /* WorkoutsViewFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 582324722A844324005985F3 /* WorkoutsViewFeature */; };
 		582324752A844335005985F3 /* WorkoutsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 582324742A844335005985F3 /* WorkoutsClientLive */; };
+		5853315A2A9419220057D396 /* PCTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585331592A9419220057D396 /* PCTApp.swift */; };
+		5853315C2A9419220057D396 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5853315B2A9419220057D396 /* ContentView.swift */; };
+		5853315E2A9419240057D396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5853315D2A9419240057D396 /* Assets.xcassets */; };
+		585331622A9419240057D396 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 585331612A9419240057D396 /* Preview Assets.xcassets */; };
 		5881218F2A844D640054D906 /* WorkoutsClient in Frameworks */ = {isa = PBXBuildFile; productRef = 5881218E2A844D640054D906 /* WorkoutsClient */; };
 		58897A6E2A7CA37E006106B0 /* WorkoutsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 58897A6D2A7CA37E006106B0 /* WorkoutsClientLive */; };
 		589948462A819B8500245E29 /* WatchWorkoutAchievementsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948452A819B8500245E29 /* WatchWorkoutAchievementsApp.swift */; };
@@ -19,8 +23,6 @@
 		589948722A819C2C00245E29 /* WorkoutsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 589948712A819C2C00245E29 /* WorkoutsClientLive */; };
 		5899487B2A819E7900245E29 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5899487A2A819E7900245E29 /* WidgetKit.framework */; };
 		5899487D2A819E7900245E29 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5899487C2A819E7900245E29 /* SwiftUI.framework */; };
-		589948802A819E7900245E29 /* TopWorkoutAchievementBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5899487F2A819E7900245E29 /* TopWorkoutAchievementBundle.swift */; };
-		589948822A819E7900245E29 /* TopWorkoutAchievementLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948812A819E7900245E29 /* TopWorkoutAchievementLiveActivity.swift */; };
 		589948842A819E7900245E29 /* TopWorkoutAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948832A819E7900245E29 /* TopWorkoutAchievement.swift */; };
 		589948862A819E7900245E29 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589948852A819E7900245E29 /* AppIntent.swift */; };
 		589948882A819E7B00245E29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 589948872A819E7B00245E29 /* Assets.xcassets */; };
@@ -76,6 +78,13 @@
 
 /* Begin PBXFileReference section */
 		582324762A8443B4005985F3 /* WatchWorkoutAchievements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WatchWorkoutAchievements.entitlements; sourceTree = "<group>"; };
+		585331572A9419220057D396 /* PCT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PCT.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		585331592A9419220057D396 /* PCTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCTApp.swift; sourceTree = "<group>"; };
+		5853315B2A9419220057D396 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5853315D2A9419240057D396 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5853315F2A9419240057D396 /* PCT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PCT.entitlements; sourceTree = "<group>"; };
+		585331612A9419240057D396 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		58803B482A996F6200F1EC0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		589029D82A7DB6190068A0F1 /* WorkoutAchievements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WorkoutAchievements.entitlements; sourceTree = "<group>"; };
 		589948432A819B8500245E29 /* WorkoutAchievements.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutAchievements.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		589948452A819B8500245E29 /* WatchWorkoutAchievementsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchWorkoutAchievementsApp.swift; sourceTree = "<group>"; };
@@ -85,8 +94,6 @@
 		589948792A819E7900245E29 /* TopWorkoutAchievementExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopWorkoutAchievementExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5899487A2A819E7900245E29 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		5899487C2A819E7900245E29 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		5899487F2A819E7900245E29 /* TopWorkoutAchievementBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWorkoutAchievementBundle.swift; sourceTree = "<group>"; };
-		589948812A819E7900245E29 /* TopWorkoutAchievementLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWorkoutAchievementLiveActivity.swift; sourceTree = "<group>"; };
 		589948832A819E7900245E29 /* TopWorkoutAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWorkoutAchievement.swift; sourceTree = "<group>"; };
 		589948852A819E7900245E29 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		589948872A819E7B00245E29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -99,6 +106,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		585331542A9419220057D396 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		589948402A819B8500245E29 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -132,6 +146,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		585331582A9419220057D396 /* PCT */ = {
+			isa = PBXGroup;
+			children = (
+				585331592A9419220057D396 /* PCTApp.swift */,
+				5853315B2A9419220057D396 /* ContentView.swift */,
+				5853315D2A9419240057D396 /* Assets.xcassets */,
+				5853315F2A9419240057D396 /* PCT.entitlements */,
+				585331602A9419240057D396 /* Preview Content */,
+			);
+			path = PCT;
+			sourceTree = "<group>";
+		};
+		585331602A9419240057D396 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				585331612A9419240057D396 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		589948442A819B8500245E29 /* WatchWorkoutAchievements */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,8 +189,6 @@
 		5899487E2A819E7900245E29 /* TopWorkoutAchievement */ = {
 			isa = PBXGroup;
 			children = (
-				5899487F2A819E7900245E29 /* TopWorkoutAchievementBundle.swift */,
-				589948812A819E7900245E29 /* TopWorkoutAchievementLiveActivity.swift */,
 				589948832A819E7900245E29 /* TopWorkoutAchievement.swift */,
 				589948852A819E7900245E29 /* AppIntent.swift */,
 				589948872A819E7B00245E29 /* Assets.xcassets */,
@@ -181,6 +213,7 @@
 				58C7095A2A7B0DD100563FAA /* WorkoutAchievements */,
 				589948442A819B8500245E29 /* WatchWorkoutAchievements */,
 				5899487E2A819E7900245E29 /* TopWorkoutAchievement */,
+				585331582A9419220057D396 /* PCT */,
 				58C709592A7B0DD100563FAA /* Products */,
 				58BA29AE2A7C9EF50068A958 /* Frameworks */,
 			);
@@ -192,6 +225,7 @@
 				58C709582A7B0DD100563FAA /* WorkoutAchievements.app */,
 				589948432A819B8500245E29 /* WorkoutAchievements.app */,
 				589948792A819E7900245E29 /* TopWorkoutAchievementExtension.appex */,
+				585331572A9419220057D396 /* PCT.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,6 +233,7 @@
 		58C7095A2A7B0DD100563FAA /* WorkoutAchievements */ = {
 			isa = PBXGroup;
 			children = (
+				58803B482A996F6200F1EC0A /* Info.plist */,
 				589029D82A7DB6190068A0F1 /* WorkoutAchievements.entitlements */,
 				58C7095B2A7B0DD100563FAA /* WorkoutAchievementsApp.swift */,
 				58C7095F2A7B0DD300563FAA /* Assets.xcassets */,
@@ -218,6 +253,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		585331562A9419220057D396 /* PCT */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 585331652A9419240057D396 /* Build configuration list for PBXNativeTarget "PCT" */;
+			buildPhases = (
+				585331532A9419220057D396 /* Sources */,
+				585331542A9419220057D396 /* Frameworks */,
+				585331552A9419220057D396 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PCT;
+			productName = PCT;
+			productReference = 585331572A9419220057D396 /* PCT.app */;
+			productType = "com.apple.product-type.application";
+		};
 		589948422A819B8500245E29 /* WatchWorkoutAchievements */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5899486E2A819B8700245E29 /* Build configuration list for PBXNativeTarget "WatchWorkoutAchievements" */;
@@ -296,6 +348,9 @@
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					585331562A9419220057D396 = {
+						CreatedOnToolsVersion = 15.0;
+					};
 					589948422A819B8500245E29 = {
 						CreatedOnToolsVersion = 15.0;
 					};
@@ -323,11 +378,21 @@
 				58C709572A7B0DD100563FAA /* WorkoutAchievements */,
 				589948422A819B8500245E29 /* WatchWorkoutAchievements */,
 				589948782A819E7900245E29 /* TopWorkoutAchievementExtension */,
+				585331562A9419220057D396 /* PCT */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		585331552A9419220057D396 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				585331622A9419240057D396 /* Preview Assets.xcassets in Resources */,
+				5853315E2A9419240057D396 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		589948412A819B8500245E29 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -357,6 +422,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		585331532A9419220057D396 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5853315C2A9419220057D396 /* ContentView.swift in Sources */,
+				5853315A2A9419220057D396 /* PCTApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5899483F2A819B8500245E29 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -370,10 +444,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				589948822A819E7900245E29 /* TopWorkoutAchievementLiveActivity.swift in Sources */,
 				589948862A819E7900245E29 /* AppIntent.swift in Sources */,
 				589948842A819E7900245E29 /* TopWorkoutAchievement.swift in Sources */,
-				589948802A819E7900245E29 /* TopWorkoutAchievementBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +473,82 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		585331632A9419240057D396 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PCT/PCT.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PCT/Preview Content\"";
+				DEVELOPMENT_TEAM = LS9HB285X6;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yurssoft.PCT;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		585331642A9419240057D396 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PCT/PCT.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PCT/Preview Content\"";
+				DEVELOPMENT_TEAM = LS9HB285X6;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yurssoft.PCT;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		589948682A819B8700245E29 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -651,6 +799,7 @@
 				DEVELOPMENT_TEAM = LS9HB285X6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WorkoutAchievements/Info.plist;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read workouts";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -665,6 +814,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yurssoft.WorkoutAchievements;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -683,6 +833,7 @@
 				DEVELOPMENT_TEAM = LS9HB285X6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WorkoutAchievements/Info.plist;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read workouts";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -697,6 +848,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yurssoft.WorkoutAchievements;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -705,6 +857,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		585331652A9419240057D396 /* Build configuration list for PBXNativeTarget "PCT" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				585331632A9419240057D396 /* Debug */,
+				585331642A9419240057D396 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5899486E2A819B8700245E29 /* Build configuration list for PBXNativeTarget "WatchWorkoutAchievements" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

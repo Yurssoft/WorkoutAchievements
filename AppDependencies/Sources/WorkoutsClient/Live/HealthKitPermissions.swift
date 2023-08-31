@@ -7,6 +7,7 @@
 
 import Foundation
 import HealthKit
+import WorkoutsClient
 
 final class HealthKitPermissions {
     init(store: HKHealthStore) {
@@ -20,9 +21,12 @@ final class HealthKitPermissions {
         HKSeriesType.workoutRoute()
     ]
     
-    #warning("extend && store.authorizationStatus(for: .activitySummaryType()) && store.authorizationStatus(for: .workoutRoute())")
-    func isAuthorizedToUse() -> HKAuthorizationStatus {
-        store.authorizationStatus(for: .workoutType())
+    func authorizationStatuses() -> WorkoutsClient.AuthorizationSaveStatuses {
+        WorkoutsClient.AuthorizationSaveStatuses(
+            workout: store.authorizationStatus(for: HKSeriesType.workoutType()),
+            summary: store.authorizationStatus(for: HKSeriesType.activitySummaryType()),
+            route: store.authorizationStatus(for: HKSeriesType.workoutRoute())
+        )
     }
     
     func requestReadPemissions() async throws {

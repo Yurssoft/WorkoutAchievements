@@ -7,68 +7,47 @@
 import SwiftUI
 import WorkoutsClient
 
-extension WorkoutsClient.WorkoutType: CaseIterable {
-    public static var allCases: [WorkoutsClient.WorkoutType] {
-        [.walking, .swimming, .hiking]
-    }
-    
-    var name: String {
-        switch self {
-        case .walking:
-            return "Walking"
-            
-        case .swimming:
-            return "Swimming"
-            
-        case .hiking:
-            return "Hiking"
-            
-        default:
-            return ""
+public extension WorkoutTypeView {
+    @Observable final class ViewModel {
+        public init(selectedQuery: WorkoutTypeQuery) {
+            self.selectedQuery = selectedQuery
+            self.typesQuery = selectedQuery.queryType
         }
-    }
-}
-
-extension WorkoutMeasureType {
-    var name: String {
-        switch self {
-        case .time:
-            return "Time"
-            
-        case .distance:
-            return "Distance"
-            
-        case .calories:
-            return "Calories"
-        }
+        
+        public var selectedQuery: WorkoutTypeQuery
+        fileprivate var typesQuery: QueryType
     }
 }
 
 public struct WorkoutTypeView: View {
-    public init(selectedQuery: Binding<WorkoutTypeQuery>) {
-        self._selectedQuery = selectedQuery
+    public init(viewModel: WorkoutTypeView.ViewModel) {
+        self.viewModel = viewModel
     }
     
-    @Binding private var selectedQuery: WorkoutTypeQuery
+    @Bindable private var viewModel: ViewModel
+    
     public var body: some View {
         VStack {
-            Picker("Workout Type:", selection: $selectedQuery.workoutType) {
+            Picker("Workout Type:", selection: $viewModel.typesQuery) {
+                Text(QueryType.all.name)
+                    .tag(QueryType.all)
                 ForEach(WorkoutsClient.WorkoutType.allCases, id: \.self) {
                     Text($0.name)
+                        .tag(QueryType.workoutTypes([$0]))
                 }
             }
             .pickerStyle(.automatic)
             
-            Picker("Measurment Type", selection: $selectedQuery.measurmentType) {
+            Picker("Measurment Type", selection: $viewModel.selectedQuery.measurmentType) {
                 ForEach(WorkoutMeasureType.allCases, id: \.self) {
                     Text($0.name)
                 }
             }
             .pickerStyle(.automatic)
             
-            Toggle("Is Ascending", isOn: $selectedQuery.isAscending)
+            Toggle("Is Ascending", isOn: $viewModel.selectedQuery.isAscending)
             
-            Text("Selected Query:\n \(selectedQuery.measurmentType.name)\n \(selectedQuery.workoutType.name) \n isAscending: \(String(describing: selectedQuery.isAscending))")
+            Text("Selected Query:\n \(viewModel.selectedQuery.measurmentType.name)\n \(viewModel.typesQuery.name) \n isAscending: \(String(describing: viewModel.selectedQuery.isAscending))")
                 .multilineTextAlignment(.center)
             Spacer()
         }
@@ -76,4 +55,4 @@ public struct WorkoutTypeView: View {
     }
 }
 
-#Preview { WorkoutTypeView(selectedQuery: .constant(.init())) }
+#Preview { WorkoutTypeView(viewModel: WorkoutTypeView.ViewModel(selectedQuery: WorkoutTypeQuery(workoutTypes: WorkoutsClient.WorkoutType.allCases))) }

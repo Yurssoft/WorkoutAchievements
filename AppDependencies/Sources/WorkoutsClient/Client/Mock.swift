@@ -7,23 +7,33 @@ extension WorkoutsClient {
         
     } requestReadAuthorization: {
         
+    } authorizationStatuses: {
+        AuthorizationSaveStatuses(workout: .sharingAuthorized, summary: .sharingAuthorized, route: .sharingAuthorized)
     }
     
     private static func getWorkouts() async throws -> [Workout] {
         try await Task.sleep(
-            until: .now + .seconds(2),
+            until: .now + .seconds(1),
             tolerance: .seconds(1),
             clock: .suspending
         )
-        return workouts
+        let workoutTask = Task { () -> [Workout] in
+            return workouts
+        }
+        return try! await workoutTask.result.get()
     }
     
     private static var workouts: [Workout] {
-        [
-            Workout(startDate: .now + 500,distanceSumStatisticsQuantity: .init(unit: .meter(), doubleValue: 800)),
-            Workout(startDate: .now + 500,distanceSumStatisticsQuantity: .init(unit: .meter(), doubleValue: 500)),
-            Workout(startDate: .now + 5,distanceSumStatisticsQuantity: .init(unit: .meter(), doubleValue: 200)),
-            Workout(distanceSumStatisticsQuantity: .init(unit: .meter(), doubleValue: 300))
-        ]
+        var mockWorkouts = [Workout]()
+        for indexNumber in 0...10 {
+            let i = Double(indexNumber)
+            let w = Workout(
+                startDate: .now + TimeInterval(indexNumber),
+                distanceSumStatisticsQuantity: .init(unit: .meter(), doubleValue: i),
+                activeEnergySumStatisticsQuantity: .init(unit: .largeCalorie(), doubleValue: i)
+            )
+            mockWorkouts.append(w)
+        }
+        return mockWorkouts
     }
 }
