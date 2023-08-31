@@ -25,7 +25,7 @@ extension WorkoutsClient {
     
     private static var workouts: [Workout] {
         var mockWorkouts = [Workout]()
-        for indexNumber in 0...10000 {
+        for indexNumber in 0...10 {
             let i = Double(indexNumber)
             let w = Workout(
                 startDate: .now + TimeInterval(indexNumber),
