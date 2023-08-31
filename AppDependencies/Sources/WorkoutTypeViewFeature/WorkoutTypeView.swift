@@ -24,7 +24,7 @@ public struct WorkoutTypeView: View {
         self.viewModel = viewModel
     }
     
-    @Bindable var viewModel: ViewModel
+    @Bindable private var viewModel: ViewModel
     
     public var body: some View {
         VStack {
