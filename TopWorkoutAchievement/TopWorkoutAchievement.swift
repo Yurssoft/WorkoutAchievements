@@ -51,6 +51,7 @@ struct TopWorkoutAchievementEntryView : View {
     }
 }
 
+@main
 struct TopWorkoutAchievement: Widget {
     let kind: String = "TopWorkoutAchievement"
 
