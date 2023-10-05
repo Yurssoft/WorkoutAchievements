@@ -35,7 +35,8 @@ public struct WorkoutsView: View {
                 
             case .list(let displayValues):
                 VStack {
-                    Text("List total entries: \(displayValues.count)")
+                    Text("Total Workouts: \(displayValues.count)")
+                    Text("Total Hours: \(displayValues.count)")
                     List {
                         ForEach(displayValues) { displayValue in
                             Text(displayValue.displayString)
