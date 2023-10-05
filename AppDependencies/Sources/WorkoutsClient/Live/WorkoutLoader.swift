@@ -17,10 +17,10 @@ final class WorkoutLoader {
             let predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
             let sort = query.measurmentType.sortDescriptor(isAscending: query.isAscending)
             let searchHKQuery = HKSampleQuery(sampleType: .workoutType(),
-                                        predicate: predicate,
-                                        limit: HKObjectQueryNoLimit,
-                                        sortDescriptors: [sort],
-                                        resultsHandler: queryHandler)
+                                              predicate: predicate,
+                                              limit: HKObjectQueryNoLimit,
+                                              sortDescriptors: [sort],
+                                              resultsHandler: queryHandler)
             store.execute(searchHKQuery)
         }
 
