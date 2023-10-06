@@ -54,7 +54,8 @@ private extension RequestPermissionsView {
             do {
                 try await workoutsClient.requestReadAuthorization()
                 state = .showList
-            } catch {
+            } catch let error {
+                print(error, String(describing: Self.self))
                 state = .error
             }
         }
