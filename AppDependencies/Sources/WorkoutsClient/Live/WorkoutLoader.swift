@@ -107,16 +107,12 @@ final class WorkoutLoader {
     }
     
     static func fetchStatistics(predicate: NSPredicate, store: HKHealthStore) throws {
-        if true {
-            return
-        }
         guard let quantityType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
             fatalError("*** Unable to create a step count type ***")
         }
-        let query = HKStatisticsQuery(quantityType: quantityType,
-                                      quantitySamplePredicate: predicate) { _, statistics, error in
+        let query = HKStatisticsQuery(quantityType: quantityType, quantitySamplePredicate: nil) { _, statistics, error in
             if let quantity = statistics?.sumQuantity() {
-                let value = quantity.doubleValue(for: .count())
+                let value = quantity.doubleValue(for: .largeCalorie())
                 print(value)
             }
         }
