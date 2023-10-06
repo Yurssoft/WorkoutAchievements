@@ -36,8 +36,9 @@ public struct WorkoutsView: View {
             case .list(let displayValues):
                 VStack {
                     Text("Total Workouts: \(displayValues.count)")
-                    Text("Total Hours: N/A❌")
-                    Text("Total Calories: N/A❌")
+                    Text("Total Data For Period: N/A❌ - N/A❌")
+                    Text("Total Exercise Hours: N/A❌")
+                    Text("Total Exercise Calories: N/A❌")
                     Divider()
                     // List is not used here as it does not work at all with scroll view
                     ForEach(displayValues) { displayValue in

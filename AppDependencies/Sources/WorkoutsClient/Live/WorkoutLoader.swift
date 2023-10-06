@@ -11,6 +11,7 @@ import HealthKit
 final class WorkoutLoader {
     
     /// https://developer.apple.com/documentation/healthkit/queries/executing_statistics_collection_queries
+    /// https://www.devfright.com/the-healthkit-hkstatisticsquery/
     /// - Parameters:
     ///   - predicate: <#predicate description#>
     ///   - store: <#store description#>
@@ -107,10 +108,14 @@ final class WorkoutLoader {
     }
     
     static func fetchStatistics(predicate: NSPredicate, store: HKHealthStore) throws {
+        HKObjectType.quantityType(forIdentifier: .appleExerciseTime)
         guard let quantityType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
             fatalError("*** Unable to create a step count type ***")
         }
-        let query = HKStatisticsQuery(quantityType: quantityType, quantitySamplePredicate: nil) { _, statistics, error in
+        let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: now)
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+        let query = HKStatisticsQuery(quantityType: quantityType, quantitySamplePredicate: .none) { _, statistics, error in
             if let quantity = statistics?.sumQuantity() {
                 let value = quantity.doubleValue(for: .largeCalorie())
                 print(value)
