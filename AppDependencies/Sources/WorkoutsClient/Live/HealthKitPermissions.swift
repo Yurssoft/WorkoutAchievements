@@ -17,6 +17,8 @@ final class HealthKitPermissions {
     private let store: HKHealthStore
     private let workoutReadTypesSet: Set = [
         HKSeriesType.workoutType(),
+        HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
+        HKObjectType.quantityType(forIdentifier: .appleExerciseTime)!,
         HKSeriesType.activitySummaryType(),
         HKSeriesType.workoutRoute()
     ]
