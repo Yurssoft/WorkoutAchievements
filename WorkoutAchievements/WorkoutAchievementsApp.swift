@@ -15,7 +15,9 @@ struct WorkoutAchievementsApp: App {
     private let workoutsClient = WorkoutsClient.live
     var body: some Scene {
         WindowGroup {
-            AchievementsView(workoutsClient: workoutsClient)
+            NavigationStack {
+                AchievementsView(workoutsClient: workoutsClient)
+            }
         }
     }
 }
