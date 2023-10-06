@@ -107,29 +107,58 @@ final class WorkoutLoader {
         store.execute(query)
     }
     
-    static func fetchStatistics(predicate: NSPredicate, store: HKHealthStore) throws {
-        HKObjectType.quantityType(forIdentifier: .appleExerciseTime)
-        guard let quantityType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
-            fatalError("*** Unable to create a step count type ***")
+    
+//    static func fetchStatistics(predicate: NSPredicate, store: HKHealthStore) throws {
+//        HKObjectType.quantityType(forIdentifier: .appleExerciseTime)
+//        guard let quantityType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
+//            fatalError("*** Unable to create a step count type ***")
+//        }
+//        let now = Date()
+//        let startOfDay = Calendar.current.startOfDay(for: now)
+//        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+//        let query = HKStatisticsQuery(quantityType: quantityType, quantitySamplePredicate: .none) { _, statistics, error in
+//            if let quantity = statistics?.sumQuantity() {
+//                let value = quantity.doubleValue(for: .largeCalorie())
+//                print(value)
+//            }
+//        }
+//        store.execute(query)
+//    }
+    
+    private static func fetchExerciseTimeStatistics(store: HKHealthStore) async throws -> HKStatistics {
+        let quantityType = try Helpers.createQuantityType(type: .appleExerciseTime)
+        let statistics = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<HKStatistics, Error>) in
+            let query = HKStatisticsQuery(quantityType: quantityType,
+                                          quantitySamplePredicate: .none,
+                                          completionHandler: statisticsQueryHandler(for: continuation))
+            store.execute(query)
         }
-        let now = Date()
-        let startOfDay = Calendar.current.startOfDay(for: now)
-        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
-        let query = HKStatisticsQuery(quantityType: quantityType, quantitySamplePredicate: .none) { _, statistics, error in
-            if let quantity = statistics?.sumQuantity() {
-                let value = quantity.doubleValue(for: .largeCalorie())
-                print(value)
-            }
-        }
-        store.execute(query)
+        
+        
+        return statistics
     }
     
+    static func fetchData(for query: WorkoutTypeQuery, store: HKHealthStore) async throws -> LoadResult {
+        let statistics = try await fetchExerciseTimeStatistics(store: store)
+        let workouts = try await fetchWorkouts(for: query, store: store)
+        
+        var hours: Hour?
+        if let quantity = statistics.sumQuantity() {
+            let value = quantity.doubleValue(for: .hour())
+            hours = Hour(value)
+        }
+        
+        let loadResult = LoadResult(workouts: workouts, hours: hours, startDate: statistics.startDate, endDate: statistics.endDate)
+        return loadResult
+    }
+    
+    
     static func fetchWorkouts(for query: WorkoutTypeQuery, store: HKHealthStore) async throws -> [Workout] {
+        
         let samples = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
-            let queryHandler = queryHandler(for: continuation)
+            let queryHandler = workoutsQueryHandler(for: continuation)
             let predicates = query.workoutTypes.map { HKQuery.predicateForWorkouts(with: $0) }
             let predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
-            try? fetchStatistics(predicate: predicate, store: store)
             try? fetchWeekStatistics(predicate: predicate, store: store)
             let sort = query.measurmentType.sortDescriptor(isAscending: query.isAscending)
             let searchHKQuery = HKSampleQuery(sampleType: .workoutType(),
@@ -139,16 +168,17 @@ final class WorkoutLoader {
                                               resultsHandler: queryHandler)
             store.execute(searchHKQuery)
         }
-
+        
         guard let workouts = samples as? [HKWorkout] else { return [] }
         let transformed = workouts.map { $0.mapIntoWorkout(for: query) }
+        
+        
         return transformed
     }
 }
 
 private extension WorkoutLoader {
-    
-    static func queryHandler(for continuation: CheckedContinuation<[HKSample], Error>) -> (HKQuery, [HKSample]?, Error?) -> Void {
+    static func workoutsQueryHandler(for continuation: CheckedContinuation<[HKSample], Error>) -> (HKQuery, [HKSample]?, Error?) -> Void {
         { _, samples, error in
             if let hasError = error {
                 continuation.resume(throwing: hasError)
@@ -160,6 +190,21 @@ private extension WorkoutLoader {
             }
             
             continuation.resume(returning: samples)
+        }
+    }
+    
+    static func statisticsQueryHandler(for continuation: CheckedContinuation<HKStatistics, Error>) -> (HKStatisticsQuery, HKStatistics?, Error?) -> Void {
+        { _, statistics, error in
+            if let hasError = error {
+                continuation.resume(throwing: hasError)
+                return
+            }
+            
+            guard let statistics = statistics else {
+                return continuation.resume(throwing: WorkoutsClientError.fetchingStatistics)
+            }
+            
+            continuation.resume(returning: statistics)
         }
     }
 }

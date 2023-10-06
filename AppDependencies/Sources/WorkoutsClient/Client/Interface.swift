@@ -1,8 +1,27 @@
 import Foundation
 import HealthKit
 
+public typealias Hour = Int
+
 public enum WorkoutsClientError: Error {
     case fetchingWorkouts
+    case fetchingStatistics
+    case cannotCreateQuantityType
+    case healthKitIsNotAvailable
+}
+
+public struct LoadResult {
+    public init(workouts: [Workout], hours: Hour?, startDate: Date, endDate: Date) {
+        self.workouts = workouts
+        self.hours = hours
+        self.startDate = startDate
+        self.endDate = endDate
+    }
+    
+    public let workouts: [Workout]
+    public let hours: Hour?
+    public let startDate: Date
+    public let endDate: Date
 }
 
 public extension WorkoutsClient {
