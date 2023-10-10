@@ -25,7 +25,7 @@ public struct LoadResult {
 }
 
 public extension WorkoutsClient {
-    typealias WorkoutsListClosure = (WorkoutTypeQuery) async throws -> [Workout]
+    typealias WorkoutsAndStatisticsDataClosure = (WorkoutTypeQuery) async throws -> LoadResult
     typealias WorkoutsAuthorizationStatusesClosure = () -> AuthorizationSaveStatuses
     typealias RequestReadAuthorizationClosure = () async throws -> Void
     
@@ -35,15 +35,15 @@ public extension WorkoutsClient {
 }
 
 public struct WorkoutsClient {
-    public init(loadWorkoutsList: @escaping WorkoutsListClosure,
+    public init(loadWorkoutsAndStatisticsData: @escaping WorkoutsAndStatisticsDataClosure,
                 requestReadAuthorization: @escaping RequestReadAuthorizationClosure,
                 authorizationStatuses: @escaping WorkoutsAuthorizationStatusesClosure) {
-        self.loadWorkoutsList = loadWorkoutsList
+        self.loadWorkoutsAndStatisticsData = loadWorkoutsAndStatisticsData
         self.requestReadAuthorization = requestReadAuthorization
         self.authorizationStatuses = authorizationStatuses
     }
     
-    public let loadWorkoutsList: WorkoutsListClosure
+    public let loadWorkoutsAndStatisticsData: WorkoutsAndStatisticsDataClosure
     public let requestReadAuthorization: RequestReadAuthorizationClosure
     public let authorizationStatuses: WorkoutsAuthorizationStatusesClosure
 }

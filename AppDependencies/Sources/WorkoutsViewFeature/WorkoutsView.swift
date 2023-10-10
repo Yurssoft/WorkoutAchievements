@@ -6,7 +6,10 @@ extension WorkoutsView {
         case initial
         case loading
         case error
-        case list(displayValues: [DisplayStringContainer])
+        case list(displayValues: [DisplayStringContainer],
+                  totalHours: Hour,
+                  startDate: Date,
+                  endDate: Date)
     }
 }
 
@@ -33,11 +36,11 @@ public struct WorkoutsView: View {
             case .error:
                 Text("Error")
                 
-            case .list(let displayValues):
+            case let .list(displayValues, totalHours, startDate, endDate):
                 VStack {
                     Text("Total Workouts: \(displayValues.count)")
-                    Text("Total Data For Period: N/A❌ - N/A❌")
-                    Text("Total Exercise Hours: N/A❌")
+                    Text("Total Data For Period: \(startDate) - \(endDate)")
+                    Text("Total Exercise Hours: \(totalHours)")
                     Text("Total Exercise Calories: N/A❌")
                     Divider()
                     // List is not used here as it does not work at all with scroll view
@@ -69,9 +72,14 @@ private extension WorkoutsView {
         Task {
             state = .loading
             do {
-                let workouts = try await client.loadWorkoutsList(query)
-                let displayValues = workouts.map { $0.displayValues }.map { $0.displayContainer }
-                state = .list(displayValues: displayValues)
+                let workoutsAndStatisticsData = try await client.loadWorkoutsAndStatisticsData(query)
+                let displayValues = workoutsAndStatisticsData.workouts
+                    .map { $0.displayValues }
+                    .map { $0.displayContainer }
+                state = .list(displayValues: displayValues,
+                              totalHours: workoutsAndStatisticsData.hours ?? 0,
+                              startDate: workoutsAndStatisticsData.startDate,
+                              endDate: workoutsAndStatisticsData.endDate)
             } catch {
                 state = .error
             }

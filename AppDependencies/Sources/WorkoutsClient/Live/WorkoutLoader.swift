@@ -139,16 +139,16 @@ final class WorkoutLoader {
     }
     
     static func fetchData(for query: WorkoutTypeQuery, store: HKHealthStore) async throws -> LoadResult {
-        let statistics = try await fetchExerciseTimeStatistics(store: store)
+        let timeStatistics = try await fetchExerciseTimeStatistics(store: store)
         let workouts = try await fetchWorkouts(for: query, store: store)
         
         var hours: Hour?
-        if let quantity = statistics.sumQuantity() {
-            let value = quantity.doubleValue(for: .hour())
+        if let hoursQuantity = timeStatistics.sumQuantity() {
+            let value = hoursQuantity.doubleValue(for: .hour())
             hours = Hour(value)
         }
         
-        let loadResult = LoadResult(workouts: workouts, hours: hours, startDate: statistics.startDate, endDate: statistics.endDate)
+        let loadResult = LoadResult(workouts: workouts, hours: hours, startDate: timeStatistics.startDate, endDate: timeStatistics.endDate)
         return loadResult
     }
     

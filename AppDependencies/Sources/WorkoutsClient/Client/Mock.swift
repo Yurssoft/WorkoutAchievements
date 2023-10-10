@@ -3,7 +3,10 @@ import Foundation
 extension WorkoutsClient {
     public static let workoutsMock = Self { _ in
         let workoutsArray = try await getWorkouts()
-        return workoutsArray
+        let threeMonthsAgo = DateComponents(month: -3)
+        let startDate = Calendar.current.date(byAdding: threeMonthsAgo, to: .now)!
+        let loadResult = LoadResult(workouts: workoutsArray, hours: 2, startDate: startDate, endDate: .now)
+        return loadResult
         
     } requestReadAuthorization: {
         
