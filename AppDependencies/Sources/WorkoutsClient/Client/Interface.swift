@@ -1,8 +1,6 @@
 import Foundation
 import HealthKit
 
-public typealias Hour = Int
-
 public enum WorkoutsClientError: Error {
     case fetchingWorkouts
     case fetchingStatistics
@@ -11,17 +9,15 @@ public enum WorkoutsClientError: Error {
 }
 
 public struct LoadResult {
-    public init(workouts: [Workout], hours: Hour?, startDate: Date, endDate: Date) {
+    public init(workouts: [Workout], activeEnergyBurnedStatistic: Statistic, timeStatistic: Statistic) {
         self.workouts = workouts
-        self.hours = hours
-        self.startDate = startDate
-        self.endDate = endDate
+        self.activeEnergyBurnedStatistic = activeEnergyBurnedStatistic
+        self.timeStatistic = timeStatistic
     }
     
     public let workouts: [Workout]
-    public let hours: Hour?
-    public let startDate: Date
-    public let endDate: Date
+    public let activeEnergyBurnedStatistic: Statistic
+    public let timeStatistic: Statistic
 }
 
 public extension WorkoutsClient {
@@ -84,4 +80,16 @@ public extension WorkoutsClient {
         public let summary: AuthorizationStatus
         public let route: AuthorizationStatus
     }
+}
+
+public struct Statistic {
+    public init(quantity: HKQuantity?, startDate: Date, endDate: Date) {
+        self.quantity = quantity
+        self.startDate = startDate
+        self.endDate = endDate
+    }
+    
+    public let quantity: HKQuantity?
+    public let startDate: Date
+    public let endDate: Date
 }

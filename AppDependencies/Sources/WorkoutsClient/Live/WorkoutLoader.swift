@@ -125,8 +125,8 @@ final class WorkoutLoader {
 //        store.execute(query)
 //    }
     
-    private static func fetchExerciseTimeStatistics(store: HKHealthStore) async throws -> HKStatistics {
-        let quantityType = try Helpers.createQuantityType(type: .appleExerciseTime)
+    private static func fetchStatistic(store: HKHealthStore, type: HKQuantityTypeIdentifier) async throws -> Statistic {
+        let quantityType = try Helpers.createQuantityType(type: type)
         let statistics = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<HKStatistics, Error>) in
             let query = HKStatisticsQuery(quantityType: quantityType,
                                           quantitySamplePredicate: .none,
@@ -134,21 +134,18 @@ final class WorkoutLoader {
             store.execute(query)
         }
         
-        
-        return statistics
+        let statistic = Statistic(quantity: statistics.sumQuantity(), startDate: statistics.startDate, endDate: statistics.endDate)
+        return statistic
     }
     
     static func fetchData(for query: WorkoutTypeQuery, store: HKHealthStore) async throws -> LoadResult {
-        let timeStatistics = try await fetchExerciseTimeStatistics(store: store)
+        let calorieStatistic = try await fetchStatistic(store: store, type: .activeEnergyBurned)
+        let timeStatistic = try await fetchStatistic(store: store, type: .appleExerciseTime)
         let workouts = try await fetchWorkouts(for: query, store: store)
         
-        var hours: Hour?
-        if let hoursQuantity = timeStatistics.sumQuantity() {
-            let value = hoursQuantity.doubleValue(for: .hour())
-            hours = Hour(value)
-        }
-        
-        let loadResult = LoadResult(workouts: workouts, hours: hours, startDate: timeStatistics.startDate, endDate: timeStatistics.endDate)
+        let loadResult = LoadResult(workouts: workouts,
+                                    activeEnergyBurnedStatistic: calorieStatistic,
+                                    timeStatistic: timeStatistic)
         return loadResult
     }
     
