@@ -16,7 +16,7 @@ extension Workout {
 
 extension WorkoutDispayValues {
     var displayString: String {
-        "Calories: \(largeCalories) \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)\nType: \(type)"
+        "Calories: \(largeCalories) \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)"
     }
 }
 

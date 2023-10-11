@@ -28,27 +28,34 @@ public struct WorkoutTypeView: View {
     
     public var body: some View {
         VStack {
-            Picker("Workout Type:", selection: $viewModel.typesQuery) {
-                Text(QueryType.all.name)
-                    .tag(QueryType.all)
-                ForEach(WorkoutsClient.WorkoutType.allCases, id: \.self) {
-                    Text($0.name)
-                        .tag(QueryType.workoutTypes([$0]))
+            HStack {
+                Text("Display Achivements For ")
+                Picker("Workout Type:", selection: $viewModel.typesQuery) {
+                    Text(QueryType.all.name)
+                        .tag(QueryType.all)
+                    ForEach(WorkoutsClient.WorkoutType.allCases, id: \.self) {
+                        Text($0.name)
+                            .tag(QueryType.workoutTypes([$0]))
+                    }
                 }
+                .pickerStyle(.automatic)
             }
-            .pickerStyle(.automatic)
             
-            Picker("Measurment Type", selection: $viewModel.selectedQuery.measurmentType) {
-                ForEach(WorkoutMeasureType.allCases, id: \.self) {
-                    Text($0.name)
+            HStack {
+                Text("Sort By ")
+                Picker("Measurment Type", selection: $viewModel.selectedQuery.measurmentType) {
+                    ForEach(WorkoutMeasureType.allCases, id: \.self) {
+                        Text($0.name)
+                    }
                 }
+                .pickerStyle(.automatic)
             }
-            .pickerStyle(.automatic)
             
-            Toggle("Is Ascending", isOn: $viewModel.selectedQuery.isAscending)
-            
-            Text("Selected Query:\n \(viewModel.selectedQuery.measurmentType.name)\n \(viewModel.typesQuery.name) \n isAscending: \(String(describing: viewModel.selectedQuery.isAscending))")
-                .multilineTextAlignment(.center)
+            HStack {
+                Spacer()
+                Toggle("Is Ascending", isOn: $viewModel.selectedQuery.isAscending)
+                Spacer()
+            }
             Spacer()
         }
         .padding()
