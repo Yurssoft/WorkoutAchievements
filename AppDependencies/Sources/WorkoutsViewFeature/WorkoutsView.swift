@@ -7,9 +7,8 @@ extension WorkoutsView {
         case loading
         case error
         case list(displayValues: [DisplayStringContainer],
-                  totalHours: Hour,
-                  startDate: Date,
-                  endDate: Date)
+                  totalHours: StatisticDispayValues,
+                  totalCalories: StatisticDispayValues)
     }
 }
 
@@ -36,12 +35,13 @@ public struct WorkoutsView: View {
             case .error:
                 Text("Error")
                 
-            case let .list(displayValues, totalHours, startDate, endDate):
+            case let .list(displayValues, totalHours, totalCalories):
                 VStack {
-                    Text("Total Workouts: \(displayValues.count)")
-                    Text("Total Data For Period: \(startDate) - \(endDate)")
-                    Text("Total Exercise Hours: \(totalHours)")
-                    Text("Total Exercise Calories: N/A❌")
+                    Text("Workouts: \(displayValues.count)")
+                    Text("Data Period: \(totalHours.startDate) - \(totalHours.endDate)")
+                    Text("\(totalHours.value) Total Exercise Hours")
+                    Text("\(totalHours.interval) days Exercise Interval")
+                    Text("\(totalCalories.value) Total Exercise Calories")
                     Divider()
                     // List is not used here as it does not work at all with scroll view
                     ForEach(displayValues) { displayValue in
@@ -73,13 +73,14 @@ private extension WorkoutsView {
             state = .loading
             do {
                 let workoutsAndStatisticsData = try await client.loadWorkoutsAndStatisticsData(query)
-                let displayValues = workoutsAndStatisticsData.workouts
+                let workoutsDisplayValues = workoutsAndStatisticsData.workouts
                     .map { $0.displayValues }
                     .map { $0.displayContainer }
-                state = .list(displayValues: displayValues,
-                              totalHours: workoutsAndStatisticsData.hours ?? 0,
-                              startDate: workoutsAndStatisticsData.startDate,
-                              endDate: workoutsAndStatisticsData.endDate)
+                let totalHours = workoutsAndStatisticsData.timeStatistic.displayTimeValues
+                let calories = workoutsAndStatisticsData.activeEnergyBurnedStatistic.displayCaloriesValues
+                state = .list(displayValues: workoutsDisplayValues,
+                              totalHours: totalHours,
+                              totalCalories: calories)
             } catch {
                 state = .error
             }
@@ -89,4 +90,6 @@ private extension WorkoutsView {
 
 #Preview {
     WorkoutsView(client: .workoutsMock, selectedQuery: .constant(.init()))
+        .padding()
+        .padding()
 }
