@@ -15,7 +15,9 @@ struct WatchWorkoutAchievementsApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(workoutsClient: workoutsClient)
+            NavigationStack {
+                ContentView(workoutsClient: workoutsClient)
+            }
         }
     }
 }

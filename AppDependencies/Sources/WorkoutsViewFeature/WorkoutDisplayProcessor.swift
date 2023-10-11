@@ -16,7 +16,7 @@ extension Workout {
 
 extension WorkoutDispayValues {
     var displayString: String {
-        "Calories: \(largeCalories) \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)\nType: \(type)"
+        "Calories: \(largeCalories) \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)"
     }
 }
 
@@ -42,14 +42,14 @@ struct WorkoutDispayValues: Identifiable {
 
 final class WorkoutDisplayProcessor {
     static func process(workout: Workout) -> WorkoutDispayValues {
-        let date = convert(date: workout.startDate)
+        let date = workout.startDate.convert()
         let time = DateComponentsFormatter().string(from: workout.duration)!
         
         let caloriesDoubleValue = workout.activeEnergySumStatisticsQuantity?.doubleValue(for: .largeCalorie()) ?? 0
-        let stringCalories = Self.convert(dimension: UnitEnergy.calories, value: caloriesDoubleValue)
+        let stringCalories = caloriesDoubleValue.convert(dimension: UnitEnergy.calories)
         
         let distanceDouble = workout.distanceSumStatisticsQuantity?.doubleValue(for: .meter()) ?? 0
-        let stringDistance = Self.convert(dimension: UnitLength.meters, value: distanceDouble)
+        let stringDistance = distanceDouble.convert(dimension: UnitLength.meters, digits: 1)
         
         return WorkoutDispayValues(id: workout.id,
                                    largeCalories: stringCalories,
@@ -57,22 +57,5 @@ final class WorkoutDisplayProcessor {
                                    startDate: date,
                                    duration: time,
                                    type: "\(workout.workoutType)")
-    }
-    
-    private static func convert(dimension: Dimension, value: Double) -> String {
-        let measurement = Measurement(value: value, unit: dimension)
-        let formatter = MeasurementFormatter()
-        formatter.numberFormatter.maximumFractionDigits = 2
-        formatter.numberFormatter.numberStyle = .decimal
-        let string = formatter.string(from: measurement)
-        return string
-    }
-    
-    static private func convert(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
-        let date = dateFormatter.string(from: date)
-        return date
     }
 }

@@ -1,9 +1,18 @@
 import Foundation
+import HealthKit
 
 extension WorkoutsClient {
     public static let workoutsMock = Self { _ in
         let workoutsArray = try await getWorkouts()
-        return workoutsArray
+        let threeMonthsAgo = DateComponents(month: -3)
+        let startDate = Calendar.current.date(byAdding: threeMonthsAgo, to: .now)!
+        
+        let activeEnergyBurnedStatistic = Statistic(quantity: HKQuantity(unit: .largeCalorie(), doubleValue: 47289433), startDate: startDate, endDate: .now)
+        let timeStatistic = Statistic(quantity: HKQuantity(unit: .hour(), doubleValue: 7748), startDate: startDate, endDate: .now)
+        let loadResult = LoadResult(workouts: workouts,
+                                    activeEnergyBurnedStatistic: activeEnergyBurnedStatistic,
+                                    timeStatistic: timeStatistic)
+        return loadResult
         
     } requestReadAuthorization: {
         

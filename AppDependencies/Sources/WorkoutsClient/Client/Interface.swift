@@ -3,10 +3,25 @@ import HealthKit
 
 public enum WorkoutsClientError: Error {
     case fetchingWorkouts
+    case fetchingStatistics
+    case cannotCreateQuantityType
+    case healthKitIsNotAvailable
+}
+
+public struct LoadResult {
+    public init(workouts: [Workout], activeEnergyBurnedStatistic: Statistic, timeStatistic: Statistic) {
+        self.workouts = workouts
+        self.activeEnergyBurnedStatistic = activeEnergyBurnedStatistic
+        self.timeStatistic = timeStatistic
+    }
+    
+    public let workouts: [Workout]
+    public let activeEnergyBurnedStatistic: Statistic
+    public let timeStatistic: Statistic
 }
 
 public extension WorkoutsClient {
-    typealias WorkoutsListClosure = (WorkoutTypeQuery) async throws -> [Workout]
+    typealias WorkoutsAndStatisticsDataClosure = (WorkoutTypeQuery) async throws -> LoadResult
     typealias WorkoutsAuthorizationStatusesClosure = () -> AuthorizationSaveStatuses
     typealias RequestReadAuthorizationClosure = () async throws -> Void
     
@@ -16,15 +31,15 @@ public extension WorkoutsClient {
 }
 
 public struct WorkoutsClient {
-    public init(loadWorkoutsList: @escaping WorkoutsListClosure,
+    public init(loadWorkoutsAndStatisticsData: @escaping WorkoutsAndStatisticsDataClosure,
                 requestReadAuthorization: @escaping RequestReadAuthorizationClosure,
                 authorizationStatuses: @escaping WorkoutsAuthorizationStatusesClosure) {
-        self.loadWorkoutsList = loadWorkoutsList
+        self.loadWorkoutsAndStatisticsData = loadWorkoutsAndStatisticsData
         self.requestReadAuthorization = requestReadAuthorization
         self.authorizationStatuses = authorizationStatuses
     }
     
-    public let loadWorkoutsList: WorkoutsListClosure
+    public let loadWorkoutsAndStatisticsData: WorkoutsAndStatisticsDataClosure
     public let requestReadAuthorization: RequestReadAuthorizationClosure
     public let authorizationStatuses: WorkoutsAuthorizationStatusesClosure
 }
@@ -65,4 +80,16 @@ public extension WorkoutsClient {
         public let summary: AuthorizationStatus
         public let route: AuthorizationStatus
     }
+}
+
+public struct Statistic {
+    public init(quantity: HKQuantity?, startDate: Date, endDate: Date) {
+        self.quantity = quantity
+        self.startDate = startDate
+        self.endDate = endDate
+    }
+    
+    public let quantity: HKQuantity?
+    public let startDate: Date
+    public let endDate: Date
 }

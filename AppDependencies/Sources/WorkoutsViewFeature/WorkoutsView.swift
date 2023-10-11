@@ -6,7 +6,9 @@ extension WorkoutsView {
         case initial
         case loading
         case error
-        case list(displayValues: [DisplayStringContainer])
+        case list(displayValues: [DisplayStringContainer],
+                  totalHours: StatisticDispayValues,
+                  totalCalories: StatisticDispayValues)
     }
 }
 
@@ -33,12 +35,26 @@ public struct WorkoutsView: View {
             case .error:
                 Text("Error")
                 
-            case .list(let displayValues):
+            case let .list(displayValues, totalHours, totalCalories):
                 VStack {
-                    Text("List total entries: \(displayValues.count)")
-                    List {
-                        ForEach(displayValues) { displayValue in
-                            Text(displayValue.displayString)
+                    Text("Workouts: \(displayValues.count)")
+                    Text("Data Period: \(totalHours.startDate) - \(totalHours.endDate)")
+                    Text("\(totalHours.value) Total Exercise Hours")
+                    Text("\(totalHours.interval) days Exercise Interval")
+                    Text("\(totalCalories.value) Total Exercise Calories")
+                    Divider()
+                    // List is not used here as it does not work at all with scroll view
+                    ForEach(displayValues) { displayValue in
+                        VStack {
+                            HStack {
+                                Text(displayValue.displayString)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .padding(7)
+                                Spacer()
+                            }
+                            .background(.gray.opacity(0.11))
+                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            Divider()
                         }
                     }
                 }
@@ -59,9 +75,15 @@ private extension WorkoutsView {
         Task {
             state = .loading
             do {
-                let workouts = try await client.loadWorkoutsList(query)
-                let displayValues = workouts.map { $0.displayValues }.map { $0.displayContainer }
-                state = .list(displayValues: displayValues)
+                let workoutsAndStatisticsData = try await client.loadWorkoutsAndStatisticsData(query)
+                let workoutsDisplayValues = workoutsAndStatisticsData.workouts
+                    .map { $0.displayValues }
+                    .map { $0.displayContainer }
+                let totalHours = workoutsAndStatisticsData.timeStatistic.displayTimeValues
+                let calories = workoutsAndStatisticsData.activeEnergyBurnedStatistic.displayCaloriesValues
+                state = .list(displayValues: workoutsDisplayValues,
+                              totalHours: totalHours,
+                              totalCalories: calories)
             } catch {
                 state = .error
             }
@@ -71,4 +93,6 @@ private extension WorkoutsView {
 
 #Preview {
     WorkoutsView(client: .workoutsMock, selectedQuery: .constant(.init()))
+        .padding()
+        .padding()
 }

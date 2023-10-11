@@ -22,20 +22,15 @@ public struct AchievementsView: View {
     @Bindable private var viewModel: WorkoutTypeView.ViewModel
     
     public var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack {
-                    WorkoutTypeView(viewModel: viewModel)
-                    Divider().overlay(Color.gray)
-                    RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $viewModel.selectedQuery)
-                    Spacer()
-                }
+        ScrollView {
+            VStack {
+                WorkoutTypeView(viewModel: viewModel)
+                Divider().overlay(Color.gray)
+                RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $viewModel.selectedQuery)
+                Spacer()
             }
-            .navigationTitle("Achievements")
         }
-        .onChange(of: viewModel.selectedQuery) { _, newValue in
-            QuerySaver.save(query: newValue)
-        }
+        .navigationTitle("Achievements")
     }
 }
 

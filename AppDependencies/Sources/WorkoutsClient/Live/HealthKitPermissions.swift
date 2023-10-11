@@ -15,12 +15,6 @@ final class HealthKitPermissions {
     }
     
     private let store: HKHealthStore
-    private let workoutReadTypesSet: Set = [
-        HKSeriesType.workoutType(),
-        HKSeriesType.activitySummaryType(),
-        HKSeriesType.workoutRoute()
-    ]
-    
     func authorizationStatuses() -> WorkoutsClient.AuthorizationSaveStatuses {
         WorkoutsClient.AuthorizationSaveStatuses(
             workout: store.authorizationStatus(for: HKSeriesType.workoutType()),
@@ -30,7 +24,18 @@ final class HealthKitPermissions {
     }
     
     func requestReadPemissions() async throws {
-        guard HKHealthStore.isHealthDataAvailable() else { return }
-        try await store.requestAuthorization(toShare: [], read: workoutReadTypesSet)
+        guard HKHealthStore.isHealthDataAvailable() else { throw WorkoutsClientError.healthKitIsNotAvailable }
+        let workoutReadTypes = try Self.workoutReadTypesSet()
+        try await store.requestAuthorization(toShare: [], read: workoutReadTypes)
+    }
+    
+    private static func workoutReadTypesSet() throws -> Set<HKObjectType> {
+        [
+            HKSeriesType.workoutType(),
+            try Helpers.createQuantityType(type: .activeEnergyBurned),
+            try Helpers.createQuantityType(type: .appleExerciseTime),
+            HKSeriesType.activitySummaryType(),
+            HKSeriesType.workoutRoute()
+        ]
     }
 }
