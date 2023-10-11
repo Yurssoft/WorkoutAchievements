@@ -107,24 +107,6 @@ final class WorkoutLoader {
         store.execute(query)
     }
     
-    
-//    static func fetchStatistics(predicate: NSPredicate, store: HKHealthStore) throws {
-//        HKObjectType.quantityType(forIdentifier: .appleExerciseTime)
-//        guard let quantityType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
-//            fatalError("*** Unable to create a step count type ***")
-//        }
-//        let now = Date()
-//        let startOfDay = Calendar.current.startOfDay(for: now)
-//        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
-//        let query = HKStatisticsQuery(quantityType: quantityType, quantitySamplePredicate: .none) { _, statistics, error in
-//            if let quantity = statistics?.sumQuantity() {
-//                let value = quantity.doubleValue(for: .largeCalorie())
-//                print(value)
-//            }
-//        }
-//        store.execute(query)
-//    }
-    
     private static func fetchStatistic(store: HKHealthStore, type: HKQuantityTypeIdentifier) async throws -> Statistic {
         let quantityType = try Helpers.createQuantityType(type: type)
         let statistics = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<HKStatistics, Error>) in
