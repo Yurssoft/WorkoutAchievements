@@ -46,11 +46,14 @@ public struct WorkoutsView: View {
                     // List is not used here as it does not work at all with scroll view
                     ForEach(displayValues) { displayValue in
                         VStack {
-                            Text(displayValue.displayString)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .padding(5)
-                                .background(.gray.opacity(0.11))
-                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            HStack {
+                                Text(displayValue.displayString)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .padding(7)
+                                Spacer()
+                            }
+                            .background(.gray.opacity(0.11))
+                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                             Divider()
                         }
                     }
