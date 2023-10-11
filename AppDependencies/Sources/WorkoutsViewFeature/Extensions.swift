@@ -26,10 +26,10 @@ extension Date {
 }
 
 extension Double {
-    func convert(dimension: Dimension) -> String {
+    func convert(dimension: Dimension, digits: Int = 0) -> String {
         let measurement = Measurement(value: self, unit: dimension)
         let formatter = MeasurementFormatter()
-        formatter.numberFormatter.maximumFractionDigits = 0
+        formatter.numberFormatter.maximumFractionDigits = digits
         formatter.numberFormatter.numberStyle = .decimal
         let string = formatter.string(from: measurement)
         return string

@@ -49,7 +49,7 @@ final class WorkoutDisplayProcessor {
         let stringCalories = caloriesDoubleValue.convert(dimension: UnitEnergy.calories)
         
         let distanceDouble = workout.distanceSumStatisticsQuantity?.doubleValue(for: .meter()) ?? 0
-        let stringDistance = caloriesDoubleValue.convert(dimension: UnitLength.meters)
+        let stringDistance = distanceDouble.convert(dimension: UnitLength.meters, digits: 1)
         
         return WorkoutDispayValues(id: workout.id,
                                    largeCalories: stringCalories,
