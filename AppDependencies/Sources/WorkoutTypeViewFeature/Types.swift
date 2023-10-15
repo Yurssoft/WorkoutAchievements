@@ -8,7 +8,7 @@
 import WorkoutsClient
 
 enum QueryType: Codable, CaseIterable, Hashable {
-    static var allCases: [QueryType] {
+    static var allCases: [Self] {
         [.all, .workoutTypes(WorkoutsClient.WorkoutType.allCases)]
     }
     
