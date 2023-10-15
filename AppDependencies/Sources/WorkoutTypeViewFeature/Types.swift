@@ -24,7 +24,6 @@ enum QueryType: Codable, CaseIterable, Hashable {
             return types
         }
     }
-
 }
 
 extension QueryType {
