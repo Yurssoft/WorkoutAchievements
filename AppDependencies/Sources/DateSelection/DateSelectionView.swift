@@ -9,66 +9,12 @@ import Foundation
 import SwiftUI
 import Combine
 
-enum SelectedDateRangeType {
-    case allTime
-    case dateRange(startDate: Date, endDate: Date)
-    case selectedDates([Date])
-}
-
-extension DateSelectionView {
-    enum ViewState: CaseIterable, Hashable {
-        static var allCases: [Self] {
-            [
-                .allTime,
-                .day,
-                .month,
-                .year,
-                .customRange,
-                .customDates
-            ]
-        }
-        
-        case allTime
-        case day
-        case month
-        case year
-        case customRange
-        case customDates
-        
-        var name: String {
-            switch self {
-            case .allTime:
-                return "All time"
-            case .day:
-                return "This day"
-            case .month:
-                return "This month"
-            case .year:
-                return "This year"
-            case .customRange:
-                return "Range"
-            case .customDates:
-                return "Custom dates"
-            }
-        }
-    }
-}
-
-extension DateSelectionView {
-    @Observable final class ViewModel {
-        fileprivate var state: ViewState = .allTime
-    }
-}
-
 struct DateSelectionView: View {
     init(viewModel: DateSelectionView.ViewModel) {
         self.viewModel = viewModel
     }
     
     @Bindable private var viewModel: ViewModel
-    @State private var dates: Set<DateComponents> = []
-    @State private var startDate = Date()
-    @State private var endDate = Date()
     
     var body: some View {
         VStack {
@@ -97,8 +43,8 @@ struct DateSelectionView: View {
     @ViewBuilder
     func startEndDate() -> some View {
         VStack {
-            DatePicker("Start Date", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
-            DatePicker("End Date", selection: $endDate, displayedComponents: [.date, .hourAndMinute])
+            DatePicker("Start Date", selection: $viewModel.startDate, displayedComponents: [.date, .hourAndMinute])
+            DatePicker("End Date", selection: $viewModel.endDate, displayedComponents: [.date, .hourAndMinute])
         }
     }
     
@@ -106,7 +52,7 @@ struct DateSelectionView: View {
     func multipleDatePicker() -> some View {
 #if os(iOS)
         VStack {
-            MultiDatePicker("Dates Available", selection: $dates)
+            MultiDatePicker("Dates Available", selection: $viewModel.dates)
         }
 #endif
 #if os(watchOS)
@@ -117,6 +63,8 @@ struct DateSelectionView: View {
 
 #Preview {
     NavigationStack {
-        DateSelectionView(viewModel: DateSelectionView.ViewModel())
+        DateSelectionView(viewModel:
+            DateSelectionView.ViewModel(selectedDateRangeType: .allTime)
+        )
     }
 }
