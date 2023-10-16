@@ -38,6 +38,7 @@ struct DateSelectionView: View {
             }
         }
         .padding()
+        .onChange(of: viewModel.state, viewModel.stateChanged)
     }
     
     @ViewBuilder
