@@ -53,6 +53,6 @@ let package = Package(
             path: "Sources/WorkoutsClient/Live"),
         .target(
             name: "DateSelection",
-            path: "Sources/DateSelection"),
+            dependencies: ["WorkoutsClient"]),
     ]
 )
