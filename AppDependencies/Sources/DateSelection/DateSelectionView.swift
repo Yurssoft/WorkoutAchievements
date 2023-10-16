@@ -74,49 +74,38 @@ struct DateSelectionView: View {
         VStack {
             Picker("Period", selection: $viewModel.state) {
                 ForEach(ViewState.allCases, id: \.self) {
-                    switch $0 {
-                    case .customDates:
-                        multipleDatePicker(stateName: $0.name)
+                    Text($0.name)
                         .tag($0)
-                        
-                    case .customRange:
-                        startEndDate(stateName: $0.name)
-                            .tag($0)
-                        
-                    case .allTime:
-                        Text($0.name)
-                            .tag($0)
-                    case .day:
-                        Text($0.name)
-                            .tag($0)
-                    case .month:
-                        Text($0.name)
-                            .tag($0)
-                    case .year:
-                        Text($0.name)
-                            .tag($0)
-                    }
                 }
             }
             .pickerStyle(.navigationLink)
+            
+            switch viewModel.state {
+            case .customDates:
+                multipleDatePicker()
+                
+            case .customRange:
+                startEndDate()
+                
+            default:
+                EmptyView()
+            }
         }
         .padding()
     }
     
     @ViewBuilder
-    func startEndDate(stateName: String) -> some View {
+    func startEndDate() -> some View {
         VStack {
-            Text(stateName)
             DatePicker("Start Date", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
             DatePicker("End Date", selection: $endDate, displayedComponents: [.date, .hourAndMinute])
         }
     }
     
     @ViewBuilder
-    func multipleDatePicker(stateName: String) -> some View {
+    func multipleDatePicker() -> some View {
 #if os(iOS)
         VStack {
-            Text(stateName)
             MultiDatePicker("Dates Available", selection: $dates)
         }
 #endif
