@@ -16,6 +16,10 @@ public extension WorkoutTypeView {
         
         public var selectedQuery: WorkoutTypeQuery
         fileprivate var typesQuery: QueryType
+        
+        func typesQueryChanged() {
+            selectedQuery = typesQuery.workoutTypeQuery(isAscending: selectedQuery.isAscending, measurmentType: selectedQuery.measurmentType)
+        }
     }
 }
 
@@ -59,6 +63,7 @@ public struct WorkoutTypeView: View {
             Spacer()
         }
         .padding()
+        .onChange(of: viewModel.typesQuery, viewModel.typesQueryChanged)
     }
 }
 
