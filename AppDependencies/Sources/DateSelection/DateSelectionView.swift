@@ -56,7 +56,7 @@ extension DateSelectionView {
 
 extension DateSelectionView {
     @Observable final class ViewModel {
-        var state: ViewState = .customRange
+        fileprivate var state: ViewState = .allTime
     }
 }
 
