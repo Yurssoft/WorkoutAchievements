@@ -72,44 +72,53 @@ struct DateSelectionView: View {
     
     var body: some View {
         VStack {
-            Picker("Date Range:", selection: $viewModel.state) {
+            Picker("Period", selection: $viewModel.state) {
                 ForEach(ViewState.allCases, id: \.self) {
-                    Text($0.name)
+                    switch $0 {
+                    case .customDates:
+                        multipleDatePicker(stateName: $0.name)
                         .tag($0)
+                        
+                    case .customRange:
+                        startEndDate(stateName: $0.name)
+                            .tag($0)
+                        
+                    case .allTime:
+                        Text($0.name)
+                            .tag($0)
+                    case .day:
+                        Text($0.name)
+                            .tag($0)
+                    case .month:
+                        Text($0.name)
+                            .tag($0)
+                    case .year:
+                        Text($0.name)
+                            .tag($0)
+                    }
                 }
             }
             .pickerStyle(.navigationLink)
-            
-            switch viewModel.state {
-            case .customDates:
-                multipleDatePicker()
-                
-            case .customRange:
-                startEndDate()
-                
-            case .allTime:
-                Text(viewModel.state.name)
-            case .day:
-                Text(viewModel.state.name)
-            case .month:
-                Text(viewModel.state.name)
-            case .year:
-                Text(viewModel.state.name)
-            }
         }
         .padding()
     }
     
     @ViewBuilder
-    func startEndDate() -> some View {
-        DatePicker("Start Date", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
-        DatePicker("End Date", selection: $endDate, displayedComponents: [.date, .hourAndMinute])
+    func startEndDate(stateName: String) -> some View {
+        VStack {
+            Text(stateName)
+            DatePicker("Start Date", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
+            DatePicker("End Date", selection: $endDate, displayedComponents: [.date, .hourAndMinute])
+        }
     }
     
     @ViewBuilder
-    func multipleDatePicker() -> some View {
+    func multipleDatePicker(stateName: String) -> some View {
 #if os(iOS)
-        MultiDatePicker("Dates Available", selection: $dates)
+        VStack {
+            Text(stateName)
+            MultiDatePicker("Dates Available", selection: $dates)
+        }
 #endif
 #if os(watchOS)
         EmptyView()
