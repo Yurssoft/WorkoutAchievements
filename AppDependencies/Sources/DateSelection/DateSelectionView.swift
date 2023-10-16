@@ -9,30 +9,31 @@ import Foundation
 import SwiftUI
 import Combine
 
+enum SelectedDateRangeType {
+    case allTime
+    case dateRange(startDate: Date, endDate: Date)
+    case selectedDates([Date])
+}
 
 extension DateSelectionView {
-    enum SelectedDateRangeType: CaseIterable, Hashable {
+    enum ViewState: CaseIterable, Hashable {
         static var allCases: [Self] {
             [
                 .allTime,
                 .day,
                 .month,
                 .year,
-                .customRange(startDate: thisMonthStartDate(), endDate: Date()),
-                .customDates([Date()])
+                .customRange,
+                .customDates
             ]
-        }
-        
-        static func thisMonthStartDate() -> Date {
-            Date()
         }
         
         case allTime
         case day
         case month
         case year
-        case customRange(startDate: Date, endDate: Date)
-        case customDates([Date])
+        case customRange
+        case customDates
         
         var name: String {
             switch self {
@@ -44,8 +45,8 @@ extension DateSelectionView {
                 return "This month"
             case .year:
                 return "This year"
-            case .customRange(startDate: let startDate, endDate: let endDate):
-                return "\(startDate) \(endDate)"
+            case .customRange:
+                return "Range"
             case .customDates:
                 return "Custom dates"
             }
@@ -55,7 +56,7 @@ extension DateSelectionView {
 
 extension DateSelectionView {
     @Observable final class ViewModel {
-        var selectedDateRangeType: SelectedDateRangeType = .customRange(startDate: Date(), endDate: Date())
+        var state: ViewState = .customRange
     }
 }
 
@@ -71,22 +72,40 @@ struct DateSelectionView: View {
     
     var body: some View {
         VStack {
-            Picker("Date Range:", selection: $viewModel.selectedDateRangeType) {
-                ForEach(SelectedDateRangeType.allCases, id: \.self) {
+            Picker("Date Range:", selection: $viewModel.state) {
+                ForEach(ViewState.allCases, id: \.self) {
                     Text($0.name)
                         .tag($0)
                 }
             }
             .pickerStyle(.navigationLink)
-            if case let .customRange(startDate, endDate) = viewModel.selectedDateRangeType {
+            
+            switch viewModel.state {
+            case .customDates:
                 multipleDatePicker()
+                
+            case .customRange:
+                startEndDate()
+                
+            case .allTime:
+                Text(viewModel.state.name)
+            case .day:
+                Text(viewModel.state.name)
+            case .month:
+                Text(viewModel.state.name)
+            case .year:
+                Text(viewModel.state.name)
             }
-            DatePicker("Start Date", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
-            DatePicker("End Date", selection: $endDate, displayedComponents: [.date, .hourAndMinute])
         }
         .padding()
     }
-        
+    
+    @ViewBuilder
+    func startEndDate() -> some View {
+        DatePicker("Start Date", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
+        DatePicker("End Date", selection: $endDate, displayedComponents: [.date, .hourAndMinute])
+    }
+    
     @ViewBuilder
     func multipleDatePicker() -> some View {
 #if os(iOS)
