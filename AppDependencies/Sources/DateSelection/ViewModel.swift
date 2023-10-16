@@ -16,6 +16,7 @@ extension DateSelectionView {
             self.state = selectedDateRangeType.toViewState()
             startDate = selectedDateRangeType.startDate
             endDate = selectedDateRangeType.endDate
+            dates = Self.datesToComponents(dates: selectedDateRangeType.dates)
         }
         
         public var selectedDateRangeType: DateRangeType
@@ -25,15 +26,23 @@ extension DateSelectionView {
         var endDate: Date
         
         func stateChanged() {
+            selectedDateRangeType = transformInternalStateToDateRangeType()
         }
     }
 }
 
 private extension DateSelectionView.ViewModel {
-    func compoentsToDates() -> [Date] {
+    static func compoentsToDates(dates: Set<DateComponents>) -> [Date] {
         dates.compactMap { components in
             Calendar.current.date(from: components)
         }
+    }
+    
+    static func datesToComponents(dates: [Date]) -> Set<DateComponents> {
+        let calendar = Calendar.current
+        let zone = TimeZone.current
+        let components = dates.map { calendar.dateComponents(in: zone, from: $0) }
+        return Set(components)
     }
     
     func transformInternalStateToDateRangeType() -> DateRangeType {
@@ -49,7 +58,7 @@ private extension DateSelectionView.ViewModel {
         case .customRange:
             return .dateRange(startDate: startDate, endDate: endDate)
         case .customDates:
-            return .selectedDates(compoentsToDates())
+            return .selectedDates(Self.compoentsToDates(dates: dates))
         }
     }
 }
@@ -89,6 +98,16 @@ extension DateRangeType {
             
         default:
             return Date()
+        }
+    }
+    
+    var dates: [Date] {
+        switch self {
+        case .selectedDates(let dates):
+            return dates
+            
+        default:
+            return []
         }
     }
 }
