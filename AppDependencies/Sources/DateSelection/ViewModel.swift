@@ -1,0 +1,134 @@
+//
+//  ViewModel.swift
+//  
+//
+//  Created by Yurii B on 10/16/23.
+//
+
+import Foundation
+import WorkoutsClient
+import Combine
+
+extension DateSelectionView {
+    @Observable final class ViewModel {
+        public init(selectedDateRangeType: DateRangeType) {
+            self.selectedDateRangeType = selectedDateRangeType
+            self.state = selectedDateRangeType.toViewState()
+            startDate = selectedDateRangeType.startDate
+            endDate = selectedDateRangeType.endDate
+        }
+        
+        public var selectedDateRangeType: DateRangeType
+        var state: ViewState
+        var dates: Set<DateComponents> = []
+        var startDate: Date
+        var endDate: Date
+        
+        func stateChanged() {
+        }
+    }
+}
+
+private extension DateSelectionView.ViewModel {
+    func compoentsToDates() -> [Date] {
+        dates.compactMap { components in
+            Calendar.current.date(from: components)
+        }
+    }
+    
+    func transformInternalStateToDateRangeType() -> DateRangeType {
+        switch state {
+        case .allTime:
+            return .allTime
+        case .day:
+            return .day
+        case .month:
+            return .month
+        case .year:
+            return .month
+        case .customRange:
+            return .dateRange(startDate: startDate, endDate: endDate)
+        case .customDates:
+            return .selectedDates(compoentsToDates())
+        }
+    }
+}
+
+extension DateRangeType {
+    func toViewState() -> DateSelectionView.ViewState {
+        switch self {
+        case .allTime:
+            return .allTime
+        case .day:
+            return .day
+        case .month:
+            return .month
+        case .year:
+            return .year
+        case .dateRange:
+            return .customRange
+        case .selectedDates:
+            return .customDates
+        }
+    }
+    
+    var startDate: Date {
+        switch self {
+        case let .dateRange(startDate, _):
+            return startDate
+            
+        default:
+            return Date()
+        }
+    }
+    
+    var endDate: Date {
+        switch self {
+        case let .dateRange(_, endDate):
+            return endDate
+            
+        default:
+            return Date()
+        }
+    }
+}
+
+extension DateSelectionView {
+    enum ViewState: CaseIterable, Hashable {
+        static var allCases: [Self] {
+            [
+                .allTime,
+                .day,
+                .month,
+                .year,
+                .customRange,
+                .customDates
+            ]
+        }
+        
+        case allTime
+        case day
+        case month
+        case year
+        case customRange
+        case customDates
+        
+        var name: String {
+            switch self {
+            case .allTime:
+                return "All time"
+            case .day:
+                return "This day"
+            case .month:
+                return "This month"
+            case .year:
+                return "This year"
+            case .customRange:
+                return "Range"
+            case .customDates:
+                return "Custom dates"
+            }
+        }
+    }
+}
+
