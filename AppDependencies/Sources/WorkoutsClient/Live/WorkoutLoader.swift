@@ -12,10 +12,8 @@ final class WorkoutLoader {
     
     /// https://developer.apple.com/documentation/healthkit/queries/executing_statistics_collection_queries
     /// https://www.devfright.com/the-healthkit-hkstatisticsquery/
-    /// - Parameters:
-    ///   - predicate: <#predicate description#>
-    ///   - store: <#store description#>
-    static func fetchWeekStatistics(predicate: NSPredicate, store: HKHealthStore) throws {
+    ///
+    static func fetchStatisticsPerSingleWeek(predicate: NSPredicate, store: HKHealthStore) throws {
         if true {
             return
         }
@@ -121,24 +119,24 @@ final class WorkoutLoader {
     }
     
     static func fetchData(for query: WorkoutTypeQuery, store: HKHealthStore) async throws -> LoadResult {
-        let calorieStatistic = try await fetchStatistic(store: store, type: .activeEnergyBurned)
-        let timeStatistic = try await fetchStatistic(store: store, type: .appleExerciseTime)
+        let calorieSummaryStatistic = try await fetchStatistic(store: store, type: .activeEnergyBurned)
+        let timeSummaryStatistic = try await fetchStatistic(store: store, type: .appleExerciseTime)
+        
         let workouts = try await fetchWorkouts(for: query, store: store)
         
         let loadResult = LoadResult(workouts: workouts,
-                                    activeEnergyBurnedStatistic: calorieStatistic,
-                                    timeStatistic: timeStatistic)
+                                    activeEnergyBurnedStatistic: calorieSummaryStatistic,
+                                    timeStatistic: timeSummaryStatistic)
         return loadResult
     }
-    
-    
+}
+
+private extension WorkoutLoader {
     static func fetchWorkouts(for query: WorkoutTypeQuery, store: HKHealthStore) async throws -> [Workout] {
-        
         let samples = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             let queryHandler = workoutsQueryHandler(for: continuation)
             let predicates = query.workoutTypes.map { HKQuery.predicateForWorkouts(with: $0) }
             let predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
-            try? fetchWeekStatistics(predicate: predicate, store: store)
             let sort = query.measurmentType.sortDescriptor(isAscending: query.isAscending)
             let searchHKQuery = HKSampleQuery(sampleType: .workoutType(),
                                               predicate: predicate,
@@ -150,13 +148,9 @@ final class WorkoutLoader {
         
         guard let workouts = samples as? [HKWorkout] else { return [] }
         let transformed = workouts.map { $0.mapIntoWorkout(for: query) }
-        
-        
         return transformed
     }
-}
-
-private extension WorkoutLoader {
+    
     static func workoutsQueryHandler(for continuation: CheckedContinuation<[HKSample], Error>) -> (HKQuery, [HKSample]?, Error?) -> Void {
         { _, samples, error in
             if let hasError = error {
