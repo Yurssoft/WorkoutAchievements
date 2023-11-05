@@ -9,19 +9,6 @@ import WorkoutsClient
 import HealthKit
 
 final class WorkoutLoader {
-    private static func fetchStatistic(store: HKHealthStore, type: HKQuantityTypeIdentifier) async throws -> Statistic {
-        let quantityType = try Helpers.createQuantityType(type: type)
-        let statistics = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<HKStatistics, Error>) in
-            let query = HKStatisticsQuery(quantityType: quantityType,
-                                          quantitySamplePredicate: .none,
-                                          completionHandler: statisticsQueryHandler(for: continuation))
-            store.execute(query)
-        }
-        
-        let statistic = Statistic(quantity: statistics.sumQuantity(), startDate: statistics.startDate, endDate: statistics.endDate)
-        return statistic
-    }
-    
     static func fetchData(for query: WorkoutTypeQuery, store: HKHealthStore) async throws -> LoadResult {
         let calorieSummaryStatistic = try await fetchStatistic(store: store, type: .activeEnergyBurned)
         let timeSummaryStatistic = try await fetchStatistic(store: store, type: .appleExerciseTime)
@@ -36,6 +23,19 @@ final class WorkoutLoader {
 }
 
 private extension WorkoutLoader {
+    static func fetchStatistic(store: HKHealthStore, type: HKQuantityTypeIdentifier) async throws -> Statistic {
+        let quantityType = try Helpers.createQuantityType(type: type)
+        let statistics = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<HKStatistics, Error>) in
+            let query = HKStatisticsQuery(quantityType: quantityType,
+                                          quantitySamplePredicate: .none,
+                                          completionHandler: statisticsQueryHandler(for: continuation))
+            store.execute(query)
+        }
+        
+        let statistic = Statistic(quantity: statistics.sumQuantity(), startDate: statistics.startDate, endDate: statistics.endDate)
+        return statistic
+    }
+    
     static func fetchWorkouts(for query: WorkoutTypeQuery, store: HKHealthStore) async throws -> [Workout] {
         let samples = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             let queryHandler = workoutsQueryHandler(for: continuation)
