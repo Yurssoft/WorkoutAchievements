@@ -9,14 +9,14 @@ import Foundation
 import SwiftUI
 import Combine
 
-struct DateSelectionView: View {
-    init(viewModel: DateSelectionView.ViewModel) {
+public struct DateSelectionView: View {
+    public init(viewModel: DateSelectionView.ViewModel) {
         self.viewModel = viewModel
     }
     
     @Bindable private var viewModel: ViewModel
     
-    var body: some View {
+    public var body: some View {
         VStack {
             Picker("Period", selection: $viewModel.state) {
                 ForEach(ViewState.allCases, id: \.self) {

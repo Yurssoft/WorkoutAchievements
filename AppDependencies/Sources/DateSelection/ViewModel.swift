@@ -10,7 +10,7 @@ import WorkoutsClient
 import Combine
 
 extension DateSelectionView {
-    @Observable final class ViewModel {
+    @Observable public final class ViewModel {
         public init(selectedDateRangeType: DateRangeType) {
             self.selectedDateRangeType = selectedDateRangeType
             self.state = selectedDateRangeType.toViewState()
@@ -145,7 +145,7 @@ extension DateSelectionView {
             case .customRange:
                 return "Range"
             case .customDates:
-                return "Custom dates"
+                return "Custom dates (Select specific dates)"
             }
         }
     }

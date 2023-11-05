@@ -6,6 +6,7 @@
 
 import SwiftUI
 import WorkoutsClient
+import DateSelection
 
 public extension WorkoutTypeView {
     @Observable final class ViewModel {
@@ -55,6 +56,8 @@ public struct WorkoutTypeView: View {
                 .pickerStyle(.automatic)
             }
             
+            DateSelectionView(viewModel: DateSelectionView.ViewModel(selectedDateRangeType: .allTime))
+            
             HStack {
                 Spacer()
                 Toggle("Is Ascending", isOn: $viewModel.selectedQuery.isAscending)
@@ -67,4 +70,14 @@ public struct WorkoutTypeView: View {
     }
 }
 
-#Preview { WorkoutTypeView(viewModel: WorkoutTypeView.ViewModel(selectedQuery: WorkoutTypeQuery(workoutTypes: WorkoutsClient.WorkoutType.allCases))) }
+#Preview {
+    NavigationStack {
+        WorkoutTypeView(
+            viewModel: WorkoutTypeView.ViewModel(
+                selectedQuery: WorkoutTypeQuery(
+                    workoutTypes: WorkoutsClient.WorkoutType.allCases
+                )
+            )
+        )
+    }
+}
