@@ -27,7 +27,9 @@ enum QueryType: Codable, CaseIterable, Hashable {
 }
 
 extension QueryType {
-    func workoutTypeQuery(isAscending: Bool, measurmentType: WorkoutMeasureType) -> WorkoutTypeQuery {
+    func workoutTypeQuery(isAscending: Bool,
+                          measurmentType: WorkoutMeasureType,
+                          dateRangeType: DateRangeType) -> WorkoutTypeQuery {
         let workoutTypes: [WorkoutsClient.WorkoutType]
         switch self {
         case .all:
@@ -35,7 +37,10 @@ extension QueryType {
         case .workoutTypes(let types):
             workoutTypes = types
         }
-        return WorkoutTypeQuery(workoutTypes: workoutTypes, isAscending: isAscending, measurmentType: measurmentType)
+        return WorkoutTypeQuery(workoutTypes: workoutTypes,
+                                isAscending: isAscending,
+                                measurmentType: measurmentType,
+                                dateRangeType: dateRangeType)
     }
 }
 

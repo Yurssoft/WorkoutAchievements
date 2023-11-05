@@ -13,13 +13,17 @@ public extension WorkoutTypeView {
         public init(selectedQuery: WorkoutTypeQuery) {
             self.selectedQuery = selectedQuery
             self.typesQuery = selectedQuery.queryType
+            self.dateRangeViewModel = DateSelectionView.ViewModel(selectedDateRangeType: selectedQuery.dateRangeType)
         }
         
         public var selectedQuery: WorkoutTypeQuery
         fileprivate var typesQuery: QueryType
+        fileprivate var dateRangeViewModel: DateSelectionView.ViewModel
         
         func typesQueryChanged() {
-            selectedQuery = typesQuery.workoutTypeQuery(isAscending: selectedQuery.isAscending, measurmentType: selectedQuery.measurmentType)
+            selectedQuery = typesQuery.workoutTypeQuery(isAscending: selectedQuery.isAscending,
+                                                        measurmentType: selectedQuery.measurmentType,
+                                                        dateRangeType: dateRangeViewModel.selectedDateRangeType)
         }
     }
 }
@@ -56,7 +60,7 @@ public struct WorkoutTypeView: View {
                 .pickerStyle(.automatic)
             }
             
-            DateSelectionView(viewModel: DateSelectionView.ViewModel(selectedDateRangeType: .allTime))
+            DateSelectionView(viewModel: viewModel.dateRangeViewModel)
             
             HStack {
                 Spacer()
@@ -67,6 +71,7 @@ public struct WorkoutTypeView: View {
         }
         .padding()
         .onChange(of: viewModel.typesQuery, viewModel.typesQueryChanged)
+        .onChange(of: viewModel.dateRangeViewModel.selectedDateRangeType, viewModel.typesQueryChanged)
     }
 }
 
