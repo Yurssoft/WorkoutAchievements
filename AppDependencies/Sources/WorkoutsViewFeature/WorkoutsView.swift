@@ -54,7 +54,9 @@ public struct WorkoutsView: View {
                             }
                             .background(.gray.opacity(0.11))
                             .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
                             Divider()
+                                .padding(EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4))
                         }
                     }
                 }
