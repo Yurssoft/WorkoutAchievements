@@ -56,7 +56,7 @@ private extension DateSelectionView.ViewModel {
         case .month:
             return .month
         case .year:
-            return .month
+            return .year
         case .customRange:
             return .dateRange(startDate: startDate, endDate: endDate)
         case .customDates:

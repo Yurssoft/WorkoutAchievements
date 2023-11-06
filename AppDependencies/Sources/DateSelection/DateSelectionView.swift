@@ -39,6 +39,9 @@ public struct DateSelectionView: View {
         }
         .padding()
         .onChange(of: viewModel.state, viewModel.stateChanged)
+        .onChange(of: viewModel.dates, viewModel.stateChanged)
+        .onChange(of: viewModel.startDate, viewModel.stateChanged)
+        .onChange(of: viewModel.endDate, viewModel.stateChanged)
     }
     
     @ViewBuilder
