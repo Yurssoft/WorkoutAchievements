@@ -18,7 +18,7 @@ final class WorkoutLoader {
                                                             type: .appleExerciseTime,
                                                             predicate: dateFilterPredicate)
         
-        let workouts = try await fetchWorkouts(for: query, store: store)
+        let workouts = try await fetchWorkouts(for: query, store: store, additionalPredicate: dateFilterPredicate)
         
         let loadResult = LoadResult(workouts: workouts,
                                     activeEnergyBurnedStatistic: calorieSummaryStatistic,
@@ -44,10 +44,13 @@ private extension WorkoutLoader {
         return statistic
     }
     
-    static func fetchWorkouts(for query: WorkoutTypeQuery, store: HKHealthStore) async throws -> [Workout] {
+    static func fetchWorkouts(for query: WorkoutTypeQuery,
+                              store: HKHealthStore,
+                              additionalPredicate: NSPredicate) async throws -> [Workout] {
         let samples = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             let queryHandler = workoutsQueryHandler(for: continuation)
-            let predicates = query.workoutTypes.map { HKQuery.predicateForWorkouts(with: $0) }
+            var predicates = query.workoutTypes.map { HKQuery.predicateForWorkouts(with: $0) }
+            predicates.append(additionalPredicate)
             let predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
             let sort = query.measurmentType.sortDescriptor(isAscending: query.isAscending)
             let searchHKQuery = HKSampleQuery(sampleType: .workoutType(),
