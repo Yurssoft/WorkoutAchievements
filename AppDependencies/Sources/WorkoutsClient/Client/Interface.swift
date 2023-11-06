@@ -70,7 +70,9 @@ public struct Workout: Identifiable, Equatable {
 
 public extension WorkoutsClient {
     struct AuthorizationSaveStatuses {
-        public init(workout: WorkoutsClient.AuthorizationStatus, summary: WorkoutsClient.AuthorizationStatus, route: WorkoutsClient.AuthorizationStatus) {
+        public init(workout: WorkoutsClient.AuthorizationStatus,
+                    summary: WorkoutsClient.AuthorizationStatus,
+                    route: WorkoutsClient.AuthorizationStatus) {
             self.workout = workout
             self.summary = summary
             self.route = route
