@@ -28,7 +28,7 @@ struct StatisticDispayValues {
 
 final class StatisticDisplayProcessor {
     static func processActiveEnergy(statistic: Statistic) -> StatisticDispayValues {
-        let caloriesDoubleValue = statistic.quantity?.doubleValue(for: .largeCalorie()) ?? 0
+        let caloriesDoubleValue = statistic.quantity?.doubleValue(for: .smallCalorie()) ?? 0
         let stringCalories = caloriesDoubleValue.convert(dimension: UnitEnergy.calories)
         
         return statistic.displayValues(value: stringCalories)
