@@ -10,8 +10,13 @@ import HealthKit
 
 final class WorkoutLoader {
     static func fetchData(for query: WorkoutTypeQuery, store: HKHealthStore) async throws -> LoadResult {
-        let calorieSummaryStatistic = try await fetchStatistic(store: store, type: .activeEnergyBurned)
-        let timeSummaryStatistic = try await fetchStatistic(store: store, type: .appleExerciseTime)
+        let dateFilterPredicate = query.dateRangeType.convertToDateRangePredicate()
+        let calorieSummaryStatistic = try await fetchStatistic(store: store,
+                                                               type: .activeEnergyBurned,
+                                                               predicate: dateFilterPredicate)
+        let timeSummaryStatistic = try await fetchStatistic(store: store,
+                                                            type: .appleExerciseTime,
+                                                            predicate: dateFilterPredicate)
         
         let workouts = try await fetchWorkouts(for: query, store: store)
         
@@ -23,11 +28,14 @@ final class WorkoutLoader {
 }
 
 private extension WorkoutLoader {
-    static func fetchStatistic(store: HKHealthStore, type: HKQuantityTypeIdentifier) async throws -> Statistic {
+    static func fetchStatistic(store: HKHealthStore,
+                               type: HKQuantityTypeIdentifier,
+                               predicate: NSPredicate) async throws -> Statistic {
         let quantityType = try Helpers.createQuantityType(type: type)
         let statistics = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<HKStatistics, Error>) in
+
             let query = HKStatisticsQuery(quantityType: quantityType,
-                                          quantitySamplePredicate: .none,
+                                          quantitySamplePredicate: predicate,
                                           completionHandler: statisticsQueryHandler(for: continuation))
             store.execute(query)
         }
