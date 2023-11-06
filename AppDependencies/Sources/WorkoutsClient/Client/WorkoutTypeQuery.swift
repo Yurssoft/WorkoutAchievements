@@ -35,6 +35,7 @@ public enum DateRangeType: Equatable, Codable {
     case day
     case month
     case year
+    case week
     case dateRange(startDate: Date, endDate: Date)
     case selectedDates([Date])
 }

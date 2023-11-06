@@ -15,24 +15,35 @@ extension DateRangeType {
         switch self {
         case .allTime:
             return HKQuery.predicateForSamples(withStart: .none, end: .none)
+            
         case .day:
             let startDate = date.startOfDay
             let endDate = date.endOfDay
             let today = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
             return today
+            
+        case .week:
+            let startDate = date.startOfWeek
+            let endDate = date.endOfWeek
+            let week = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+            return week
+            
         case .month:
             let startDate = date.startOfMonth
             let endDate = date.endOfMonth
             let month = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
             return month
+            
         case .year:
             let startDate = date.startOfYear
             let endDate = date.endOfYear
             let year = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
             return year
+            
         case .dateRange(startDate: let startDate, endDate: let endDate):
             let range = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
             return range
+            
         case .selectedDates(let dates):
             fatalError()
         }
@@ -49,6 +60,17 @@ extension Date {
         components.day = 1
         components.second = -1
         return Calendar.current.date(byAdding: components, to: startOfDay)!
+    }
+    
+    var startOfWeek: Date {
+        Calendar.current.dateComponents([.calendar, .yearForWeekOfYear, .weekOfYear], from: self).date!
+    }
+    
+    var endOfWeek: Date {
+        var components = DateComponents()
+        components.weekOfYear = 1
+        components.second = -1
+        return Calendar.current.date(byAdding: components, to: startOfWeek)!
     }
     
     var startOfMonth: Date {

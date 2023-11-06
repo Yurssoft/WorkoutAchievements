@@ -51,6 +51,8 @@ private extension DateSelectionView.ViewModel {
             return .allTime
         case .day:
             return .day
+        case .week:
+            return .week
         case .month:
             return .month
         case .year:
@@ -70,6 +72,8 @@ extension DateRangeType {
             return .allTime
         case .day:
             return .day
+        case .week:
+            return .week
         case .month:
             return .month
         case .year:
@@ -118,6 +122,7 @@ extension DateSelectionView {
             [
                 .allTime,
                 .day,
+                .week,
                 .month,
                 .year,
                 .customRange,
@@ -127,6 +132,7 @@ extension DateSelectionView {
         
         case allTime
         case day
+        case week
         case month
         case year
         case customRange
@@ -138,6 +144,8 @@ extension DateSelectionView {
                 return "All time"
             case .day:
                 return "This day"
+            case .week:
+                return "This week"
             case .month:
                 return "This month"
             case .year:
