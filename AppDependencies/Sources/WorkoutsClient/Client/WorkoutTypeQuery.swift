@@ -11,7 +11,7 @@ public struct WorkoutTypeQuery: Equatable, Codable {
     public init(workoutTypes: [WorkoutsClient.WorkoutType] = [WorkoutsClient.WorkoutType.walking],
                 isAscending: Bool = false,
                 measurmentType: WorkoutMeasureType = WorkoutMeasureType.distance,
-                dateRangeType: DateRangeType = .allTime) {
+                dateRangeType: DateRangeType = .week) {
         self.workoutTypes = workoutTypes
         self.isAscending = isAscending
         self.measurmentType = measurmentType
