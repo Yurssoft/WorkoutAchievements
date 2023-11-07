@@ -133,6 +133,9 @@ private extension HKWorkout {
         case .walking, .hiking, .running:
             distanceQuantity = HKQuantityType(.distanceWalkingRunning)
             
+        case .cycling:
+            distanceQuantity = HKQuantityType(.distanceCycling)
+            
         default:
             distanceQuantity = HKQuantityType(.appleExerciseTime)
         }
