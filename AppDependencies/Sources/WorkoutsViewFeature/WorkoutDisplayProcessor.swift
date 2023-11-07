@@ -16,7 +16,7 @@ extension Workout {
 
 extension WorkoutDispayValues {
     var displayString: String {
-        "Calories: \(largeCalories) \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)"
+        "Calories: \(calories) \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)"
     }
 }
 
@@ -33,7 +33,7 @@ struct DisplayStringContainer: Identifiable {
 
 struct WorkoutDispayValues: Identifiable {
     let id: String
-    fileprivate let largeCalories: String
+    fileprivate let calories: String
     fileprivate let distance: String
     fileprivate let startDate: String
     fileprivate let duration: String
@@ -45,14 +45,14 @@ final class WorkoutDisplayProcessor {
         let date = workout.startDate.convert()
         let time = DateComponentsFormatter().string(from: workout.duration)!
         
-        let caloriesDoubleValue = workout.activeEnergySumStatisticsQuantity?.doubleValue(for: .largeCalorie()) ?? 0
+        let caloriesDoubleValue = workout.activeEnergySumStatisticsQuantity?.doubleValue(for: .smallCalorie()) ?? 0
         let stringCalories = caloriesDoubleValue.convert(dimension: UnitEnergy.calories)
-        
-        let distanceDouble = workout.distanceSumStatisticsQuantity?.doubleValue(for: .meter()) ?? 0
-        let stringDistance = distanceDouble.convert(dimension: UnitLength.meters, digits: 1)
+        let systemUnit = HKUnit.lengthFormatterUnit(from: .mile())//❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+        let distanceDouble = workout.distanceSumStatisticsQuantity?.doubleValue(for: .mile()) ?? 0
+        let stringDistance = distanceDouble.convert(dimension: UnitLength.miles, digits: 1)
         
         return WorkoutDispayValues(id: workout.id,
-                                   largeCalories: stringCalories,
+                                   calories: stringCalories,
                                    distance: stringDistance,
                                    startDate: date,
                                    duration: time,

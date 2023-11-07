@@ -10,21 +10,34 @@ import HealthKit
 public struct WorkoutTypeQuery: Equatable, Codable {
     public init(workoutTypes: [WorkoutsClient.WorkoutType] = [WorkoutsClient.WorkoutType.walking],
                 isAscending: Bool = false,
-                measurmentType: WorkoutMeasureType = WorkoutMeasureType.distance) {
+                measurmentType: WorkoutMeasureType = WorkoutMeasureType.distance,
+                dateRangeType: DateRangeType = .week) {
         self.workoutTypes = workoutTypes
         self.isAscending = isAscending
         self.measurmentType = measurmentType
+        self.dateRangeType = dateRangeType
     }
     
     public var workoutTypes: [WorkoutsClient.WorkoutType]
     public var isAscending: Bool
     public var measurmentType: WorkoutMeasureType
+    public var dateRangeType: DateRangeType
 }
 
 public enum WorkoutMeasureType: CaseIterable, Equatable, Codable {
     case time
     case distance
     case calories
+}
+
+public enum DateRangeType: Equatable, Codable {
+    case allTime
+    case day
+    case month
+    case year
+    case week
+    case dateRange(startDate: Date, endDate: Date)
+    case selectedDates([Date])
 }
 
 extension WorkoutsClient.WorkoutType: Codable { }

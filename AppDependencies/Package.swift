@@ -24,6 +24,9 @@ let package = Package(
         .library(
             name: "WorkoutsClientLive",
             targets: ["WorkoutsClientLive"]),
+        .library(
+            name: "DateSelection",
+            targets: ["DateSelection"]),
     ],
     targets: [
         .target(
@@ -37,7 +40,7 @@ let package = Package(
             dependencies: ["WorkoutsClient", "WorkoutsViewFeature"]),
         .target(
             name: "WorkoutTypeViewFeature",
-            dependencies: ["WorkoutsClient"]),
+            dependencies: ["WorkoutsClient", "DateSelection"]),
         .target(
             name: "WorkoutsViewFeature",
             dependencies: ["WorkoutsClient"]),
@@ -48,5 +51,8 @@ let package = Package(
             name: "WorkoutsClientLive",
             dependencies: ["WorkoutsClient"],
             path: "Sources/WorkoutsClient/Live"),
+        .target(
+            name: "DateSelection",
+            dependencies: ["WorkoutsClient"]),
     ]
 )

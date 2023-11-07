@@ -6,16 +6,25 @@
 
 import SwiftUI
 import WorkoutsClient
+import DateSelection
 
 public extension WorkoutTypeView {
     @Observable final class ViewModel {
         public init(selectedQuery: WorkoutTypeQuery) {
             self.selectedQuery = selectedQuery
             self.typesQuery = selectedQuery.queryType
+            self.dateRangeViewModel = DateSelectionView.ViewModel(selectedDateRangeType: selectedQuery.dateRangeType)
         }
         
         public var selectedQuery: WorkoutTypeQuery
         fileprivate var typesQuery: QueryType
+        fileprivate var dateRangeViewModel: DateSelectionView.ViewModel
+        
+        func typesQueryChanged() {
+            selectedQuery = typesQuery.workoutTypeQuery(isAscending: selectedQuery.isAscending,
+                                                        measurmentType: selectedQuery.measurmentType,
+                                                        dateRangeType: dateRangeViewModel.selectedDateRangeType)
+        }
     }
 }
 
@@ -51,6 +60,8 @@ public struct WorkoutTypeView: View {
                 .pickerStyle(.automatic)
             }
             
+            DateSelectionView(viewModel: viewModel.dateRangeViewModel)
+            
             HStack {
                 Spacer()
                 Toggle("Is Ascending", isOn: $viewModel.selectedQuery.isAscending)
@@ -59,7 +70,19 @@ public struct WorkoutTypeView: View {
             Spacer()
         }
         .padding()
+        .onChange(of: viewModel.typesQuery, viewModel.typesQueryChanged)
+        .onChange(of: viewModel.dateRangeViewModel.selectedDateRangeType, viewModel.typesQueryChanged)
     }
 }
 
-#Preview { WorkoutTypeView(viewModel: WorkoutTypeView.ViewModel(selectedQuery: WorkoutTypeQuery(workoutTypes: WorkoutsClient.WorkoutType.allCases))) }
+#Preview {
+    NavigationStack {
+        WorkoutTypeView(
+            viewModel: WorkoutTypeView.ViewModel(
+                selectedQuery: WorkoutTypeQuery(
+                    workoutTypes: WorkoutsClient.WorkoutType.allCases
+                )
+            )
+        )
+    }
+}
