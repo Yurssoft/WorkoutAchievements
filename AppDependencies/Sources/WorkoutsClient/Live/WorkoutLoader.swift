@@ -34,16 +34,16 @@ private extension WorkoutLoader {
         let endDate = sortedDates.last ?? Date()
         
         let energyStatistics = resultsPerDate.map { $0.activeEnergyBurnedStatistic }
-        let calorieSummaryStatistic = combinedStatistic(for: startDate,
-                                                        endDate: endDate,
-                                                        statistics: energyStatistics,
-                                                        unit: .smallCalorie())
+        let calorieSummaryStatistic = WorkoutsStatisticsLoader.combinedStatistic(for: startDate,
+                                                                                 endDate: endDate,
+                                                                                 statistics: energyStatistics,
+                                                                                 unit: .smallCalorie())
         
         let timeStatistics = resultsPerDate.map { $0.timeStatistic }
-        let timeSummaryStatistic = combinedStatistic(for: startDate,
-                                                     endDate: endDate,
-                                                     statistics: timeStatistics,
-                                                     unit: .minute())
+        let timeSummaryStatistic = WorkoutsStatisticsLoader.combinedStatistic(for: startDate,
+                                                                              endDate: endDate,
+                                                                              statistics: timeStatistics,
+                                                                              unit: .minute())
         
         let workouts = resultsPerDate.map { $0.workouts }.flatMap { $0 }
         let loadResult = LoadResult(workouts: workouts,
@@ -63,24 +63,14 @@ private extension WorkoutLoader {
         return results
     }
     
-    static func combinedStatistic(for startDate: Date,
-                                  endDate: Date,
-                                  statistics: [Statistic],
-                                  unit: HKUnit) -> Statistic {
-        let statisticsQantity = statistics.compactMap { $0.quantity }
-        let statisticsQantityCombined = statisticsQantity.addAllQuantities(unit: unit)
-        let summaryStatistic = Statistic(quantity: statisticsQantityCombined, startDate: startDate, endDate: endDate)
-        return summaryStatistic
-    }
-    
     static func fetchData(for query: WorkoutTypeQuery, store: HKHealthStore) async throws -> LoadResult {
         let dateFilterPredicate = query.dateRangeType.convertToDateRangePredicate()
-        let calorieSummaryStatistic = try await fetchStatistic(store: store,
-                                                               type: .activeEnergyBurned,
-                                                               predicate: dateFilterPredicate)
-        let timeSummaryStatistic = try await fetchStatistic(store: store,
-                                                            type: .appleExerciseTime,
-                                                            predicate: dateFilterPredicate)
+        let calorieSummaryStatistic = try await WorkoutsStatisticsLoader.fetchStatistic(store: store,
+                                                                                        type: .activeEnergyBurned,
+                                                                                        predicate: dateFilterPredicate)
+        let timeSummaryStatistic = try await WorkoutsStatisticsLoader.fetchStatistic(store: store,
+                                                                                     type: .appleExerciseTime,
+                                                                                     predicate: dateFilterPredicate)
         
         let workouts = try await fetchWorkouts(for: query, store: store, additionalPredicate: dateFilterPredicate)
         
@@ -88,22 +78,6 @@ private extension WorkoutLoader {
                                     activeEnergyBurnedStatistic: calorieSummaryStatistic,
                                     timeStatistic: timeSummaryStatistic)
         return loadResult
-    }
-    
-    static func fetchStatistic(store: HKHealthStore,
-                               type: HKQuantityTypeIdentifier,
-                               predicate: NSPredicate) async throws -> Statistic {
-        let quantityType = try Helpers.createQuantityType(type: type)
-        let statistics = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<HKStatistics, Error>) in
-            
-            let query = HKStatisticsQuery(quantityType: quantityType,
-                                          quantitySamplePredicate: predicate,
-                                          completionHandler: statisticsQueryHandler(for: continuation))
-            store.execute(query)
-        }
-        
-        let statistic = Statistic(quantity: statistics.sumQuantity(), startDate: statistics.startDate, endDate: statistics.endDate)
-        return statistic
     }
     
     static func fetchWorkouts(for query: WorkoutTypeQuery,
@@ -140,21 +114,6 @@ private extension WorkoutLoader {
             }
             
             continuation.resume(returning: samples)
-        }
-    }
-    
-    static func statisticsQueryHandler(for continuation: CheckedContinuation<HKStatistics, Error>) -> (HKStatisticsQuery, HKStatistics?, Error?) -> Void {
-        { _, statistics, error in
-            if let hasError = error {
-                continuation.resume(throwing: hasError)
-                return
-            }
-            
-            guard let statistics = statistics else {
-                return continuation.resume(throwing: WorkoutsClientError.fetchingStatistics)
-            }
-            
-            continuation.resume(returning: statistics)
         }
     }
 }
@@ -199,24 +158,5 @@ private extension WorkoutMeasureType {
         case .calories:
             return .init(key: HKWorkoutSortIdentifierTotalEnergyBurned, ascending: isAscending)
         }
-    }
-}
-
-private extension HKQuantity {
-    static func add(lhs: HKQuantity, rhs: HKQuantity, unit: HKUnit) -> HKQuantity {
-        let value = lhs.doubleValue(for: unit) + rhs.doubleValue(for: unit)
-        let added = HKQuantity(unit: unit, doubleValue: value)
-        return added
-    }
-}
-
-private extension Array where Element == HKQuantity {
-    func addAllQuantities(unit: HKUnit) -> HKQuantity {
-        let initial = HKQuantity(unit: unit, doubleValue: 0)
-        let statisticsQantityCombined = self.reduce(initial) { partialResult, quantity in
-            let combined = HKQuantity.add(lhs: partialResult, rhs: quantity, unit: unit)
-            return combined
-        }
-        return statisticsQantityCombined
     }
 }
