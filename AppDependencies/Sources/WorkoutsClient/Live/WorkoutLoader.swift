@@ -157,6 +157,8 @@ private extension WorkoutMeasureType {
             return .init(key: HKWorkoutSortIdentifierTotalDistance, ascending: isAscending)
         case .calories:
             return .init(key: HKWorkoutSortIdentifierTotalEnergyBurned, ascending: isAscending)
+        case .date:
+            return .init(key: HKSampleSortIdentifierStartDate, ascending: isAscending)
         }
     }
 }
