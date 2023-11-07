@@ -14,7 +14,7 @@ extension WorkoutsClient {
         let store = HKHealthStore()
         let permissions = HealthKitPermissions(store: store)
         return Self { type in
-            let result = try await WorkoutLoader.fetchData(for: type, store: store)
+            let result = try await WorkoutLoader.fetchStatisticsAndWorkouts(for: type, store: store)
             return result
         } requestReadAuthorization: {
             try await permissions.requestReadPemissions()
