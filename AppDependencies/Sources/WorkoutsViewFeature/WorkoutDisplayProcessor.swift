@@ -47,9 +47,9 @@ final class WorkoutDisplayProcessor {
         
         let caloriesDoubleValue = workout.activeEnergySumStatisticsQuantity?.doubleValue(for: .smallCalorie()) ?? 0
         let stringCalories = caloriesDoubleValue.convert(dimension: UnitEnergy.calories)
-        
-        let distanceDouble = workout.distanceSumStatisticsQuantity?.doubleValue(for: .meter()) ?? 0
-        let stringDistance = distanceDouble.convert(dimension: UnitLength.meters, digits: 1)
+        let systemUnit = HKUnit.lengthFormatterUnit(from: .mile())//❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+        let distanceDouble = workout.distanceSumStatisticsQuantity?.doubleValue(for: .mile()) ?? 0
+        let stringDistance = distanceDouble.convert(dimension: UnitLength.miles, digits: 1)
         
         return WorkoutDispayValues(id: workout.id,
                                    calories: stringCalories,

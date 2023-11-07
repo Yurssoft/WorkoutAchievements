@@ -27,6 +27,12 @@ extension Date {
 
 extension Double {
     func convert(dimension: Dimension, digits: Int = 0) -> String {
+        
+        
+//        LengthFormatter().string(fromValue: <#T##Double#>, unit: <#T##LengthFormatter.Unit#>) ❌❌❌❌❌❌❌❌❌
+//        EnergyFormatter().string(fromValue: <#T##Double#>, unit: <#T##EnergyFormatter.Unit#>)
+        
+        
         let measurement = Measurement(value: self, unit: dimension)
         let formatter = MeasurementFormatter()
         formatter.numberFormatter.maximumFractionDigits = digits

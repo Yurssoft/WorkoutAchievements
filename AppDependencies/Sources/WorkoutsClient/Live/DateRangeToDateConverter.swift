@@ -45,7 +45,9 @@ extension DateRangeType {
             return range
             
         case .selectedDates(let dates):
-            fatalError()
+            let date = dates.first ?? Date()
+            let singleRange = HKQuery.predicateForSamples(withStart: date.startOfDay, end: date.endOfDay)
+            return singleRange
         }
     }
 }

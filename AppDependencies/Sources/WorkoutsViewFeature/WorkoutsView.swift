@@ -86,7 +86,8 @@ private extension WorkoutsView {
                 state = .list(displayValues: workoutsDisplayValues,
                               totalHours: totalHours,
                               totalCalories: calories)
-            } catch {
+            } catch let error {
+                print(Self.self, ": ", error)
                 state = .error
             }
         }
