@@ -83,7 +83,8 @@ final class WorkoutDisplayProcessor {
         
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 0
+        formatter.maximumFractionDigits = 1
+        formatter.minimumFractionDigits = 1
         let formatted = formatter.string(from: NSNumber(value: calorieBurnedPerMinuteEfficiencyOfWorkout))
         
         let efficiency = WorkoutEfficiency(workoutId: workout.id,
@@ -102,6 +103,10 @@ final class WorkoutDisplayProcessor {
 
 extension TimeInterval {
     var minutes: Int {
-        Int(self) / 60
+        if self <= 3600 {
+            (Int(self) / 60 ) % 60
+        } else {
+            Int(self) / 60
+        }
     }
 }
