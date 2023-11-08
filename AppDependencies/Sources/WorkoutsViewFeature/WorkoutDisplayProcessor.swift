@@ -102,6 +102,6 @@ final class WorkoutDisplayProcessor {
 
 extension TimeInterval {
     var minutes: Int {
-        (Int(self) / 60 ) % 60
+        Int(self) / 60
     }
 }
