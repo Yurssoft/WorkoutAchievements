@@ -9,7 +9,7 @@ extension WorkoutsView {
         case list(displayValues: [DisplayStringContainer],
                   totalHours: StatisticDispayValues,
                   totalCalories: StatisticDispayValues,
-                  mostEfficentWorkout: WorkoutEfficiency?)
+                  mostEfficientWorkout: WorkoutEfficiency?)
     }
 }
 
@@ -36,15 +36,15 @@ public struct WorkoutsView: View {
             case .error:
                 Text("Error")
                 
-            case let .list(displayValues, totalHours, totalCalories, mostEfficentWorkout):
+            case let .list(displayValues, totalHours, totalCalories, mostEfficientWorkout):
                 VStack {
                     Text("Workouts: \(displayValues.count)")
                     Text("Data Period: \(totalHours.startDate) - \(totalHours.endDate)")
                     Text("\(totalHours.value) Total Exercise Hours")
                     Text("\(totalHours.interval) days Exercise Interval")
                     Text("\(totalCalories.value) Total Exercise Calories")
-                    if let mostEfficentWorkout {
-                        Text("Most efficent workout calorie burn per minute: \(mostEfficentWorkout.calorieBurnedPerMinuteEfficiencyOfWorkoutDisplayValue)\n\(mostEfficentWorkout.workoutId)")
+                    if let mostEfficientWorkout {
+                        Text("Most efficent workout calorie burn per minute: \(mostEfficientWorkout.calorieBurnedPerMinuteEfficiencyOfWorkoutDisplayValue)\n\(mostEfficientWorkout.workoutId)")
                     }
                     Divider()
                     // List is not used here as it does not work at all with scroll view
@@ -88,7 +88,7 @@ private extension WorkoutsView {
                 state = .list(displayValues: workoutsDisplayValues.displayContainers,
                               totalHours: totalHours,
                               totalCalories: calories,
-                              mostEfficentWorkout: workoutsDisplayValues.mostEfficentWorkout)
+                              mostEfficientWorkout: workoutsDisplayValues.mostEfficentWorkout)
             } catch let error {
                 print(Self.self, ": ", error)
                 state = .error
