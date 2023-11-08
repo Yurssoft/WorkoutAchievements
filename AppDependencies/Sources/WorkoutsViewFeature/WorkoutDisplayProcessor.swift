@@ -70,8 +70,8 @@ final class WorkoutDisplayProcessor {
         let date = workout.startDate.mediumDateString()
         let time = DateComponentsFormatter().string(from: workout.duration)!
         
-        let caloriesDoubleValue = workout.activeEnergySumStatisticsQuantity?.doubleValue(for: .smallCalorie()) ?? 0
-        let stringCalories = caloriesDoubleValue.toString(dimension: UnitEnergy.calories)
+        let caloriesDoubleValue = workout.activeEnergySumStatisticsQuantity?.doubleValue(for: DefaultUnits.hkCalorieUnit) ?? 0
+        let stringCalories = caloriesDoubleValue.toString(dimension: DefaultUnits.measurmentCalorieUnit)
         let distanceDouble = workout.distanceSumStatisticsQuantity?.doubleValue(for: .mile()) ?? 0
         let stringDistance = distanceDouble.toString(dimension: UnitLength.miles, digits: 1)
         let durationMinutes = workout.duration.minutes

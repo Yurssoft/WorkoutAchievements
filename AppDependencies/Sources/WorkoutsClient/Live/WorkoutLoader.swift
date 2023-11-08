@@ -37,7 +37,7 @@ private extension WorkoutLoader {
         let calorieSummaryStatistic = WorkoutsStatisticsLoader.combinedStatistic(for: startDate,
                                                                                  endDate: endDate,
                                                                                  statistics: energyStatistics,
-                                                                                 unit: .smallCalorie())
+                                                                                 unit: DefaultUnits.hkCalorieUnit)
         
         let timeStatistics = resultsPerDate.map { $0.timeStatistic }
         let timeSummaryStatistic = WorkoutsStatisticsLoader.combinedStatistic(for: startDate,

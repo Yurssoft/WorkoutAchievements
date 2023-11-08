@@ -7,7 +7,7 @@ extension WorkoutsClient {
         let threeMonthsAgo = DateComponents(month: -3)
         let startDate = Calendar.current.date(byAdding: threeMonthsAgo, to: .now)!
         
-        let activeEnergyBurnedStatistic = Statistic(quantity: HKQuantity(unit: .smallCalorie(), doubleValue: 47289433), startDate: startDate, endDate: .now)
+        let activeEnergyBurnedStatistic = Statistic(quantity: HKQuantity(unit: DefaultUnits.hkCalorieUnit, doubleValue: 47289433), startDate: startDate, endDate: .now)
         let timeStatistic = Statistic(quantity: HKQuantity(unit: .hour(), doubleValue: 7748), startDate: startDate, endDate: .now)
         let loadResult = LoadResult(workouts: workouts,
                                     activeEnergyBurnedStatistic: activeEnergyBurnedStatistic,
@@ -39,7 +39,7 @@ extension WorkoutsClient {
             let w = Workout(
                 startDate: .now + TimeInterval(indexNumber),
                 distanceSumStatisticsQuantity: .init(unit: .meter(), doubleValue: i),
-                activeEnergySumStatisticsQuantity: .init(unit: .smallCalorie(), doubleValue: i)
+                activeEnergySumStatisticsQuantity: .init(unit: DefaultUnits.hkCalorieUnit, doubleValue: i)
             )
             mockWorkouts.append(w)
         }

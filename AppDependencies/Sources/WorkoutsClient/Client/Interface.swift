@@ -95,3 +95,8 @@ public struct Statistic {
     public let startDate: Date
     public let endDate: Date
 }
+
+public enum DefaultUnits {
+    public static let hkCalorieUnit = HKUnit.kilocalorie()
+    public static let measurmentCalorieUnit = UnitEnergy.kilocalories
+}
