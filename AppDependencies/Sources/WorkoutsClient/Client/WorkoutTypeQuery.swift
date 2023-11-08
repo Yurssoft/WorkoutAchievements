@@ -28,6 +28,7 @@ public enum WorkoutMeasureType: CaseIterable, Equatable, Codable {
     case time
     case distance
     case calories
+    case date
 }
 
 public enum DateRangeType: Equatable, Codable {

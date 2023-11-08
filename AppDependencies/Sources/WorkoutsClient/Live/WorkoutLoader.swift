@@ -133,6 +133,9 @@ private extension HKWorkout {
         case .walking, .hiking, .running:
             distanceQuantity = HKQuantityType(.distanceWalkingRunning)
             
+        case .cycling:
+            distanceQuantity = HKQuantityType(.distanceCycling)
+            
         default:
             distanceQuantity = HKQuantityType(.appleExerciseTime)
         }
@@ -157,6 +160,8 @@ private extension WorkoutMeasureType {
             return .init(key: HKWorkoutSortIdentifierTotalDistance, ascending: isAscending)
         case .calories:
             return .init(key: HKWorkoutSortIdentifierTotalEnergyBurned, ascending: isAscending)
+        case .date:
+            return .init(key: HKSampleSortIdentifierStartDate, ascending: isAscending)
         }
     }
 }

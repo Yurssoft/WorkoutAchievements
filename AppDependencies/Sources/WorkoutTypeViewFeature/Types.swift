@@ -108,6 +108,9 @@ extension WorkoutMeasureType {
             
         case .calories:
             return "Calories"
+            
+        case .date:
+            return "Date"
         }
     }
 }
