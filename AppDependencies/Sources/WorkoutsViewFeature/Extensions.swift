@@ -8,7 +8,7 @@
 import Foundation
 
 extension Date {
-    func convert() -> String {
+    func mediumDateString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
@@ -16,7 +16,7 @@ extension Date {
         return date
     }
     
-    func shortDate() -> String {
+    func shortDateString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .none
@@ -26,7 +26,7 @@ extension Date {
 }
 
 extension Double {
-    func convert(dimension: Dimension, digits: Int = 0) -> String {
+    func toString(dimension: Dimension, digits: Int = 0) -> String {
         let measurement = Measurement(value: self, unit: dimension)
         let formatter = MeasurementFormatter()
         formatter.numberFormatter.maximumFractionDigits = digits

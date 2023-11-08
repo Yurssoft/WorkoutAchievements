@@ -8,7 +8,8 @@ extension WorkoutsView {
         case error
         case list(displayValues: [DisplayStringContainer],
                   totalHours: StatisticDispayValues,
-                  totalCalories: StatisticDispayValues)
+                  totalCalories: StatisticDispayValues,
+                  mostEfficentWorkout: WorkoutEfficiency?)
     }
 }
 
@@ -35,13 +36,16 @@ public struct WorkoutsView: View {
             case .error:
                 Text("Error")
                 
-            case let .list(displayValues, totalHours, totalCalories):
+            case let .list(displayValues, totalHours, totalCalories, mostEfficentWorkout):
                 VStack {
                     Text("Workouts: \(displayValues.count)")
                     Text("Data Period: \(totalHours.startDate) - \(totalHours.endDate)")
                     Text("\(totalHours.value) Total Exercise Hours")
                     Text("\(totalHours.interval) days Exercise Interval")
                     Text("\(totalCalories.value) Total Exercise Calories")
+                    if let mostEfficentWorkout {
+                        Text("Most efficent workout calorie burn per minute: \(mostEfficentWorkout.calorieBurnedPerMinuteEfficiencyOfWorkoutDisplayValue)\n\(mostEfficentWorkout.workoutId)")
+                    }
                     Divider()
                     // List is not used here as it does not work at all with scroll view
                     ForEach(displayValues) { displayValue in
@@ -78,14 +82,13 @@ private extension WorkoutsView {
             state = .loading
             do {
                 let workoutsAndStatisticsData = try await client.loadWorkoutsAndStatisticsData(query)
-                let workoutsDisplayValues = workoutsAndStatisticsData.workouts
-                    .map { $0.displayValues }
-                    .map { $0.displayContainer }
+                let workoutsDisplayValues = workoutsAndStatisticsData.workouts.convertToDisplayContainers()
                 let totalHours = workoutsAndStatisticsData.timeStatistic.displayTimeValues
                 let calories = workoutsAndStatisticsData.activeEnergyBurnedStatistic.displayCaloriesValues
-                state = .list(displayValues: workoutsDisplayValues,
+                state = .list(displayValues: workoutsDisplayValues.displayContainers,
                               totalHours: totalHours,
-                              totalCalories: calories)
+                              totalCalories: calories,
+                              mostEfficentWorkout: workoutsDisplayValues.mostEfficentWorkout)
             } catch let error {
                 print(Self.self, ": ", error)
                 state = .error
