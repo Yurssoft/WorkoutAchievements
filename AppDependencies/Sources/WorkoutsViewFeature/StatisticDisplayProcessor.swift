@@ -28,8 +28,8 @@ struct StatisticDispayValues {
 
 final class StatisticDisplayProcessor {
     static func processActiveEnergy(statistic: Statistic) -> StatisticDispayValues {
-        let caloriesDoubleValue = statistic.quantity?.doubleValue(for: .smallCalorie()) ?? 0
-        let stringCalories = caloriesDoubleValue.convert(dimension: UnitEnergy.calories)
+        let caloriesDoubleValue = statistic.quantity?.doubleValue(for: DefaultUnits.hkCalorieUnit) ?? 0
+        let stringCalories = caloriesDoubleValue.toString(dimension: DefaultUnits.measurmentCalorieUnit)
         
         return statistic.displayValues(value: stringCalories)
     }
@@ -42,8 +42,8 @@ final class StatisticDisplayProcessor {
 
 extension Statistic {
     func displayValues(value: String) -> StatisticDispayValues {
-        let start = startDate.shortDate()
-        let end = endDate.shortDate()
+        let start = startDate.shortDateString()
+        let end = endDate.shortDateString()
         let daysElapsed = Calendar.current.dateComponents([.day], from: startDate, to: endDate)
         return StatisticDispayValues(value: value, startDate: start, endDate: end, interval: "\(daysElapsed.day ?? 0)")
     }

@@ -46,7 +46,7 @@ public struct WorkoutsClient {
 
 public struct Workout: Identifiable, Equatable {
     public init(startDate: Date = .now,
-                duration: TimeInterval = .pi,
+                duration: TimeInterval = 0,
                 distanceSumStatisticsQuantity: HKQuantity? = nil,
                 activeEnergySumStatisticsQuantity: HKQuantity? = nil,
                 query: WorkoutTypeQuery = .init(),
@@ -94,4 +94,9 @@ public struct Statistic {
     public let quantity: HKQuantity?
     public let startDate: Date
     public let endDate: Date
+}
+
+public enum DefaultUnits {
+    public static let hkCalorieUnit = HKUnit.kilocalorie()
+    public static let measurmentCalorieUnit = UnitEnergy.kilocalories
 }
