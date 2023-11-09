@@ -23,6 +23,7 @@ public struct WorkoutsView: View {
     @Binding private var selectedQuery: WorkoutTypeQuery
     let client: WorkoutsClient
     @State private var state = ViewState.initial
+    @State private var highlightedWorkoutID = ""
     
     public var body: some View {
         Group {
@@ -44,7 +45,9 @@ public struct WorkoutsView: View {
                     Text("\(totalHours.interval) days Exercise Interval")
                     Text("\(totalCalories.value) Total Exercise Calories")
                     if let mostEfficientWorkout {
-                        Text("Most efficent workout calorie burn per minute: \(mostEfficientWorkout.calorieBurnedPerMinuteEfficiencyOfWorkoutDisplayValue)\n\(mostEfficientWorkout.workoutId)")
+                        Button("Most efficent workout calorie burn per minute: \(mostEfficientWorkout.calorieBurnedPerMinuteEfficiencyOfWorkoutDisplayValue)") {
+                            highlightedWorkoutID = mostEfficientWorkout.workoutId
+                        }
                     }
                     Divider()
                     // List is not used here as it does not work at all with scroll view
@@ -57,8 +60,10 @@ public struct WorkoutsView: View {
                                 Spacer()
                             }
                             .background(.gray.opacity(0.11))
+                            .background(displayValue.workoutId == highlightedWorkoutID ? .green : .clear)
                             .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                             .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
+                            
                             Divider()
                                 .padding(EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4))
                         }
@@ -73,7 +78,6 @@ public struct WorkoutsView: View {
             requestData(query: newValue)
         })
     }
-    
 }
 
 private extension WorkoutsView {

@@ -26,7 +26,7 @@ extension Workout {
 
 extension WorkoutDispayValues {
     fileprivate var displayContainer: DisplayStringContainer {
-        DisplayStringContainer(displayString: displayString)
+        DisplayStringContainer(displayString: displayString, workoutId: workoutId)
     }
 }
 
@@ -39,6 +39,7 @@ extension WorkoutDispayValues {
 struct DisplayStringContainer: Identifiable {
     let id = UUID().uuidString
     let displayString: String
+    let workoutId: String
 }
 
 struct WorkoutEfficiency: Identifiable {
