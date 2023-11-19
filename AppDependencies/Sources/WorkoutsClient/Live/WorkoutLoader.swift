@@ -85,8 +85,9 @@ private extension WorkoutLoader {
                               additionalPredicate: NSPredicate) async throws -> [Workout] {
         let samples = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             let queryHandler = workoutsQueryHandler(for: continuation)
-            var predicates = query.workoutTypes.map { HKQuery.predicateForWorkouts(with: $0) }
-            predicates.append(additionalPredicate)
+            let workoutPredicates = query.workoutTypes.map { HKQuery.predicateForWorkouts(with: $0) }
+            let workoutPredicate = NSCompoundPredicate(type: .or, subpredicates: workoutPredicates)
+            let predicates = [workoutPredicate, additionalPredicate]
             let predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
             let sort = query.measurmentType.sortDescriptor(isAscending: query.isAscending)
             let searchHKQuery = HKSampleQuery(sampleType: .workoutType(),
