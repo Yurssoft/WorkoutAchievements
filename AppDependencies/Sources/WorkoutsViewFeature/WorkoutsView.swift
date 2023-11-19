@@ -1,5 +1,6 @@
 import SwiftUI
 import WorkoutsClient
+import FeatureFlags
 
 extension WorkoutsView {
     enum ViewState {
@@ -23,7 +24,7 @@ public struct WorkoutsView: View {
     @Binding private var selectedQuery: WorkoutTypeQuery
     let client: WorkoutsClient
     @State private var state = ViewState.initial
-    @State private var highlightedWorkoutID = ""
+    @State private var highlightedWorkoutID: String?
     
     public var body: some View {
         Group {
@@ -44,6 +45,7 @@ public struct WorkoutsView: View {
                          mostEfficientWorkout: mostEfficientWorkout)
             }
         }
+        .scrollPosition(id: $highlightedWorkoutID, anchor: .center)
         .onAppear() {
             requestData(query: selectedQuery)
         }
@@ -66,7 +68,7 @@ private extension WorkoutsView {
             Text("\(totalHours.value) Total Exercise Hours")
             Text("\(totalHours.interval) days Exercise Interval")
             Text("\(totalCalories.value) Total Exercise Calories")
-            if let mostEfficientWorkout {
+            if let mostEfficientWorkout, FeatureFlags.isDisplayingWorkoutEfficency {
                 Button("Most efficent workout calorie burn per minute: \(mostEfficientWorkout.calorieBurnedPerMinuteEfficiencyOfWorkoutDisplayValue)") {
                     highlightedWorkoutID = mostEfficientWorkout.workoutId
                 }
@@ -76,8 +78,10 @@ private extension WorkoutsView {
             LazyVStack {
                 ForEach(displayValues) { displayValue in
                     workoutView(displayValue: displayValue)
+                        .id(displayValue.workoutId)
                 }
             }
+            .scrollTargetLayout()
         }
     }
     

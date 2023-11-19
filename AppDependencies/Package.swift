@@ -43,7 +43,7 @@ let package = Package(
             dependencies: ["WorkoutsClient", "DateSelection"]),
         .target(
             name: "WorkoutsViewFeature",
-            dependencies: ["WorkoutsClient"]),
+            dependencies: ["WorkoutsClient", "FeatureFlags"]),
         .target(
             name: "WorkoutsClient",
             path: "Sources/WorkoutsClient/Client"),
@@ -54,5 +54,7 @@ let package = Package(
         .target(
             name: "DateSelection",
             dependencies: ["WorkoutsClient"]),
+        
+        .target(name: "FeatureFlags"),
     ]
 )

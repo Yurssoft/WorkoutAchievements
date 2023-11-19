@@ -7,6 +7,7 @@
 import Foundation
 import WorkoutsClient
 import HealthKit
+import FeatureFlags
 
 extension Array where Element == Workout {
     func convertToDisplayContainers() -> (displayContainers: [DisplayStringContainer], mostEfficentWorkout: WorkoutEfficiency?) {
@@ -32,7 +33,11 @@ extension WorkoutDispayValues {
 
 extension WorkoutDispayValues {
     var displayString: String {
-        "Calories: \(calories) \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)\nCalories burned per minute efficiency: \(workoutEfficiency.calorieBurnedPerMinuteEfficiencyOfWorkoutDisplayValue)"
+        var string = "Calories: \(calories) \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)"
+        if FeatureFlags.isDisplayingWorkoutEfficency {
+            string += "\nCalories burned per minute efficiency: \(workoutEfficiency.calorieBurnedPerMinuteEfficiencyOfWorkoutDisplayValue)"
+        }
+        return string
     }
 }
 
