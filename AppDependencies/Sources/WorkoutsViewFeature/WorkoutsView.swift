@@ -38,37 +38,10 @@ public struct WorkoutsView: View {
                 Text("Error")
                 
             case let .list(displayValues, totalHours, totalCalories, mostEfficientWorkout):
-                VStack {
-                    Text("Workouts: \(displayValues.count)")
-                    Text("Data Period: \(totalHours.startDate) - \(totalHours.endDate)")
-                    Text("\(totalHours.value) Total Exercise Hours")
-                    Text("\(totalHours.interval) days Exercise Interval")
-                    Text("\(totalCalories.value) Total Exercise Calories")
-                    if let mostEfficientWorkout {
-                        Button("Most efficent workout calorie burn per minute: \(mostEfficientWorkout.calorieBurnedPerMinuteEfficiencyOfWorkoutDisplayValue)") {
-                            highlightedWorkoutID = mostEfficientWorkout.workoutId
-                        }
-                    }
-                    Divider()
-                    // List is not used here as it does not work at all with scroll view
-                    ForEach(displayValues) { displayValue in
-                        VStack {
-                            HStack {
-                                Text(displayValue.displayString)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                    .padding(7)
-                                Spacer()
-                            }
-                            .background(.gray.opacity(0.11))
-                            .background(displayValue.workoutId == highlightedWorkoutID ? .green : .clear)
-                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                            .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
-                            
-                            Divider()
-                                .padding(EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4))
-                        }
-                    }
-                }
+                listView(displayValues: displayValues,
+                         totalHours: totalHours,
+                         totalCalories: totalCalories,
+                         mostEfficientWorkout: mostEfficientWorkout)
             }
         }
         .onAppear() {
@@ -77,6 +50,54 @@ public struct WorkoutsView: View {
         .onChange(of: selectedQuery, { oldValue, newValue in
             requestData(query: newValue)
         })
+    }
+}
+
+private extension WorkoutsView {
+    @ViewBuilder
+    func listView(displayValues: [DisplayStringContainer],
+                  totalHours: StatisticDispayValues,
+                  totalCalories: StatisticDispayValues,
+                  mostEfficientWorkout: WorkoutEfficiency?) -> some View {
+        
+        VStack {
+            Text("Workouts: \(displayValues.count)")
+            Text("Data Period: \(totalHours.startDate) - \(totalHours.endDate)")
+            Text("\(totalHours.value) Total Exercise Hours")
+            Text("\(totalHours.interval) days Exercise Interval")
+            Text("\(totalCalories.value) Total Exercise Calories")
+            if let mostEfficientWorkout {
+                Button("Most efficent workout calorie burn per minute: \(mostEfficientWorkout.calorieBurnedPerMinuteEfficiencyOfWorkoutDisplayValue)") {
+                    highlightedWorkoutID = mostEfficientWorkout.workoutId
+                }
+            }
+            Divider()
+            // List is not used here as it does not work at all with scroll view
+            LazyVStack {
+                ForEach(displayValues) { displayValue in
+                    workoutView(displayValue: displayValue)
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func workoutView(displayValue: DisplayStringContainer) -> some View {
+        VStack {
+            HStack {
+                Text(displayValue.displayString)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(7)
+                Spacer()
+            }
+            .background(.gray.opacity(0.11))
+            .background(displayValue.workoutId == highlightedWorkoutID ? .green : .clear)
+            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+            .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
+            
+            Divider()
+                .padding(EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4))
+        }
     }
 }
 
