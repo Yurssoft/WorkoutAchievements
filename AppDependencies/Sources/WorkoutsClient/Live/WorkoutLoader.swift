@@ -65,18 +65,17 @@ private extension WorkoutLoader {
     
     static func fetchData(for query: WorkoutTypeQuery, store: HKHealthStore) async throws -> LoadResult {
         let dateFilterPredicate = query.dateRangeType.convertToDateRangePredicate()
-        let calorieSummaryStatistic = try await WorkoutsStatisticsLoader.fetchStatistic(store: store,
+        async let calorieSummaryStatistic = try WorkoutsStatisticsLoader.fetchStatistic(store: store,
                                                                                         type: .activeEnergyBurned,
                                                                                         predicate: dateFilterPredicate)
-        let timeSummaryStatistic = try await WorkoutsStatisticsLoader.fetchStatistic(store: store,
+        async let timeSummaryStatistic = try WorkoutsStatisticsLoader.fetchStatistic(store: store,
                                                                                      type: .appleExerciseTime,
                                                                                      predicate: dateFilterPredicate)
         
-        let workouts = try await fetchWorkouts(for: query, store: store, additionalPredicate: dateFilterPredicate)
-        
-        let loadResult = LoadResult(workouts: workouts,
-                                    activeEnergyBurnedStatistic: calorieSummaryStatistic,
-                                    timeStatistic: timeSummaryStatistic)
+        async let workouts = try fetchWorkouts(for: query, store: store, additionalPredicate: dateFilterPredicate)
+        let loadResult = await LoadResult(workouts: try workouts,
+                                          activeEnergyBurnedStatistic: try calorieSummaryStatistic,
+                                          timeStatistic: try timeSummaryStatistic)
         return loadResult
     }
     
@@ -166,3 +165,5 @@ private extension WorkoutMeasureType {
         }
     }
 }
+
+extension NSPredicate: @unchecked Sendable {}
