@@ -9,7 +9,7 @@ import WorkoutsClient
 
 final class QuerySaver {
     private static let key = String(describing: QuerySaver.self)
-    private static let suiteName = "group.com.yurssoft.achievements.app"
+    private static let suiteName = "group.com.yurssoft.achievements.app.\(key)"
     
     private static func sharedDefaults() -> UserDefaults {
         let suite = UserDefaults(suiteName: suiteName)

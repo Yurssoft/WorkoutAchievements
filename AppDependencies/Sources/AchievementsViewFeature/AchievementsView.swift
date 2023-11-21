@@ -30,6 +30,9 @@ public struct AchievementsView: View {
                 Spacer()
             }
         }
+        .onChange(of: viewModel.selectedQuery, { _, newValue in
+            QuerySaver.save(query: newValue)
+        })
         .navigationTitle("Achievements")
     }
 }
