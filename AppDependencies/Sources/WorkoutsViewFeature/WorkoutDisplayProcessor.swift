@@ -33,7 +33,7 @@ extension WorkoutDispayValues {
 
 extension WorkoutDispayValues {
     var displayString: String {
-        var string = "Calories: \(calories) \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)"
+        var string = "Calories: \(calories) \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)\nType: \(type)"
         if FeatureFlags.isDisplayingWorkoutEfficency {
             string += "\nCalories burned per minute efficiency: \(workoutEfficiency.calorieBurnedPerMinuteEfficiencyOfWorkoutDisplayValue)"
         }
@@ -102,7 +102,7 @@ final class WorkoutDisplayProcessor {
                                    distance: stringDistance,
                                    startDate: date,
                                    duration: time,
-                                   type: "\(workout.workoutType)",
+                                   type: "\(workout.workoutType.name)",
                                    workoutEfficiency: efficiency)
     }
 }

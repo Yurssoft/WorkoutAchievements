@@ -146,7 +146,8 @@ private extension HKWorkout {
                               duration: healthKitWorkout.duration,
                               distanceSumStatisticsQuantity: statisticDistance,
                               activeEnergySumStatisticsQuantity: sumActiveEnergy,
-                              query: query)
+                              query: query,
+                              workoutType: workoutActivityType)
         return workout
     }
 }
