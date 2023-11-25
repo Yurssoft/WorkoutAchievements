@@ -91,7 +91,7 @@ extension DateRangeType {
             return startDate
             
         default:
-            return Date()
+            return Date().startOfWeek
         }
     }
     
