@@ -6,7 +6,7 @@ extension WorkoutsView {
     enum ViewState {
         case initial
         case loading
-        case error
+        case error(error: ViewError)
         case list(displayValues: [DisplayStringContainer],
                   totalHours: StatisticDispayValues,
                   totalCalories: StatisticDispayValues,
@@ -35,8 +35,18 @@ public struct WorkoutsView: View {
             case .loading:
                 Text("Loading..........")
                 
-            case .error:
-                Text("Error")
+            case .error(let viewError):
+                switch viewError {
+                case .emptyData:
+                    Text("ℹ️ No data found for query")
+                        .padding()
+                case .noDataAccess:
+                    Text("Appears like no data access. Please review HealthKit access in settings.")
+                        .padding()
+                case .generalError(let code):
+                    Text("Error fetching data. Code: \(code)")
+                        .padding()
+                }
                 
             case let .list(displayValues, totalHours, totalCalories, mostEfficientWorkout):
                 listView(displayValues: displayValues,
@@ -119,8 +129,8 @@ private extension WorkoutsView {
                               totalCalories: calories,
                               mostEfficientWorkout: workoutsDisplayValues.mostEfficentWorkout)
             } catch let error {
-                print(Self.self, ": ", error)
-                state = .error
+                let error = ErrorProcessor.processError(error)
+                state = .error(error: error)
             }
         }
     }
