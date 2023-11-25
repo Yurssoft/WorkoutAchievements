@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 import RequestPermissionsViewFeature
 import WorkoutsClient
 import WorkoutTypeViewFeature
@@ -59,36 +60,54 @@ struct UIElementPreview<Value: View>: View {
     var body: some View {
         ScrollView {
             Group {
-//                self.viewToPreview
-//                    .previewLayout(PreviewLayout.sizeThatFits)
-//                    .padding()
-//                    .previewDisplayName("Default preview 1")
-//                
-//                self.viewToPreview
-//                    .previewLayout(PreviewLayout.sizeThatFits)
-//                    .padding()
-//                    .background(Color(.systemBackground))
-//                    .environment(\.colorScheme, .dark)
-//                    .previewDisplayName("Dark Mode")
-//                
-//                ForEach(localizations, id: \.identifier) { locale in
-//                    self.viewToPreview
-//                        .previewLayout(PreviewLayout.sizeThatFits)
-//                        .padding()
-//                        .environment(\.locale, locale)
-//                        .previewDisplayName(Locale.current.localizedString(forIdentifier: locale.identifier))
-//                }
-//                
-//                ForEach(dynamicTypeSizes, id: \.self) { sizeCategory in
-//                    self.viewToPreview
-//                        .previewLayout(PreviewLayout.sizeThatFits)
-//                        .padding()
-//                        .environment(\.sizeCategory, sizeCategory)
-//                        .previewDisplayName("\(sizeCategory)")
-//                }
+                preview1()
+                darkMode()
+                
+                ForEach(localizations, id: \.identifier) { locale in
+                    self.viewToPreview
+                        .previewLayout(PreviewLayout.sizeThatFits)
+                        .padding()
+                        .environment(\.locale, locale)
+                        .previewDisplayName(Locale.current.localizedString(forIdentifier: locale.identifier))
+                }
+                
+                ForEach(dynamicTypeSizes, id: \.self) { sizeCategory in
+                    self.viewToPreview
+                        .previewLayout(PreviewLayout.sizeThatFits)
+                        .padding()
+                        .environment(\.sizeCategory, sizeCategory)
+                        .previewDisplayName("\(sizeCategory)")
+                }
                 
             }
             
         }
+    }
+    
+    @ViewBuilder
+    func preview1() -> some View {
+        self.viewToPreview
+            .previewLayout(PreviewLayout.sizeThatFits)
+            .padding()
+            .previewDisplayName("Default preview 1")
+    }
+    
+    var systemBackground: UIColor {
+        if #available(iOS 16.0, *) {
+            return .gray
+//            return UIColor.systemBackground Type 'UIColor' has no member 'systemBackground'
+        } else {
+            return .gray
+        }
+    }
+    
+    @ViewBuilder
+    func darkMode() -> some View {
+        self.viewToPreview
+            .previewLayout(PreviewLayout.sizeThatFits)
+            .padding()
+            .background(Color(systemBackground))
+            .environment(\.colorScheme, .dark)
+            .previewDisplayName("Dark Mode")
     }
 }
