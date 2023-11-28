@@ -72,31 +72,6 @@ extension QueryType {
     }
 }
 
-extension WorkoutsClient.WorkoutType {
-    
-    var name: String {
-        switch self {
-        case .walking:
-            return "Walking"
-            
-        case .swimming:
-            return "Swimming"
-            
-        case .hiking:
-            return "Hiking"
-            
-        case .cycling:
-            return "Cycling"
-            
-        case .running:
-            return "Running"
-            
-        default:
-            return ""
-        }
-    }
-}
-
 extension WorkoutMeasureType {
     var name: String {
         switch self {
