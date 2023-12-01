@@ -8,17 +8,30 @@ import SwiftUI
 import WorkoutsClient
 import DateSelection
 
+public extension WorkoutTypeView.ViewModel {
+    struct ContactInfoModel: Identifiable {
+        public let id = UUID().uuidString
+        
+        public let isDisplayingContactInfo: Bool
+    }
+}
+
 public extension WorkoutTypeView {
     @Observable final class ViewModel {
-        public init(selectedQuery: WorkoutTypeQuery) {
+        public init(selectedQuery: WorkoutTypeQuery, isDisplayingContactInfo: Bool?) {
             self.selectedQuery = selectedQuery
             self.typesQuery = selectedQuery.queryType
             self.dateRangeViewModel = DateSelectionView.ViewModel(selectedDateRangeType: selectedQuery.dateRangeType)
+            if let isDisplayingContactInfo {
+                let info = ContactInfoModel(isDisplayingContactInfo: isDisplayingContactInfo)
+                self.contactInfo = info
+            }
         }
         
         public var selectedQuery: WorkoutTypeQuery
         fileprivate var typesQuery: QueryType
         fileprivate var dateRangeViewModel: DateSelectionView.ViewModel
+        public var contactInfo: ContactInfoModel?
         
         func typesQueryChanged() {
             selectedQuery = typesQuery.workoutTypeQuery(isAscending: selectedQuery.isAscending,
@@ -81,7 +94,8 @@ public struct WorkoutTypeView: View {
             viewModel: WorkoutTypeView.ViewModel(
                 selectedQuery: WorkoutTypeQuery(
                     workoutTypes: WorkoutsClient.WorkoutType.allCases
-                )
+                ), 
+                isDisplayingContactInfo: false
             )
         )
     }

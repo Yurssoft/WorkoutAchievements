@@ -34,7 +34,9 @@ let package = Package(
             dependencies: ["WorkoutsClient",
                            "WorkoutsViewFeature",
                            "RequestPermissionsViewFeature",
-                           "WorkoutTypeViewFeature"]),
+                           "WorkoutTypeViewFeature",
+                           "InformationView"
+                          ]),
         .target(
             name: "RequestPermissionsViewFeature",
             dependencies: ["WorkoutsClient", "WorkoutsViewFeature"]),
@@ -56,5 +58,6 @@ let package = Package(
             dependencies: ["WorkoutsClient"]),
         
         .target(name: "FeatureFlags"),
+        .target(name: "InformationView"),
     ]
 )
