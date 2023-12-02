@@ -50,13 +50,25 @@ public struct AchievementsView: View {
             InformationView()
         }
         .navigationTitle("Achievements")
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button {
+                    viewModel.contactInfo = WorkoutTypeView.ViewModel.ContactInfoModel(isDisplayingContactInfo: true)
+                } label: {
+                    Image(systemName: "info.circle")
+                        .tint(.blue)
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    UIElementPreview(
-        AchievementsView(workoutsClient: .workoutsMock, isDisplayingContactInfo: true)
-    )
+    NavigationStack {
+        UIElementPreview(
+            AchievementsView(workoutsClient: .workoutsMock, isDisplayingContactInfo: .none)
+        )
+    }
 }
 
 struct UIElementPreview<Value: View>: View {

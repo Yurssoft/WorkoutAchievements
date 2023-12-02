@@ -10,6 +10,10 @@ import DateSelection
 
 public extension WorkoutTypeView.ViewModel {
     struct ContactInfoModel: Identifiable {
+        public init(isDisplayingContactInfo: Bool) {
+            self.isDisplayingContactInfo = isDisplayingContactInfo
+        }
+        
         public let id = UUID().uuidString
         
         public let isDisplayingContactInfo: Bool
