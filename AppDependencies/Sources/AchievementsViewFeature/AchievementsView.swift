@@ -10,12 +10,24 @@ import UIKit
 import RequestPermissionsViewFeature
 import WorkoutsClient
 import WorkoutTypeViewFeature
+import InformationView
+
+public extension AchievementsView {
+    final class ViewModel: ObservableObject {
+        public init(isDisplayingContactInfo: Bool? = nil) {
+            self.isDisplayingContactInfo = isDisplayingContactInfo
+        }
+        
+        @Published var isDisplayingContactInfo: Bool?
+    }
+}
 
 public struct AchievementsView: View {
-    public init(workoutsClient: WorkoutsClient) {
+    public init(workoutsClient: WorkoutsClient, isDisplayingContactInfo: Bool? = nil) {
         self.workoutsClient = workoutsClient
         let lastSavedQuery = QuerySaver.loadLastQuery()
-        let viewModelObj = WorkoutTypeView.ViewModel(selectedQuery: lastSavedQuery)
+        let viewModelObj = WorkoutTypeView.ViewModel(selectedQuery: lastSavedQuery,
+                                                     isDisplayingContactInfo: isDisplayingContactInfo)
         viewModel = viewModelObj
     }
     
@@ -34,14 +46,33 @@ public struct AchievementsView: View {
         .onChange(of: viewModel.selectedQuery, { _, newValue in
             QuerySaver.save(query: newValue)
         })
+        .sheet(item: $viewModel.contactInfo) { info in
+            NavigationStack {
+                InformationView {
+                    viewModel.contactInfo = .none
+                }
+            }
+        }
         .navigationTitle("Achievements")
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button {
+                    viewModel.contactInfo = WorkoutTypeView.ViewModel.ContactInfoModel(isDisplayingContactInfo: true)
+                } label: {
+                    Image(systemName: "info.circle")
+                        .tint(.blue)
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    UIElementPreview(
-        AchievementsView(workoutsClient: .workoutsMock)
-    )
+    NavigationStack {
+        UIElementPreview(
+            AchievementsView(workoutsClient: .workoutsMock, isDisplayingContactInfo: .none)
+        )
+    }
 }
 
 struct UIElementPreview<Value: View>: View {
