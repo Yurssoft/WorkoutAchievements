@@ -104,13 +104,13 @@ private extension WorkoutLoader {
     
     static func workoutsQueryHandler(for continuation: CheckedContinuation<[HKSample], Error>) -> (HKQuery, [HKSample]?, Error?) -> Void {
         { _, samples, error in
-            if let hasError = error {
-                continuation.resume(throwing: hasError)
+            if let error {
+                continuation.resume(throwing: WorkoutsClientError.fetchingWorkouts(underlying: .underlying(error)))
                 return
             }
             
             guard let samples = samples else {
-                return continuation.resume(throwing: WorkoutsClientError.fetchingWorkouts)
+                return continuation.resume(throwing: WorkoutsClientError.fetchingWorkouts(underlying: .workoutsNil))
             }
             
             continuation.resume(returning: samples)
