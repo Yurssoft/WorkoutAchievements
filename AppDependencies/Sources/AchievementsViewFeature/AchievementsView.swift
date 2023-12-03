@@ -47,7 +47,11 @@ public struct AchievementsView: View {
             QuerySaver.save(query: newValue)
         })
         .sheet(item: $viewModel.contactInfo) { info in
-            InformationView()
+            NavigationStack {
+                InformationView {
+                    viewModel.contactInfo = .none
+                }
+            }
         }
         .navigationTitle("Achievements")
         .toolbar {
