@@ -12,13 +12,10 @@ import WorkoutsClient
 import WorkoutTypeViewFeature
 import InformationView
 
-public extension AchievementsView {
-    final class ViewModel: ObservableObject {
-        public init(isDisplayingContactInfo: Bool? = nil) {
-            self.isDisplayingContactInfo = isDisplayingContactInfo
-        }
-        
-        @Published var isDisplayingContactInfo: Bool?
+extension AchievementsView {
+    enum ViewState {
+        case initial
+        case view
     }
 }
 
@@ -33,14 +30,21 @@ public struct AchievementsView: View {
     
     private let workoutsClient: WorkoutsClient
     @Bindable private var viewModel: WorkoutTypeView.ViewModel
+    @State private var state = ViewState.initial
     
     public var body: some View {
         ScrollView {
-            VStack {
-                WorkoutTypeView(viewModel: viewModel)
-                Divider().overlay(Color.gray)
-                RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $viewModel.selectedQuery)
-                Spacer()
+            switch state {
+            case .initial:
+                EmptyView()
+                
+            case .view:
+                VStack {
+                    WorkoutTypeView(viewModel: viewModel)
+                    Divider().overlay(Color.gray)
+                    RequestPermissionsView(workoutsClient: workoutsClient, selectedQuery: $viewModel.selectedQuery)
+                    Spacer()
+                }
             }
         }
         .onChange(of: viewModel.selectedQuery, { _, newValue in
@@ -64,6 +68,17 @@ public struct AchievementsView: View {
                 }
             }
         }
+        .task {
+            Task {
+                try await Task.sleep(nanoseconds: 770_000_000)
+                await switchStateToVivew()
+            }
+        }
+    }
+    
+    @MainActor
+    func switchStateToVivew() async {
+        state = .view
     }
 }
 

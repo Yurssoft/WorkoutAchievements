@@ -11,6 +11,7 @@ import WorkoutsClient
 extension RequestPermissionsView {
     enum ViewState {
         case initial
+        case permissionRequested
         case showList
         case error
     }
@@ -39,6 +40,8 @@ public struct RequestPermissionsView: View {
             case .error:
                 Text("Error")
                 
+            case .permissionRequested:
+                Text("Requesting Permissions...")
             }
             Spacer()
         }
@@ -52,6 +55,7 @@ private extension RequestPermissionsView {
     func checkAuthorizationStatusAndLoadList() {
         Task {
             do {
+                state = .permissionRequested
                 try await workoutsClient.requestReadAuthorization()
                 state = .showList
             } catch let error {

@@ -2,10 +2,24 @@ import Foundation
 import HealthKit
 
 public enum WorkoutsClientError: Error {
-    case fetchingWorkouts
-    case fetchingStatistics
+    case fetchingWorkouts(underlying: FetchingWorkoutsUnderlyingError)
+    case fetchingStatistics(underlying: FetchingStatisticsUnderlyingError)
     case cannotCreateQuantityType
     case healthKitIsNotAvailable
+}
+
+public extension WorkoutsClientError {
+    enum FetchingWorkoutsUnderlyingError: Error {
+        case workoutsNil
+        case underlying(Error)
+    }
+}
+
+public extension WorkoutsClientError {
+    enum FetchingStatisticsUnderlyingError: Error {
+        case statisticsNil
+        case underlying(Error)
+    }
 }
 
 public struct LoadResult {

@@ -38,10 +38,10 @@ public struct WorkoutsView: View {
             case .error(let viewError):
                 switch viewError {
                 case .emptyData:
-                    Text("ℹ️ No data found for query")
+                    Text("ℹ️ No data found for query.\nPlease try other parameters.\nPlease try checking permissions in 'Health' app.")
                         .padding()
                 case .noDataAccess:
-                    Text("Appears like no data access. Please review HealthKit access in settings.")
+                    Text("Appears like no data access. Please review access in 'Health' app.")
                         .padding()
                 case .generalError(let code):
                     Text("Error fetching data. Code: \(code)")

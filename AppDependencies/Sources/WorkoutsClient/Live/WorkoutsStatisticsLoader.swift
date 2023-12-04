@@ -37,13 +37,13 @@ final class WorkoutsStatisticsLoader {
     
     static func statisticsQueryHandler(for continuation: CheckedContinuation<HKStatistics, Error>) -> (HKStatisticsQuery, HKStatistics?, Error?) -> Void {
         { _, statistics, error in
-            if let hasError = error {
-                continuation.resume(throwing: hasError)
+            if let error {
+                continuation.resume(throwing: WorkoutsClientError.fetchingStatistics(underlying: .underlying(error)))
                 return
             }
             
             guard let statistics = statistics else {
-                return continuation.resume(throwing: WorkoutsClientError.fetchingStatistics)
+                return continuation.resume(throwing: WorkoutsClientError.fetchingStatistics(underlying: .statisticsNil))
             }
             
             continuation.resume(returning: statistics)
