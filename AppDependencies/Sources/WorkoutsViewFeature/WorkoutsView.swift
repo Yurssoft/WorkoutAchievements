@@ -33,15 +33,20 @@ public struct WorkoutsView: View {
                 Text("Initialized🌈😏")
                 
             case .loading:
-                Text("Loading..........")
+                HStack {
+                    Text("Loading  ")
+                    ProgressView()
+                }
                 
             case .error(let viewError):
                 switch viewError {
                 case .emptyData:
                     Text("ℹ️ No data found for query.\nPlease try other parameters.\nPlease try checking permissions in 'Health' app.")
+                        .multilineTextAlignment(.center)
                         .padding()
                 case .noDataAccess:
                     Text("Appears like no data access. Please review access in 'Health' app.")
+                        .multilineTextAlignment(.center)
                         .padding()
                 case .generalError(let code):
                     Text("Error fetching data. Code: \(code)")
