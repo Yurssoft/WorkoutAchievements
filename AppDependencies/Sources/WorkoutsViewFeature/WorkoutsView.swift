@@ -142,7 +142,7 @@ private extension WorkoutsView {
 }
 
 #Preview {
-    WorkoutsView(client: .workoutsMock, selectedQuery: .constant(.init()))
+    WorkoutsView(client: .errorLoadingWorkouts(error: .fetchingStatistics(underlying: .statisticsNil)), selectedQuery: .constant(.init()))
         .padding()
         .padding()
 }
