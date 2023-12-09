@@ -103,12 +103,23 @@ private extension WorkoutsView {
     @ViewBuilder
     func workoutView(displayValue: DisplayStringContainer) -> some View {
         VStack {
-            HStack {
-                Text(displayValue.displayString)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .padding(7)
-                Spacer()
+            VStack {
+                HStack {
+                    Text(displayValue.displayString)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer()
+                }
+                HStack {
+                    Text("Type:")
+                    Image(systemName: displayValue.imageName)
+                        .foregroundStyle(.mint)
+                    Text("\(displayValue.type)")
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer()
+                }
             }
+            .padding(7)
             .background(.gray.opacity(0.11))
             .background(displayValue.workoutId == highlightedWorkoutID ? .green : .clear)
             .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
@@ -142,7 +153,7 @@ private extension WorkoutsView {
 }
 
 #Preview {
-    WorkoutsView(client: .errorLoadingWorkouts(error: .fetchingStatistics(underlying: .statisticsNil)), selectedQuery: .constant(.init()))
+    WorkoutsView(client: .workoutsMock, selectedQuery: .constant(.init()))
         .padding()
         .padding()
 }

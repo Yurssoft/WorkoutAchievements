@@ -138,4 +138,26 @@ public extension WorkoutsClient.WorkoutType {
             return ""
         }
     }
+    
+    var imageName: String {
+        switch self {
+        case .walking:
+            return "figure.walk.circle"
+            
+        case .swimming:
+            return "figure.pool.swim"
+            
+        case .hiking:
+            return "mountain.2"
+            
+        case .cycling:
+            return "figure.outdoor.cycle"
+            
+        case .running:
+            return "figure.run.circle"
+            
+        default:
+            return ""
+        }
+    }
 }
