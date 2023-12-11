@@ -55,16 +55,20 @@ public struct WorkoutTypeView: View {
     public var body: some View {
         VStack {
             HStack {
-                Text("Display Achivements For ")
+                Text("Display Workouts For ")
                 Picker("Workout Type:", selection: $viewModel.typesQuery) {
                     Text(QueryType.all.name)
                         .tag(QueryType.all)
-                    ForEach(WorkoutsClient.WorkoutType.allCases, id: \.self) {
-                        Text($0.name)
-                            .tag(QueryType.workoutTypes([$0]))
+                    ForEach(WorkoutsClient.WorkoutType.allCases, id: \.self) { workoutType in
+                        HStack {
+                            Text(workoutType.name)
+                            Image(systemName: workoutType.imageName)
+                        }
+                        .tag(QueryType.workoutTypes([workoutType]))
                     }
                 }
                 .pickerStyle(.automatic)
+                Spacer()
             }
             
             HStack {
@@ -75,13 +79,11 @@ public struct WorkoutTypeView: View {
                     }
                 }
                 .pickerStyle(.automatic)
+                Toggle("Is Ascending", isOn: $viewModel.selectedQuery.isAscending)
             }
             
-            DateSelectionView(viewModel: viewModel.dateRangeViewModel)
-            
             HStack {
-                Spacer()
-                Toggle("Is Ascending", isOn: $viewModel.selectedQuery.isAscending)
+                DateSelectionView(viewModel: viewModel.dateRangeViewModel)
                 Spacer()
             }
             Spacer()

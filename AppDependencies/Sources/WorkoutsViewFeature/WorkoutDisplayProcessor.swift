@@ -27,13 +27,13 @@ extension Workout {
 
 extension WorkoutDispayValues {
     fileprivate var displayContainer: DisplayStringContainer {
-        DisplayStringContainer(displayString: displayString, workoutId: workoutId)
+        DisplayStringContainer(displayString: displayString, workoutId: workoutId, imageName: imageName, type: type)
     }
 }
 
 extension WorkoutDispayValues {
     var displayString: String {
-        var string = "Calories: \(calories) \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)\nType: \(type)"
+        var string = "Calories: \(calories) \nDistance: \(distance)\nTime: \(duration) minutes\nStarted: \(startDate)"
         if FeatureFlags.isDisplayingWorkoutEfficency {
             string += "\nCalories burned per minute efficiency: \(workoutEfficiency.calorieBurnedPerMinuteEfficiencyOfWorkoutDisplayValue)"
         }
@@ -45,6 +45,8 @@ struct DisplayStringContainer: Identifiable {
     let id = UUID().uuidString
     let displayString: String
     let workoutId: String
+    let imageName: String
+    let type: String
 }
 
 struct WorkoutEfficiency: Identifiable {
@@ -63,6 +65,7 @@ struct WorkoutDispayValues: Identifiable {
     }
     
     let workoutId: String
+    fileprivate let imageName: String
     fileprivate let calories: String
     fileprivate let distance: String
     fileprivate let startDate: String
@@ -98,6 +101,7 @@ final class WorkoutDisplayProcessor {
                                          calorieBurnedPerMinuteEfficiencyOfWorkoutDisplayValue: formatted ?? "-")
         
         return WorkoutDispayValues(workoutId: workout.id,
+                                   imageName: workout.workoutType.imageName,
                                    calories: stringCalories,
                                    distance: stringDistance,
                                    startDate: date,

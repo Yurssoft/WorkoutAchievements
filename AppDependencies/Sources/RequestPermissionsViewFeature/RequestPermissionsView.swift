@@ -41,7 +41,10 @@ public struct RequestPermissionsView: View {
                 Text("Error")
                 
             case .permissionRequested:
-                Text("Requesting Permissions...")
+                HStack {
+                    Text("Requesting Permissions  ")
+                    ProgressView()
+                }
             }
             Spacer()
         }

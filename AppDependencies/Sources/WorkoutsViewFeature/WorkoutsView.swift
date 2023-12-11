@@ -33,15 +33,20 @@ public struct WorkoutsView: View {
                 Text("Initialized🌈😏")
                 
             case .loading:
-                Text("Loading..........")
+                HStack {
+                    Text("Loading  ")
+                    ProgressView()
+                }
                 
             case .error(let viewError):
                 switch viewError {
                 case .emptyData:
                     Text("ℹ️ No data found for query.\nPlease try other parameters.\nPlease try checking permissions in 'Health' app.")
+                        .multilineTextAlignment(.center)
                         .padding()
                 case .noDataAccess:
                     Text("Appears like no data access. Please review access in 'Health' app.")
+                        .multilineTextAlignment(.center)
                         .padding()
                 case .generalError(let code):
                     Text("Error fetching data. Code: \(code)")
@@ -98,12 +103,23 @@ private extension WorkoutsView {
     @ViewBuilder
     func workoutView(displayValue: DisplayStringContainer) -> some View {
         VStack {
-            HStack {
-                Text(displayValue.displayString)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .padding(7)
-                Spacer()
+            VStack {
+                HStack {
+                    Text(displayValue.displayString)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer()
+                }
+                HStack {
+                    Text("Type:")
+                    Image(systemName: displayValue.imageName)
+                        .foregroundStyle(.mint)
+                    Text("\(displayValue.type)")
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer()
+                }
             }
+            .padding(7)
             .background(.gray.opacity(0.11))
             .background(displayValue.workoutId == highlightedWorkoutID ? .green : .clear)
             .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))

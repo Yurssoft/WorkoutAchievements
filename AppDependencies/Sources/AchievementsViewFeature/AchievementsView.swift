@@ -57,7 +57,7 @@ public struct AchievementsView: View {
                 }
             }
         }
-        .navigationTitle("Achievements")
+        .navigationTitle("Workouts")
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button {
